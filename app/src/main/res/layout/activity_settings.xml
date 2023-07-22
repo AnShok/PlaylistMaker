@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/white"
+    tools:context=".SettingsActivity">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_back"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black_ic_color"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/txt_setup_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="@string/setup_menu"
+            android:textColor="@color/black"
+            android:textSize="@dimen/titles_at_the_top" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="20dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="21dp">
+
+
+            <TextView
+                android:id="@+id/txt_dark_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/dark_theme"
+                android:textColor="@color/black" />
+
+            <Switch
+                android:id="@+id/switch_dark_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text=""
+                tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="21dp">
+            <TextView
+                android:id="@+id/txt_share_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/share_app"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/ic_share_app"
+                android:layout_width="@dimen/settings_icons_size"
+                android:layout_height="@dimen/settings_icons_size"
+                android:layout_gravity="end"
+                android:contentDescription="@string/share_app"
+                app:srcCompat="@drawable/ic_share"
+                tools:ignore="ImageContrastCheck" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="21dp">
+
+            <TextView
+                android:id="@+id/txt_write_to_support"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/write_to_support"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/ic_write_to_support"
+                android:layout_width="@dimen/settings_icons_size"
+                android:layout_height="@dimen/settings_icons_size"
+                android:layout_gravity="end"
+                android:contentDescription="@string/write_to_support"
+                app:srcCompat="@drawable/ic_support"
+                tools:ignore="ImageContrastCheck" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="21dp">
+
+            <TextView
+                android:id="@+id/txt_terms_of_use"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/terms_of_use"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/arrow_forward"
+                android:layout_width="@dimen/settings_icons_size"
+                android:layout_height="@dimen/settings_icons_size"
+                android:layout_gravity="end"
+                android:contentDescription="@string/terms_of_use"
+                app:srcCompat="@drawable/ic_arrow_forward"
+                tools:ignore="ImageContrastCheck" />
+        </FrameLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
