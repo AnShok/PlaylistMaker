@@ -14,12 +14,12 @@ class MainActivity : AppCompatActivity() {
 
         val searchButton = findViewById<Button>(R.id.button_search)
         val mediaButton = findViewById<Button>(R.id.button_mediateka)
-        val settingsButtons = findViewById<Button>(R.id.button_settings)
+        val settingsButton = findViewById<Button>(R.id.button_settings)
 
         val imageClickListener: View.OnClickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val SearchIntent = Intent(this@MainActivity, SearchActivity::class.java)
-                startActivity(SearchIntent)
+                val searchIntent = Intent(this@MainActivity, SearchActivity::class.java)
+                startActivity(searchIntent)
             }
         }
 
@@ -27,14 +27,14 @@ class MainActivity : AppCompatActivity() {
 
 
         mediaButton.setOnClickListener {
-            val MeditekaIntent = Intent(this, MediatekaActivity::class.java)
-            startActivity(MeditekaIntent)
+            val meditekaIntent = Intent(this, MediatekaActivity::class.java)
+            startActivity(meditekaIntent)
         }
 
 
-        settingsButtons.setOnClickListener {
-            val SettingsIntent = Intent(this, SettingsActivity::class.java)
-            startActivity(SettingsIntent)
+        settingsButton.setOnClickListener {
+            val settingsIntent = Intent(this, SettingsActivity::class.java)
+            startActivity(settingsIntent)
         }
     }
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="@dimen/activity_padding"
     android:background="@color/white"
     tools:context=".SettingsActivity">
 
@@ -24,8 +24,9 @@
             android:id="@+id/button_back"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackground"
             android:backgroundTint="@color/white"
-            app:cornerRadius="16dp"
+            app:cornerRadius="@dimen/corner_radius"
             app:icon="@drawable/ic_back"
             app:iconGravity="textStart"
             app:iconTint="@color/black_ic_color"
@@ -52,7 +53,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="21dp">
+            android:layout_marginTop="@dimen/text_indent_settings">
 
 
             <TextView
@@ -61,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:text="@string/dark_theme"
+                android:textSize="@dimen/main_settings_text_size"
                 android:textColor="@color/black" />
 
             <Switch
@@ -75,13 +77,14 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="21dp">
+            android:layout_marginTop="@dimen/text_indent_settings">
             <TextView
                 android:id="@+id/txt_share_app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:text="@string/share_app"
+                android:textSize="@dimen/main_settings_text_size"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -97,7 +100,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="21dp">
+            android:layout_marginTop="@dimen/text_indent_settings">
 
             <TextView
                 android:id="@+id/txt_write_to_support"
@@ -105,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:text="@string/write_to_support"
+                android:textSize="@dimen/main_settings_text_size"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -120,7 +124,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="21dp">
+            android:layout_marginTop="@dimen/text_indent_settings">
 
             <TextView
                 android:id="@+id/txt_terms_of_use"
@@ -128,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:text="@string/terms_of_use"
+                android:textSize="@dimen/main_settings_text_size"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -142,4 +147,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
