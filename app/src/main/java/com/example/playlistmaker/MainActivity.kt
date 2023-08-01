@@ -16,15 +16,10 @@ class MainActivity : AppCompatActivity() {
         val mediaButton = findViewById<Button>(R.id.button_mediateka)
         val settingsButton = findViewById<Button>(R.id.button_settings)
 
-        val imageClickListener: View.OnClickListener = object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                val searchIntent = Intent(this@MainActivity, SearchActivity::class.java)
-                startActivity(searchIntent)
-            }
+        searchButton.setOnClickListener {
+            val searchIntent = Intent(this, SearchActivity::class.java)
+            startActivity(searchIntent)
         }
-
-        searchButton.setOnClickListener(imageClickListener)
-
 
         mediaButton.setOnClickListener {
             val meditekaIntent = Intent(this, MediatekaActivity::class.java)

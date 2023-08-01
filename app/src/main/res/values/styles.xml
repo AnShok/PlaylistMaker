@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Общие атрибуты для MainActivityStyle и ActivityStyle -->
+    <style name="BaseActivityStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/activity_padding</item>
+    </style>
+
+    <!-- MainActivityStyle -->
+    <style name="MainActivityStyle" parent="BaseActivityStyle">
+        <item name="android:background">@color/blue</item>
+    </style>
+
+    <!-- ActivityStyle -->
+    <style name="ActivityStyle" parent="BaseActivityStyle">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!-- Общий стиль для кнопок -->
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:textColor">@color/YP_Black</item>
+        <item name="android:textSize">@dimen/main_menu_button_text_size</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/YP_Black</item>
+        <item name="cornerRadius">@dimen/corner_radius</item>
+    </style>
+
+    <!-- Общий стиль для текста -->
+    <style name="TextStyle">
+        <item name="android:textSize">@dimen/string_text_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textFontWeight">400</item>
+    </style>
+
+    <!-- Общий стиль для текста названия экрана -->
+    <style name="TopTextStyle">
+        <item name="android:textColor">@color/YP_Black</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/titles_at_the_top</item>
+    </style>
+
+    <!-- Общий стиль для иконок -->
+    <style name="IcStyle">
+        <item name="android:layout_width">@dimen/settings_icons_size</item>
+        <item name="android:layout_height">@dimen/settings_icons_size</item>
+        <item name="iconTint">@color/gray</item>
+    </style>
+
+    <!-- Общий стиль для кнопки "Назад" -->
+    <style name="BackButtonStyle">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="icon">@drawable/ic_back</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/YP_Black</item>
+    </style>
+
+    <!-- Стиль поисковой строки (контейнер) -->
+    <style name="SearchInputContainerStyle">
+        <item name="android:background">@drawable/rounded_corners</item>
+        <item name="android:backgroundTint">@color/light_gray</item>
+    </style>
+
+        <!-- Общий стиль для иконки поиска (поисковой строки) -->
+         <style name="SearchIconStyle">
+            <item name="tint">@color/gray</item>
+         </style>
+
+        <!-- Стиль поисковой строки -->
+        <style name="SearchInputEditTextStyle">
+            <item name="android:background">@drawable/rounded_corners</item>
+            <item name="android:fontFamily">@font/ys_display_regular</item>
+            <item name="android:textColor">@color/black</item>
+            <item name="android:textColorHint">@color/gray</item>
+            <item name="android:textFontWeight">400</item>
+            <item name="android:textSize">@dimen/string_text_size</item>
+        </style>
+
+        <!-- Общий стиль для иконки "Очистить" в поле поиска -->
+        <style name="ClearIconStyle">
+            <item name="android:layout_width">wrap_content</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:layout_gravity">center</item>
+            <item name="android:src">@android:drawable/ic_menu_close_clear_cancel</item>
+            <item name="tint">@color/gray</item>
+        </style>
+    <!-- Конец стиль поисковой строки (контейнер) -->
+
+
+</resources>
+
