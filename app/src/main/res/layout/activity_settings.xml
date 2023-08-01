@@ -21,6 +21,9 @@
         <TextView
             android:id="@+id/txt_setup_menu"
             style="@style/TopTextStyle"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:gravity = "fill_vertical"
             android:text="@string/setup_menu" />
 
     </LinearLayout>
@@ -40,6 +43,9 @@
             <TextView
                 android:id="@+id/txt_dark_theme"
                 style="@style/TextStyle"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:layout_gravity = "start"
                 android:text="@string/dark_theme" />
 
             <Switch
@@ -58,6 +64,9 @@
             <TextView
                 android:id="@+id/txt_share_app"
                 style="@style/TextStyle"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:layout_gravity = "start"
                 android:text="@string/share_app" />
 
             <ImageView
@@ -77,6 +86,9 @@
             <TextView
                 android:id="@+id/txt_write_to_support"
                 style="@style/TextStyle"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:layout_gravity = "start"
                 android:text="@string/write_to_support" />
 
             <ImageView
@@ -96,6 +108,9 @@
             <TextView
                 android:id="@+id/txt_terms_of_use"
                 style="@style/TextStyle"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:layout_gravity = "start"
                 android:text="@string/terms_of_use" />
 
             <ImageView

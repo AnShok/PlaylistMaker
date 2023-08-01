@@ -25,6 +25,10 @@
         <Button
             android:id="@+id/button_search"
             style="@style/ButtonStyle"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginBottom = "@dimen/bottom_button_padding_main"
+            android:layout_weight = "1"
             android:text="@string/text_search"
             app:icon="@drawable/ic_lupa"
             tools:ignore="VisualLintButtonSize" />
@@ -33,6 +37,10 @@
             android:id="@+id/button_mediateka"
             style="@style/ButtonStyle"
             android:text="@string/button_mediateka"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginBottom = "@dimen/bottom_button_padding_main"
+            android:layout_weight = "1"
             app:icon="@drawable/ic_mediateka"
             tools:ignore="VisualLintButtonSize" />
 
@@ -40,6 +48,10 @@
             android:id="@+id/button_settings"
             style="@style/ButtonStyle"
             android:text="@string/setup_menu"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginBottom = "@dimen/bottom_button_padding_main"
+            android:layout_weight = "1"
             app:icon="@drawable/ic_settings"
             tools:ignore="VisualLintButtonSize" />
     </LinearLayout>

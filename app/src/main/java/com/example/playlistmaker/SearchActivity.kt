@@ -1,10 +1,12 @@
 package com.example.playlistmaker
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -12,25 +14,29 @@ import android.widget.ImageView
 
 class SearchActivity : AppCompatActivity() {
 
-    companion object {
+    private companion object {
         const val TEXT_SEARCH = "TEXT_SEARCH"
     }
 
+    private lateinit var inputEditText: EditText //глобальная переменная для EditText
     private var textSearch: String = "" //глобальная переменная для хранения текста поискового запроса
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        //Нахождение элементов интерфейса
+        inputEditText = findViewById(R.id.inputEditText) // инициализация inputEditText в onCreate
+        val backButton = findViewById<Button>(R.id.button_back)
+        val clearButton = findViewById<ImageView>(R.id.clearIcon)
+        //val linearLayout = findViewById<LinearLayout>(R.id.containerSearch)
+
+
         if (savedInstanceState != null) {
             textSearch = savedInstanceState.getString(TEXT_SEARCH,"") //Восстановление значения textSearch из сохраненного состояния
+            inputEditText.setText(textSearch) //Восстановление текст в EditText из сохраненного состояния
         }
-
-        //Нахождение элементов интерфейса
-        val backButton = findViewById<Button>(R.id.button_back)
-        //val linearLayout = findViewById<LinearLayout>(R.id.containerSearch)
-        val inputEditText = findViewById<EditText>(R.id.inputEditText)
-        val clearButton = findViewById<ImageView>(R.id.clearIcon)
 
         //Кнопка Назад - закрытие активити
         backButton.setOnClickListener {
@@ -39,6 +45,7 @@ class SearchActivity : AppCompatActivity() {
         //Кнопка очистки поисковой строки
         clearButton.setOnClickListener {
             inputEditText.setText("")
+            hideKeyboard()
         }
 
         val simpleTextWatcher = object : TextWatcher {
@@ -68,9 +75,14 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val inputEditText = findViewById<EditText>(R.id.inputEditText)
         textSearch = inputEditText.text.toString() // Сохранение значения текста поискового запроса в переменную
         outState.putString(TEXT_SEARCH, textSearch) //Сохранение значения textSearch в состояние активити
+    }
+
+    //Функция скрытия клавиатуры после очистки
+    private fun hideKeyboard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(inputEditText.windowToken, 0)
     }
 }
 
