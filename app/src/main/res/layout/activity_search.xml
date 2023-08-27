@@ -40,7 +40,7 @@
         <ImageView
             android:layout_width ="wrap_content"
             android:layout_height = "wrap_content"
-            android:padding = "@dimen/icon_padding"
+            android:padding = "@dimen/icon_search_padding"
             style="@style/SearchIconStyle"
             android:src="@drawable/ic_lupa" />
 
@@ -63,5 +63,12 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_track" />
 
 </LinearLayout>

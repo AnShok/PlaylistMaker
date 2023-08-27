@@ -3,9 +3,10 @@
     <dimen name="settings_icons_size">24dp</dimen>
     <dimen name="titles_at_the_top">22sp</dimen>
     <dimen name="main_menu_button_text_size">22sp</dimen>
-    <dimen name="string_text_size">16sp</dimen>
+    <dimen name="string_text_size_16">16sp</dimen>
+    <dimen name="string_text_size_11">11sp</dimen>
     <dimen name="corner_radius">16dp</dimen>
-    <dimen name="icon_padding">8dp</dimen>
+    <dimen name="icon_search_padding">8dp</dimen>
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="text_indent_settings">21dp</dimen>
     <dimen name="bottom_button_padding_main">16dp</dimen>
