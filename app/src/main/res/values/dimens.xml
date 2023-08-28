@@ -7,6 +7,8 @@
     <dimen name="main_menu_button_text_size">22sp</dimen>
     <dimen name="string_text_size_16">16sp</dimen>
     <dimen name="string_text_size_11">11sp</dimen>
+    <dimen name="textFontWeight400">400</dimen>
+    <dimen name="textFontWeight500">500</dimen>
     <dimen name="corner_radius">16dp</dimen>
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="text_indent_settings">21dp</dimen>
@@ -16,4 +18,6 @@
     <dimen name="small_image_height">45dp</dimen>
     <dimen name="indent_8">8dp</dimen>
     <dimen name="indent_12">12dp</dimen>
+    <dimen name="indent_20">20dp</dimen>
+    <dimen name="indent_36">36dp</dimen>
 </resources>

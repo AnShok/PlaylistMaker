@@ -31,11 +31,11 @@
     <LinearLayout
         android:id="@+id/containerSearch"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="@dimen/indent_36"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/indent_8"
         style="@style/SearchInputContainerStyle"
-        tools:layout_editor_absoluteX="20dp">
+        tools:layout_editor_absoluteX="@dimen/indent_20">
 
         <ImageView
             style="@style/SearchIconStyle"
@@ -48,10 +48,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:inputType ="text"
-            style="@style/SearchInputEditTextStyle"
-            android:hint="@string/text_search"
-            android:maxLength="20"
-            android:maxLines="1" />
+            style="@style/SearchInputEditTextStyle" />
 
         <ImageView
             android:id="@+id/clearIcon"

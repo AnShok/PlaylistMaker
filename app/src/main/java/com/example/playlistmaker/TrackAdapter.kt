@@ -10,7 +10,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 
-class TrackAdapter(private val trackList: List<Track>) : RecyclerView.Adapter<TrackAdapter.ViewHolder>() {
+class TrackAdapter(private val trackList: List<Track>) :
+    RecyclerView.Adapter<TrackAdapter.ViewHolder>() {
 
     companion object {
         private const val IMAGE_ROUND_DP = 2
@@ -53,6 +54,8 @@ class TrackAdapter(private val trackList: List<Track>) : RecyclerView.Adapter<Tr
                 .placeholder(R.drawable.placeholder)
                 .transform(RoundedCorners(IMAGE_ROUND_DP))
                 .into(artworkImageView)
+
         }
     }
+
 }
