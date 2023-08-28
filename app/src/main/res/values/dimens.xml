@@ -11,4 +11,9 @@
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="text_indent_settings">21dp</dimen>
     <dimen name="bottom_button_padding_main">16dp</dimen>
+    <dimen name="rv_margin_top">16dp</dimen>
+    <dimen name="small_image_width">45dp</dimen>
+    <dimen name="small_image_height">45dp</dimen>
+    <dimen name="indent_8">8dp</dimen>
+    <dimen name="indent_12">12dp</dimen>
 </resources>

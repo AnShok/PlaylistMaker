@@ -45,12 +45,16 @@
 
         <style name="TextStyleTrackName" parent="TextStyle">
             <item name="android:textStyle">bold</item>
+            <item name="android:ellipsize">end</item>
+            <item name="android:maxLines">1</item>
         </style>
 
         <!-- Общий стиль для текста подписи (автор и длительность) -->
         <style name="TextStyleArtist" parent="TextStyle">
             <item name="android:textColor">@color/YP_Text_Gray</item>
             <item name="android:textSize">@dimen/string_text_size_11</item>
+            <item name="android:ellipsize">end</item>
+            <item name="android:maxLines">1</item>
         </style>
 
         <!-- Общий стиль для текста названия экрана -->
@@ -94,14 +98,14 @@
         <!-- Общий стиль для иконки поиска -->
         <style name="SearchIconStyle" parent="SearchClearIconStyle">
             <item name="tint">@color/YP_Text_Gray</item>
-            <item name="android:layout_marginStart">12dp</item>
-            <item name="android:layout_marginEnd">8dp</item>
+            <item name="android:layout_marginStart">@dimen/indent_12</item>
+            <item name="android:layout_marginEnd">@dimen/indent_8</item>
         </style>
 
         <!-- Общий стиль для иконки "Очистить" в поле поиска -->
         <style name="ClearIconStyle" parent="SearchClearIconStyle">
             <item name="android:src">@drawable/ic_clear</item>
-            <item name="android:layout_marginEnd">12dp</item>
+            <item name="android:layout_marginEnd">@dimen/indent_12</item>
             <item name="tint">@color/YP_Text_Gray</item>
         </style>
 
@@ -120,9 +124,18 @@
     <!-- Блок картинок/изображений -->
         <!-- Стиль изображений треков маленький -->
         <style name="SmallImageTrack">
-            <item name="android:layout_width">45dp</item>
-            <item name="android:layout_height">45dp</item>
+            <item name="android:layout_width">@dimen/small_image_width</item>
+            <item name="android:layout_height">@dimen/small_image_height</item>
             <item name="android:scaleType">centerCrop</item>
+        </style>
+    <!-- Конец блока -->
+
+    <!-- Блок recycler_view -->
+        <!-- Стиль для recycler_view -->
+        <style name="StyleRecyclerView">
+            <item name="android:layout_width">match_parent</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:layout_marginTop">@dimen/rv_margin_top</item>
         </style>
     <!-- Конец блока -->
 

@@ -33,13 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/indent_8"
         style="@style/SearchInputContainerStyle"
         tools:layout_editor_absoluteX="20dp">
 
         <ImageView
             style="@style/SearchIconStyle"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="@dimen/indent_12"
             android:src="@drawable/ic_lupa" />
 
         <EditText
@@ -56,7 +56,7 @@
         <ImageView
             android:id="@+id/clearIcon"
             style="@style/ClearIconStyle"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="@dimen/indent_12"
             android:visibility="gone" />
 
 
@@ -64,9 +64,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        style="@style/StyleRecyclerView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_track" />
 
