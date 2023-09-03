@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/StyleRecyclerView"
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/artworkImageView"
+        style="@style/SmallImageTrack"
+        tools:background="#9C9C9C"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/indent_8">
+
+        <TextView
+            android:id="@+id/trackNameTextView"
+            style="@style/TextStyleTrackName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:background="#303030"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            tools:background="#C6C3B5">
+
+            <TextView
+                android:id="@+id/artistNameTextView"
+                style="@style/TextStyleArtist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/dotImageView"
+                style="@style/IcStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_dot"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/trackTimeTextView"
+                style="@style/TextStyleArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/arrowImageView"
+        style="@style/IcStyle"
+        android:layout_gravity="center_vertical"
+        app:srcCompat="@drawable/ic_arrow_forward" />
+</LinearLayout>

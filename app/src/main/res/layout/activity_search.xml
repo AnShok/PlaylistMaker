@@ -31,17 +31,15 @@
     <LinearLayout
         android:id="@+id/containerSearch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/indent_36"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/indent_8"
         style="@style/SearchInputContainerStyle"
-        tools:layout_editor_absoluteX="20dp">
+        tools:layout_editor_absoluteX="@dimen/indent_20">
 
         <ImageView
-            android:layout_width ="wrap_content"
-            android:layout_height = "wrap_content"
-            android:padding = "@dimen/icon_padding"
             style="@style/SearchIconStyle"
+            android:layout_marginStart="@dimen/indent_12"
             android:src="@drawable/ic_lupa" />
 
         <EditText
@@ -50,18 +48,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:inputType ="text"
-            style="@style/SearchInputEditTextStyle"
-            android:hint="@string/text_search"
-            android:maxLength="20"
-            android:maxLines="1" />
+            style="@style/SearchInputEditTextStyle" />
 
         <ImageView
             android:id="@+id/clearIcon"
             style="@style/ClearIconStyle"
+            android:layout_marginEnd="@dimen/indent_12"
             android:visibility="gone" />
 
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        style="@style/StyleRecyclerView"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_track" />
 
 </LinearLayout>
