@@ -5,11 +5,12 @@
     <dimen name="search_icons_size">16dp</dimen>
     <dimen name="titles_at_the_top">22sp</dimen>
     <dimen name="main_menu_button_text_size">22sp</dimen>
-    <dimen name="string_text_size_16">16sp</dimen>
     <dimen name="string_text_size_11">11sp</dimen>
-    <dimen name="textFontWeight400">400</dimen>
-    <dimen name="textFontWeight500">500</dimen>
-    <dimen name="corner_radius">16dp</dimen>
+    <dimen name="string_text_size_14">14sp</dimen>
+    <dimen name="string_text_size_16">16sp</dimen>
+    <dimen name="string_text_size_19">19sp</dimen>
+    <dimen name="corner_radius_16">16dp</dimen>
+    <dimen name="corner_radius_54">54dp</dimen>
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="text_indent_settings">21dp</dimen>
     <dimen name="bottom_button_padding_main">16dp</dimen>
