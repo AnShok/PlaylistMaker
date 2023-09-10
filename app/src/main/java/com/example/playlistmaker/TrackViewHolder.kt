@@ -1,5 +1,7 @@
 package com.example.playlistmaker
 
+import android.content.Context
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,14 +16,18 @@ import java.util.Locale
 class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
     .inflate(R.layout.item_track, parent, false)) {
 
-    companion object {
-        private const val IMAGE_ROUND_DP = 2
-    }
-
     private val trackNameTextView: TextView = itemView.findViewById(R.id.trackNameTextView)
     private val artistNameTextView: TextView = itemView.findViewById(R.id.artistNameTextView)
     private val trackTimeTextView: TextView = itemView.findViewById(R.id.trackTimeTextView)
     private val artworkImageView: ImageView = itemView.findViewById(R.id.artworkImageView)
+
+    //Aункция для преобразования dp в px
+    private fun dpToPx(dp: Float, context: Context): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics).toInt()
+    }
 
     // Метод для привязки данных трека к элементам интерфейса
     fun bind(track: Track) {
@@ -31,11 +37,16 @@ class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflate
         val formattedTime = SimpleDateFormat("mm:ss", Locale.getDefault()).format(timeInMillis)
         trackTimeTextView.text = formattedTime
 
+        //Радиус в dp
+        val cornerRadiusDp = 2f
+        //Преобразование из dp в px
+        val cornerRadiusPx = dpToPx(cornerRadiusDp, itemView.context)
+
         // Создание объекта Glide для загрузки изображения
         Glide.with(itemView)
             .load(track.artworkUrl100)
             .placeholder(R.drawable.placeholder)
-            .transform(RoundedCorners(IMAGE_ROUND_DP))
+            .transform(RoundedCorners(cornerRadiusPx))
             .into(artworkImageView)
 
     }

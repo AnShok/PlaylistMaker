@@ -51,7 +51,7 @@ class SearchActivity : AppCompatActivity() {
     private val adapter = TracksAdapter()
 
     private var textSearch: String = "" //глобальная переменная для хранения текста поискового запроса
-
+    private var lastSearchText: String = "" //глобальная переменная для хранения последнего запроса
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +87,8 @@ class SearchActivity : AppCompatActivity() {
 
         //Кнопка обновить страницу
         refreshButton.setOnClickListener {
-            if (textSearch.isNotEmpty()) {
+            if (lastSearchText.isNotEmpty()) { //для кнопки обновить используемпоследний запрос
+                queryInput.setText(lastSearchText)
                 performSearch()
             }
         }
@@ -99,6 +100,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState != null) {
+            lastSearchText = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения lastSearchText из сохраненного состояния
             textSearch = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения textSearch из сохраненного состояния
             queryInput.setText(textSearch) //Восстановление текст в EditText из сохраненного состояния
             if (textSearch.isNotEmpty()) {
@@ -142,6 +144,7 @@ class SearchActivity : AppCompatActivity() {
     private fun performSearch() {
         val searchText = queryInput.text.toString()
         if (searchText.isNotEmpty()) {
+            lastSearchText = searchText //Сохранение текста запроса
             itunesService.search(searchText).enqueue(object : Callback<TracksResponse> {
                 override fun onResponse(call: Call<TracksResponse>, response: Response<TracksResponse>) {
                     if (response.isSuccessful) {
