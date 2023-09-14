@@ -48,15 +48,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:inputType ="text"
-            style="@style/SearchInputEditTextStyle" />
+            style="@style/SearchInputEditTextStyle"
+            android:imeOptions="actionDone"
+            android:singleLine="true"/>
 
         <ImageView
             android:id="@+id/clearIcon"
             style="@style/ClearIconStyle"
             android:layout_marginEnd="@dimen/indent_12"
             android:visibility="gone" />
-
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -64,5 +64,60 @@
         style="@style/StyleRecyclerView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_track" />
+
+    <!-- Плейсхолдер для случая "Ничего не найдено" -->
+    <LinearLayout
+        android:id="@+id/nothingFoundPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/nothingFoundImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_nothing_found_day" />
+
+        <TextView
+            android:id="@+id/nothingFoundText"
+            style="@style/ErrorTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nothing_found" />
+    </LinearLayout>
+
+    <!-- Плейсхолдер для случая "Ошибка" -->
+    <LinearLayout
+        android:id="@+id/errorPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/errorImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_error_day" />
+
+        <TextView
+            android:id="@+id/errorText"
+            style="@style/ErrorTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/something_went_wrong" />
+
+        <Button
+            android:id="@+id/refreshButton"
+            style="@style/RefreshButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refreshButton" />
+
+    </LinearLayout>
 
 </LinearLayout>
