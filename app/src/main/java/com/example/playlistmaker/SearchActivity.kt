@@ -61,16 +61,16 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         //Нахождение элементов интерфейса
-        nothingFoundPlaceholder = findViewById(R.id.nothingFoundPlaceholder)
-        errorPlaceholder = findViewById(R.id.errorPlaceholder)
-        errorText = findViewById(R.id.errorText)
-        clearButton = findViewById(R.id.clearIcon)
+        nothingFoundPlaceholder = findViewById(R.id.nothing_Found_Placeholder)
+        errorPlaceholder = findViewById(R.id.error_Placeholder)
+        errorText = findViewById(R.id.error_Text)
+        clearButton = findViewById(R.id.clear_Icon)
         tracksList = findViewById(R.id.recycler_view)
-        queryInput = findViewById(R.id.inputEditText) // инициализация inputEditText в onCreate
-        refreshButton = findViewById(R.id.refreshButton)
+        queryInput = findViewById(R.id.input_Edit_Text) // инициализация inputEditText в onCreate
+        refreshButton = findViewById(R.id.refresh_Button)
         searchHistoryLayout = findViewById(R.id.search_history_layout)
         historyRecyclerView = findViewById(R.id.history_recycler_view)
-        clearSearchHistoryButton = findViewById(R.id.clearSearchHistoryButton)
+        clearSearchHistoryButton = findViewById(R.id.clear_Search_History_Button)
 
 
         searchAdapter.searchTracks = searchTracks
@@ -234,13 +234,13 @@ class SearchActivity : AppCompatActivity() {
         if (isDayTheme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             //Подстановка изображения для дневной темы
-            findViewById<ImageView>(R.id.nothingFoundImage).setImageResource(R.drawable.ic_nothing_found_day)
-            findViewById<ImageView>(R.id.errorImage).setImageResource(R.drawable.ic_error_day)
+            findViewById<ImageView>(R.id.nothing_Found_Image).setImageResource(R.drawable.ic_nothing_found_day)
+            findViewById<ImageView>(R.id.error_Image).setImageResource(R.drawable.ic_error_day)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             //Подстановка изображения для ночной темы
-            findViewById<ImageView>(R.id.nothingFoundImage).setImageResource(R.drawable.ic_nothing_found_night)
-            findViewById<ImageView>(R.id.errorImage).setImageResource(R.drawable.ic_error_night)
+            findViewById<ImageView>(R.id.nothing_Found_Image).setImageResource(R.drawable.ic_nothing_found_night)
+            findViewById<ImageView>(R.id.error_Image).setImageResource(R.drawable.ic_error_night)
         }
     }
 

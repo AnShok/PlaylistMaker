@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/containerSearch"
+        android:id="@+id/container_Search"
         android:layout_width="match_parent"
         android:layout_height="@dimen/indent_36"
         android:orientation="horizontal"
@@ -43,7 +43,7 @@
             android:src="@drawable/ic_lupa" />
 
         <EditText
-            android:id="@+id/inputEditText"
+            android:id="@+id/input_Edit_Text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -53,7 +53,7 @@
             android:singleLine="true"/>
 
         <ImageView
-            android:id="@+id/clearIcon"
+            android:id="@+id/clear_Icon"
             style="@style/ClearIconStyle"
             android:layout_marginEnd="@dimen/indent_12"
             android:visibility="gone" />
@@ -66,19 +66,15 @@
         tools:listitem="@layout/item_track"
         tools:visibility="gone"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <!-- История поиска-->
     <LinearLayout
         android:id="@+id/search_history_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="top|center_horizontal"
         android:layout_marginTop="@dimen/indent_20"
-        android:visibility="gone">
-        <!--tools:visibility="visible" -->
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:layout_width = "match_parent"
@@ -93,24 +89,27 @@
             android:id="@+id/history_recycler_view"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-            <!--tools:listitem="@layout/item_track" -->
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            tools:listitem="@layout/item_track"
+            tools:itemCount="10"/>
 
         <Button
-            android:id="@+id/clearSearchHistoryButton"
+            android:id="@+id/clear_Search_History_Button"
             style="@style/RefreshOrClearButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="@string/ClearSearchHistory"
             android:layout_marginTop="@dimen/indent_20"
-            android:layout_marginBottom="@dimen/indent_16" />
+            android:layout_weight="0"/>
 
     </LinearLayout>
-    </ScrollView>
 
     <!-- Плейсхолдер для случая "Ничего не найдено" -->
     <LinearLayout
-        android:id="@+id/nothingFoundPlaceholder"
+        android:id="@+id/nothing_Found_Placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -118,13 +117,13 @@
         android:visibility="gone">
 
         <ImageView
-            android:id="@+id/nothingFoundImage"
+            android:id="@+id/nothing_Found_Image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_nothing_found_day" />
 
         <TextView
-            android:id="@+id/nothingFoundText"
+            android:id="@+id/nothing_Found_Text"
             style="@style/MediumTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,7 +132,7 @@
 
     <!-- Плейсхолдер для случая "Ошибка" -->
     <LinearLayout
-        android:id="@+id/errorPlaceholder"
+        android:id="@+id/error_Placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -141,13 +140,13 @@
         android:visibility="gone">
 
         <ImageView
-            android:id="@+id/errorImage"
+            android:id="@+id/error_Image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_error_day" />
 
         <TextView
-            android:id="@+id/errorText"
+            android:id="@+id/error_Text"
             style="@style/MediumTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -155,7 +154,7 @@
             android:text="@string/something_went_wrong" />
 
         <Button
-            android:id="@+id/refreshButton"
+            android:id="@+id/refresh_Button"
             style="@style/RefreshOrClearButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
