@@ -1,22 +1,45 @@
 package com.example.playlistmaker
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
+
+    private lateinit var themeSwitcher: SwitchMaterial
+    private lateinit var settingsThemeManager: SettingsThemeManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        settingsThemeManager = SettingsThemeManager(this)
 
         //Нахождение элементов интерфейса
         val backButton = findViewById<Button>(R.id.button_back)
         val shareButton = findViewById<ImageView>(R.id.ic_share_app)
         val supportButton = findViewById<ImageView>(R.id.ic_write_to_support)
         val termsOfUseButton = findViewById<ImageView>(R.id.ic_terms_of_use)
+        themeSwitcher = findViewById(R.id.themeSwitcher)
+
+        //определение текущей темы
+        val isDarkThemeEnabled = settingsThemeManager.isDarkThemeEnabled()
+
+        //Установка состояния переключателя
+        themeSwitcher.isChecked = isDarkThemeEnabled
+
+        //обработчик событ изменения состояиния перееключателя
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            //вызоы меотда switchTheme
+            (applicationContext as App).switchTheme(checked)
+        }
 
         //Кнопка Назад - закрытие активити
         backButton.setOnClickListener {

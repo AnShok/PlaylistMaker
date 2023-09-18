@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/ActivityStyle"
-    tools:context=".SettingsActivity">
+    tools:context=".SearchActivity">
 
 
     <LinearLayout
@@ -63,7 +63,50 @@
         android:id="@+id/recycler_view"
         style="@style/StyleRecyclerView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_track" />
+        tools:listitem="@layout/item_track"
+        tools:visibility="gone"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- История поиска-->
+    <LinearLayout
+        android:id="@+id/search_history_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:layout_marginTop="@dimen/indent_20"
+        android:visibility="gone">
+        <!--tools:visibility="visible" -->
+
+        <TextView
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            style="@style/MediumTextStyle"
+            android:gravity= "center"
+            android:text="@string/SearchCaption"
+            android:paddingTop="@dimen/indent_18"
+            android:paddingBottom="@dimen/indent_12" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/history_recycler_view"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            <!--tools:listitem="@layout/item_track" -->
+
+        <Button
+            android:id="@+id/clearSearchHistoryButton"
+            style="@style/RefreshOrClearButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ClearSearchHistory"
+            android:layout_marginTop="@dimen/indent_20"
+            android:layout_marginBottom="@dimen/indent_16" />
+
+    </LinearLayout>
+    </ScrollView>
 
     <!-- Плейсхолдер для случая "Ничего не найдено" -->
     <LinearLayout
@@ -82,7 +125,7 @@
 
         <TextView
             android:id="@+id/nothingFoundText"
-            style="@style/ErrorTextStyle"
+            style="@style/MediumTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nothing_found" />
@@ -105,7 +148,7 @@
 
         <TextView
             android:id="@+id/errorText"
-            style="@style/ErrorTextStyle"
+            style="@style/MediumTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -113,7 +156,7 @@
 
         <Button
             android:id="@+id/refreshButton"
-            style="@style/RefreshButtonStyle"
+            style="@style/RefreshOrClearButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/refreshButton" />

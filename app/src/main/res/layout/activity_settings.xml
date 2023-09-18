@@ -34,38 +34,26 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="20dp">
 
-        <FrameLayout
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/themeSwitcher"
+            android:text="@string/dark_theme"
+            style="@style/TextStyle"
+            android:layout_gravity="start"
+            android:paddingVertical="@dimen/text_indent_settings"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/text_indent_settings">
-
-
-            <TextView
-                android:id="@+id/txt_dark_theme"
-                style="@style/TextStyle"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:layout_gravity = "start"
-                android:text="@string/dark_theme" />
-
-            <Switch
-                android:id="@+id/switch_dark_theme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text=""
-                tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
-        </FrameLayout>
+            android:layout_height="wrap_content"/>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/text_indent_settings">
+            android:layout_gravity="center_vertical"
+            android:paddingVertical="@dimen/text_indent_settings">
+
             <TextView
                 android:id="@+id/txt_share_app"
                 style="@style/TextStyle"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
+                android:layout_width = "match_parent"
+                android:layout_height = "match_parent"
                 android:layout_gravity = "start"
                 android:text="@string/share_app" />
 
@@ -81,7 +69,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/text_indent_settings">
+            android:layout_gravity="center_vertical"
+            android:paddingVertical="@dimen/text_indent_settings">
 
             <TextView
                 android:id="@+id/txt_write_to_support"
@@ -103,7 +92,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/text_indent_settings">
+            android:layout_gravity="center_vertical"
+            android:paddingVertical="@dimen/text_indent_settings">
 
             <TextView
                 android:id="@+id/txt_terms_of_use"
@@ -122,6 +112,5 @@
                 tools:ignore="ImageContrastCheck" />
         </FrameLayout>
     </LinearLayout>
-
 
 </LinearLayout>

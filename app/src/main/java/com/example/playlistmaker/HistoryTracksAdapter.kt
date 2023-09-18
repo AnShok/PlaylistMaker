@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-class TracksAdapter() : RecyclerView.Adapter<TrackViewHolder>() {
+class HistoryTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
 
-    var tracks = ArrayList<Track>()
+    var historyTracks = ArrayList<Track>()
 
     // Создание нового ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder = TrackViewHolder(parent)
@@ -14,9 +14,9 @@ class TracksAdapter() : RecyclerView.Adapter<TrackViewHolder>() {
 
     // Привязка данных к ViewHolder и отображение элемента списка
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        holder.bind(tracks.get(position))
+        holder.bind(historyTracks.get(position))
     }
 
     // Возвращает общее количество элементов в списке
-    override fun getItemCount(): Int =tracks.size
+    override fun getItemCount(): Int =historyTracks.size
 }
