@@ -32,22 +32,6 @@ class SearchHistory(private val sharedPreferences: SharedPreferences) {
         editor.apply()
     }
 
-    // Добавление трека в историю
-    fun addToSearchHistory(track: Track) {
-        val history = loadSearchHistory()
-        val existingIndex = history.indexOfFirst { it.trackId == track.trackId }
-        if (existingIndex != -1) {
-            history.removeAt(existingIndex)
-        }
-        history.add(0, track)
-
-        if (history.size > MAX_HISTORY_SIZE) {
-            history.removeAt(MAX_HISTORY_SIZE)
-        }
-
-        saveSearchHistory(history)
-    }
-
     // Очистка истории
     fun clearSearchHistory() {
         val editor = sharedPreferences.edit()

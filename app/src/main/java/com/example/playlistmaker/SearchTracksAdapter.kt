@@ -28,7 +28,6 @@ class SearchTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
         holder.bind(track)
         holder.itemView.setOnClickListener {
             itemClickListener?.onItemClick(track)
-            Log.d("MyApp", "SearchTracksAdapter: Нажат трек $track")
         }
     }
 

@@ -1,13 +1,11 @@
 package com.example.playlistmaker
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
@@ -27,7 +25,7 @@ class SettingsActivity : AppCompatActivity() {
         val shareButton = findViewById<ImageView>(R.id.ic_share_app)
         val supportButton = findViewById<ImageView>(R.id.ic_write_to_support)
         val termsOfUseButton = findViewById<ImageView>(R.id.ic_terms_of_use)
-        themeSwitcher = findViewById(R.id.themeSwitcher)
+        themeSwitcher = findViewById(R.id.theme_switcher)
 
         //определение текущей темы
         val isDarkThemeEnabled = settingsThemeManager.isDarkThemeEnabled()

@@ -17,10 +17,10 @@ import java.util.Locale
 class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
     .inflate(R.layout.item_track, parent, false)) {
 
-    private val trackNameTextView: TextView = itemView.findViewById(R.id.trackNameTextView)
-    private val artistNameTextView: TextView = itemView.findViewById(R.id.artistNameTextView)
-    private val trackTimeTextView: TextView = itemView.findViewById(R.id.trackTimeTextView)
-    private val artworkImageView: ImageView = itemView.findViewById(R.id.artworkImageView)
+    private val trackNameTextView: TextView = itemView.findViewById(R.id.track_name_text_view)
+    private val artistNameTextView: TextView = itemView.findViewById(R.id.artist_name_text_view)
+    private val trackTimeTextView: TextView = itemView.findViewById(R.id.track_time_text_view)
+    private val artworkImageView: ImageView = itemView.findViewById(R.id.artwork_image_view)
 
     //Aункция для преобразования dp в px
     private fun dpToPx(dp: Float, context: Context): Int {

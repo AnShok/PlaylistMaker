@@ -10,7 +10,7 @@
     android:foreground="?attr/selectableItemBackground">
 
     <ImageView
-        android:id="@+id/artworkImageView"
+        android:id="@+id/artwork_image_view"
         style="@style/SmallImageTrack"
         tools:background="#9C9C9C"/>
 
@@ -23,7 +23,7 @@
         android:layout_marginStart="@dimen/indent_8">
 
         <TextView
-            android:id="@+id/trackNameTextView"
+            android:id="@+id/track_name_text_view"
             style="@style/TextStyleTrackName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:layout_gravity="center_vertical">
 
             <TextView
-                android:id="@+id/artistNameTextView"
+                android:id="@+id/artist_name_text_view"
                 style="@style/TextStyleArtistAndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 tools:text="Название артиста"/>
 
             <ImageView
-                android:id="@+id/dotImageView"
+                android:id="@+id/dot_image_view"
                 style="@style/IcStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:layout_weight="0"/>
 
             <TextView
-                android:id="@+id/trackTimeTextView"
+                android:id="@+id/track_time_text_view"
                 style="@style/TextStyleArtistAndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/arrowImageView"
+        android:id="@+id/arrow_image_view"
         style="@style/IcStyle"
         android:layout_gravity="center_vertical"
         app:srcCompat="@drawable/ic_arrow_forward" />

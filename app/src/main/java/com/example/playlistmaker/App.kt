@@ -18,7 +18,7 @@ class App : Application() {
         applyThemeFromSettings()
     }
 
-private fun applyThemeFromSettings() {
+    private fun applyThemeFromSettings() {
         //Проверка состояния перекл.чателя из sharedPref
         val isDarkThemeEnabled = settingsThemeManager.isDarkThemeEnabled()
 

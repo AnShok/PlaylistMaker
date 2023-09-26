@@ -14,9 +14,9 @@ class HistoryTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
 
     // Привязка данных к ViewHolder и отображение элемента списка
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        holder.bind(historyTracks.get(position))
+        holder.bind(historyTracks[position])
     }
 
     // Возвращает общее количество элементов в списке
-    override fun getItemCount(): Int =historyTracks.size
+    override fun getItemCount(): Int = historyTracks.size
 }

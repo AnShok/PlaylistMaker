@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -51,7 +50,8 @@ class SearchActivity : AppCompatActivity() {
     private val searchAdapter = SearchTracksAdapter()
     private val historyAdapter = HistoryTracksAdapter()
 
-    private var textSearch: String = "" //глобальная переменная для хранения текста поискового запроса
+    private var textSearch: String =
+        "" //глобальная переменная для хранения текста поискового запроса
     private var lastSearchText: String = "" //глобальная переменная для хранения последнего запроса
 
     private lateinit var searchHistory: SearchHistory
@@ -61,16 +61,16 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         //Нахождение элементов интерфейса
-        nothingFoundPlaceholder = findViewById(R.id.nothing_Found_Placeholder)
-        errorPlaceholder = findViewById(R.id.error_Placeholder)
-        errorText = findViewById(R.id.error_Text)
-        clearButton = findViewById(R.id.clear_Icon)
+        nothingFoundPlaceholder = findViewById(R.id.nothing_found_placeholder)
+        errorPlaceholder = findViewById(R.id.error_placeholder)
+        errorText = findViewById(R.id.error_text)
+        clearButton = findViewById(R.id.clear_icon)
         tracksList = findViewById(R.id.recycler_view)
-        queryInput = findViewById(R.id.input_Edit_Text) // инициализация inputEditText в onCreate
-        refreshButton = findViewById(R.id.refresh_Button)
+        queryInput = findViewById(R.id.input_edit_text) // инициализация inputEditText в onCreate
+        refreshButton = findViewById(R.id.refresh_button)
         searchHistoryLayout = findViewById(R.id.search_history_layout)
         historyRecyclerView = findViewById(R.id.history_recycler_view)
-        clearSearchHistoryButton = findViewById(R.id.clear_Search_History_Button)
+        clearSearchHistoryButton = findViewById(R.id.clear_search_history_button)
 
 
         searchAdapter.searchTracks = searchTracks
@@ -78,9 +78,9 @@ class SearchActivity : AppCompatActivity() {
         tracksList.adapter = searchAdapter
 
         historyAdapter.historyTracks = historyTracks
-        historyRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false )
+        historyRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyRecyclerView.adapter = historyAdapter
-
         queryInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // Выполнение поискового запроса
@@ -92,7 +92,9 @@ class SearchActivity : AppCompatActivity() {
         }
         //изменение видимости истории поиска от фокуса на вводе текста
         queryInput.setOnFocusChangeListener { view, hasFocus ->
-            searchHistoryLayout.visibility = if (hasFocus && queryInput.text.isEmpty() && historyTracks.isNotEmpty()) View.VISIBLE else View.GONE
+            searchHistoryLayout.visibility =
+                if (hasFocus && queryInput.text.isEmpty() && historyTracks.isNotEmpty()) View.VISIBLE
+                else View.GONE
         }
 
         //Кнопка очистки поисковой строки
@@ -101,7 +103,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         clearSearchHistoryButton.setOnClickListener {
-        clearSearchHistory()
+            clearSearchHistory()
         }
 
         //Кнопка обновить страницу
@@ -119,8 +121,14 @@ class SearchActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState != null) {
-            lastSearchText = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения lastSearchText из сохраненного состояния
-            textSearch = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения textSearch из сохраненного состояния
+            lastSearchText = savedInstanceState.getString(
+                TEXT_SEARCH,
+                ""
+            ) //Восстановление значения lastSearchText из сохраненного состояния
+            textSearch = savedInstanceState.getString(
+                TEXT_SEARCH,
+                ""
+            ) //Восстановление значения textSearch из сохраненного состояния
             queryInput.setText(textSearch) //Восстановление текст в EditText из сохраненного состояния
             if (textSearch.isNotEmpty()) {
                 performSearch()
@@ -135,9 +143,11 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                textSearch = s.toString() //Когда тект поискового запроса меняется, он сохраняется в переменную textSearch
+                textSearch =
+                    s.toString() //Когда тект поискового запроса меняется, он сохраняется в переменную textSearch
                 clearButton.visibility = clearButtonVisibility(s)
-                searchHistoryLayout.visibility = if (queryInput.hasFocus() && s?.isEmpty() == true) View.VISIBLE else View.GONE
+                searchHistoryLayout.visibility =
+                    if (queryInput.hasFocus() && s?.isEmpty() == true) View.VISIBLE else View.GONE
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -177,7 +187,10 @@ class SearchActivity : AppCompatActivity() {
         if (searchText.isNotEmpty()) {
             lastSearchText = searchText //Сохранение текста запроса
             itunesService.search(searchText).enqueue(object : Callback<TracksResponse> {
-                override fun onResponse(call: Call<TracksResponse>, response: Response<TracksResponse>) {
+                override fun onResponse(
+                    call: Call<TracksResponse>,
+                    response: Response<TracksResponse>
+                ) {
                     if (response.isSuccessful) {
                         val tracksResponse = response.body()
                         if (tracksResponse != null && tracksResponse.results.isNotEmpty()) {
@@ -210,9 +223,11 @@ class SearchActivity : AppCompatActivity() {
 
     //Функция скрытия клавиатуры после очистки
     private fun hideKeyboard() {
-        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(queryInput.windowToken, 0)
     }
+
     private fun hidePlaceholders() {
         nothingFoundPlaceholder.visibility = View.GONE
         errorPlaceholder.visibility = View.GONE
@@ -234,21 +249,25 @@ class SearchActivity : AppCompatActivity() {
         if (isDayTheme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             //Подстановка изображения для дневной темы
-            findViewById<ImageView>(R.id.nothing_Found_Image).setImageResource(R.drawable.ic_nothing_found_day)
-            findViewById<ImageView>(R.id.error_Image).setImageResource(R.drawable.ic_error_day)
+            findViewById<ImageView>(R.id.nothing_found_image).setImageResource(R.drawable.ic_nothing_found_day)
+            findViewById<ImageView>(R.id.error_image).setImageResource(R.drawable.ic_error_day)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             //Подстановка изображения для ночной темы
-            findViewById<ImageView>(R.id.nothing_Found_Image).setImageResource(R.drawable.ic_nothing_found_night)
-            findViewById<ImageView>(R.id.error_Image).setImageResource(R.drawable.ic_error_night)
+            findViewById<ImageView>(R.id.nothing_found_image).setImageResource(R.drawable.ic_nothing_found_night)
+            findViewById<ImageView>(R.id.error_image).setImageResource(R.drawable.ic_error_night)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(IS_DAY_THEME, isDayTheme)
-        textSearch = queryInput.text.toString() // Сохранение значения текста поискового запроса в переменную
-        outState.putString(TEXT_SEARCH, textSearch) //Сохранение значения textSearch в состояние активити
+        textSearch =
+            queryInput.text.toString() // Сохранение значения текста поискового запроса в переменную
+        outState.putString(
+            TEXT_SEARCH,
+            textSearch
+        ) //Сохранение значения textSearch в состояние активити
     }
 
     override fun onResume() {
@@ -257,6 +276,7 @@ class SearchActivity : AppCompatActivity() {
         historyAdapter.notifyDataSetChanged()
 
     }
+
     private fun loadSearchHistory() {
         val history = searchHistory.loadSearchHistory()
         historyTracks.clear()
@@ -281,7 +301,6 @@ class SearchActivity : AppCompatActivity() {
         }
         searchHistory.saveSearchHistory(history)
         loadSearchHistory()
-        Log.d("MyApp", "addToSearchHistory: Добавлен трек $track в историю поиска")
     }
 
     private companion object {
@@ -290,4 +309,3 @@ class SearchActivity : AppCompatActivity() {
         const val ITUNES_URL = "https://itunes.apple.com"
     }
 }
-
