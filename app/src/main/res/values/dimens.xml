@@ -13,12 +13,14 @@
     <dimen name="corner_radius_54">54dp</dimen>
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="text_indent_settings">21dp</dimen>
-    <dimen name="bottom_button_padding_main">16dp</dimen>
     <dimen name="rv_margin_top">16dp</dimen>
     <dimen name="small_image_width">45dp</dimen>
     <dimen name="small_image_height">45dp</dimen>
     <dimen name="indent_8">8dp</dimen>
     <dimen name="indent_12">12dp</dimen>
+    <dimen name="indent_16">16dp</dimen>
+    <dimen name="indent_18">18dp</dimen>
     <dimen name="indent_20">20dp</dimen>
+    <dimen name="indent_24">24dp</dimen>
     <dimen name="indent_36">36dp</dimen>
 </resources>

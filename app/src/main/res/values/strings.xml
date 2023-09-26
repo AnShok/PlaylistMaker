@@ -24,5 +24,7 @@
     <string name="something_went_wrong">\nПроблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету\n</string>
     <string name="nothing_found">\nНичего не нашлось</string>
     <string name="refreshButton">Обновить</string>
+    <string name="SearchCaption">Вы искали</string>
+    <string name="ClearSearchHistory">Очистить историю</string>
 
 </resources>
