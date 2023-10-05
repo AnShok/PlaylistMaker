@@ -1,6 +1,7 @@
 package com.example.playlistmaker
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -167,8 +168,42 @@ class SearchActivity : AppCompatActivity() {
 
         searchAdapter.setOnItemClickListener(object : SearchTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
-                //обработка нажатия на трек
-                //Будущее действие для выполнения после нажатия
+                //Интент для перехода на экран аудиоплеера
+                val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
+
+                //Данные о треке
+                audioPlayerIntent.putExtra("trackName", track.trackName)
+                audioPlayerIntent.putExtra("artistName", track.artistName)
+                audioPlayerIntent.putExtra("artworkUrl100", track.artworkUrl100)
+                audioPlayerIntent.putExtra("trackTimeMillis", track.trackTimeMillis)
+                audioPlayerIntent.putExtra("collectionName", track.collectionName)
+                audioPlayerIntent.putExtra("releaseDate", track.releaseDate)
+                audioPlayerIntent.putExtra("primaryGenreName", track.primaryGenreName)
+                audioPlayerIntent.putExtra("country", track.country)
+
+                startActivity(audioPlayerIntent)
+
+                addToSearchHistory(track)
+            }
+        })
+
+        historyAdapter.setOnItemClickListener(object : HistoryTracksAdapter.OnItemClickListener {
+            override fun onItemClick(track: Track) {
+                //Интент для перехода на экран аудиоплеера
+                val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
+
+                //Данные о треке
+                audioPlayerIntent.putExtra("trackName", track.trackName)
+                audioPlayerIntent.putExtra("artistName", track.artistName)
+                audioPlayerIntent.putExtra("artworkUrl100", track.artworkUrl100)
+                audioPlayerIntent.putExtra("trackTimeMillis", track.trackTimeMillis)
+                audioPlayerIntent.putExtra("collectionName", track.collectionName)
+                audioPlayerIntent.putExtra("releaseDate", track.releaseDate)
+                audioPlayerIntent.putExtra("primaryGenreName", track.primaryGenreName)
+                audioPlayerIntent.putExtra("country", track.country)
+
+                startActivity(audioPlayerIntent)
+
                 addToSearchHistory(track)
             }
         })

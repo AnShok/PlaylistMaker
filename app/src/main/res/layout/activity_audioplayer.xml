@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AudioPlayerActivity"
+    tools:context=".AudioPlayerActivity">
+
+    <!-- Отcтупы -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+    <!-- Отcтупы для информации -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_border_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_border_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <!-- Кнопка "Назад" -->
+    <ImageButton
+        android:id="@+id/back_button"
+        style="@style/BackButtonStyle"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Область для отображения обложки плеера -->
+    <ImageView
+        android:id="@+id/cover_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/indent_24"
+        app:layout_constraintTop_toBottomOf="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="@+id/right_border"
+        app:layout_constraintStart_toStartOf="@+id/left_border"
+        app:layout_constraintBottom_toTopOf="@+id/track_name"
+        android:src="@drawable/placeholderlarge"/>
+
+    <!-- Название трека -->
+    <TextView
+        android:id="@+id/track_name"
+        style="@style/BigTextStyleTrackName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="@+id/left_border"
+        app:layout_constraintEnd_toEndOf="@id/right_border"
+        app:layout_constraintBottom_toTopOf="@+id/artist_name"
+        tools:text="Название трека" />
+
+    <!-- Имя исполнителя -->
+    <TextView
+        android:id="@+id/artist_name"
+        style="@style/TextStyleArtistName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="54dp"
+        android:gravity="start"
+        app:layout_constraintStart_toStartOf="@+id/left_border"
+        app:layout_constraintEnd_toEndOf="@+id/right_border"
+        app:layout_constraintBottom_toTopOf="@+id/add_to_playlist_button"
+        tools:text="Имя исполнителя"/>
+
+    <!-- Кнопка добавления в плейлист -->
+
+    <ImageButton
+        android:id="@+id/add_to_playlist_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_to_playlist_button"
+        app:layout_constraintTop_toTopOf="@+id/play_pause_button"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
+        app:layout_constraintStart_toStartOf="@+id/left_border" />
+
+    <!-- Кнопка контроля воспроизведения -->
+
+    <ImageButton
+        android:id="@+id/play_pause_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/play_pause_button"
+        app:layout_constraintBottom_toTopOf="@+id/track_duration"
+        app:layout_constraintEnd_toStartOf="@+id/right_border"
+        app:layout_constraintStart_toEndOf="@+id/left_border" />
+
+    <!-- Кнопка добавления в избранное -->
+
+    <ImageButton
+        android:id="@+id/add_to_favorite_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_to_favorite_button"
+        app:layout_constraintTop_toTopOf="@+id/play_pause_button"
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
+        app:layout_constraintEnd_toEndOf="@+id/right_border" />
+
+    <!-- длительность воспроизведения трека -->
+    <TextView
+        android:id="@+id/track_playback_time"
+        style="@style/TextStyleTrackTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/track_duration"
+        app:layout_constraintEnd_toStartOf="@+id/right_border"
+        app:layout_constraintStart_toStartOf="@+id/left_border"
+        android:text="0:15" />
+
+    <!-- Продолжительность трека -->
+    <TextView
+        android:id="@+id/track_duration"
+        style="@style/TextStyleInformationTrack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/indent_8"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="@+id/left_border_information"
+        app:layout_constraintEnd_toStartOf="@+id/track_time_milles"
+        app:layout_constraintBottom_toTopOf="@+id/album"
+        android:text="Продолжительность"/>
+
+
+    <TextView
+        android:id="@+id/track_time_milles"
+        style="@style/TextStyleInformationTrackReal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/indent_8"
+        android:gravity="end"
+        app:layout_constraintHorizontal_weight="6"
+        app:layout_constraintStart_toEndOf="@+id/track_duration"
+        app:layout_constraintEnd_toEndOf="@+id/right_border_information"
+        app:layout_constraintTop_toTopOf="@+id/track_duration"
+        app:layout_constraintBottom_toBottomOf="@+id/track_duration"
+        tools:text="5:02"/>
+
+    <!-- Видимость строк альбома -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/albumGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="album,album_name" />
+
+    <!-- Название альбома (если есть) -->
+    <TextView
+        android:id="@+id/album"
+        style="@style/TextStyleInformationTrack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/indent_8"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="@+id/left_border_information"
+        app:layout_constraintEnd_toStartOf="@+id/album_name"
+        app:layout_constraintBottom_toTopOf="@+id/release_year"
+        android:text="Название альбома"/>
+
+    <TextView
+        android:id="@+id/album_name"
+        style="@style/TextStyleInformationTrackReal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/indent_8"
+        android:gravity="end"
+        app:layout_constraintHorizontal_weight="6"
+        app:layout_constraintStart_toEndOf="@+id/album"
+        app:layout_constraintEnd_toEndOf="@+id/right_border_information"
+        app:layout_constraintTop_toTopOf="@+id/album"
+        app:layout_constraintBottom_toBottomOf="@+id/album"
+        tools:text="Какое то название альбома"/>
+
+    <!-- Год релиза трека -->
+    <TextView
+        android:id="@+id/release_year"
+        style="@style/TextStyleInformationTrack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/indent_8"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="@+id/left_border_information"
+        app:layout_constraintEnd_toStartOf="@+id/release_year_name"
+        app:layout_constraintBottom_toTopOf="@+id/genre"
+        android:text="Год релиза"/>
+
+    <TextView
+        android:id="@+id/release_year_name"
+        style="@style/TextStyleInformationTrackReal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/indent_8"
+        android:gravity="end"
+        app:layout_constraintHorizontal_weight="6"
+        app:layout_constraintStart_toEndOf="@+id/release_year"
+        app:layout_constraintEnd_toEndOf="@+id/right_border_information"
+        app:layout_constraintTop_toTopOf="@+id/release_year"
+        app:layout_constraintBottom_toBottomOf="@+id/release_year"
+        tools:text="2020"/>
+
+    <!-- Жанр трека -->
+    <TextView
+        android:id="@+id/genre"
+        style="@style/TextStyleInformationTrack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/indent_8"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="@+id/left_border_information"
+        app:layout_constraintEnd_toStartOf="@+id/genre_name"
+        app:layout_constraintBottom_toTopOf="@+id/country"
+        android:text="Жанр"/>
+
+    <TextView
+        android:id="@+id/genre_name"
+        style="@style/TextStyleInformationTrackReal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/indent_8"
+        android:gravity="end"
+        app:layout_constraintHorizontal_weight="6"
+        app:layout_constraintStart_toEndOf="@+id/genre"
+        app:layout_constraintEnd_toEndOf="@+id/right_border_information"
+        app:layout_constraintTop_toTopOf="@+id/genre"
+        app:layout_constraintBottom_toBottomOf="@+id/genre"
+        tools:text="Рок"/>
+
+    <!-- Страна исполнителя -->
+
+    <TextView
+        android:id="@+id/country"
+        style="@style/TextStyleInformationTrack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/indent_8"
+        android:paddingBottom="28dp"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="@+id/left_border_information"
+        app:layout_constraintEnd_toStartOf="@+id/country_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Страна исполнителя"/>
+
+    <TextView
+        android:id="@+id/country_name"
+        style="@style/TextStyleInformationTrackReal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/indent_8"
+        android:paddingBottom="28dp"
+        android:gravity="end"
+        app:layout_constraintHorizontal_weight="6"
+        app:layout_constraintStart_toEndOf="@+id/country"
+        app:layout_constraintEnd_toEndOf="@+id/right_border_information"
+        app:layout_constraintTop_toTopOf="@+id/country"
+        app:layout_constraintBottom_toBottomOf="@+id/country"
+        tools:text="Австралия"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
