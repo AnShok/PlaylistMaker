@@ -24,9 +24,11 @@
 
         <TextView
             android:id="@+id/track_name_text_view"
-            style="@style/TextStyleTrackName"
+            style="@style/TextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             tools:text="Название трека"/>
 
         <LinearLayout
@@ -42,6 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
                 tools:text="Название артиста"/>
 
             <ImageView
@@ -60,6 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
+                android:ellipsize="end"
+                android:maxLines="1"
                 tools:text="45:05"/>
         </LinearLayout>
 

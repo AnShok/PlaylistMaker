@@ -22,6 +22,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.playlistmaker.Utils.formatTrackDuration
 
 
 class SearchActivity : AppCompatActivity() {
@@ -82,6 +83,7 @@ class SearchActivity : AppCompatActivity() {
         historyRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyRecyclerView.adapter = historyAdapter
+
         queryInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // Выполнение поискового запроса
@@ -91,8 +93,9 @@ class SearchActivity : AppCompatActivity() {
                 false
             }
         }
+
         //изменение видимости истории поиска от фокуса на вводе текста
-        queryInput.setOnFocusChangeListener { view, hasFocus ->
+        queryInput.setOnFocusChangeListener { _, hasFocus ->
             searchHistoryLayout.visibility =
                 if (hasFocus && queryInput.text.isEmpty() && historyTracks.isNotEmpty()) View.VISIBLE
                 else View.GONE
@@ -181,6 +184,9 @@ class SearchActivity : AppCompatActivity() {
                 audioPlayerIntent.putExtra("primaryGenreName", track.primaryGenreName)
                 audioPlayerIntent.putExtra("country", track.country)
 
+                val trackDurationFormatted = formatTrackDuration(track.trackTimeMillis)
+                audioPlayerIntent.putExtra("trackDuration", trackDurationFormatted)
+
                 startActivity(audioPlayerIntent)
 
                 addToSearchHistory(track)
@@ -201,6 +207,9 @@ class SearchActivity : AppCompatActivity() {
                 audioPlayerIntent.putExtra("releaseDate", track.releaseDate)
                 audioPlayerIntent.putExtra("primaryGenreName", track.primaryGenreName)
                 audioPlayerIntent.putExtra("country", track.country)
+
+                val trackDurationFormatted = formatTrackDuration(track.trackTimeMillis)
+                audioPlayerIntent.putExtra("trackDuration", trackDurationFormatted)
 
                 startActivity(audioPlayerIntent)
 

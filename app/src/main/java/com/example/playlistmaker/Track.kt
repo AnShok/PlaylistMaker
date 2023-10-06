@@ -1,7 +1,5 @@
 package com.example.playlistmaker
 
-import java.io.Serializable
-
 data class Track(
     val trackId: String,
     val trackName: String,

@@ -60,10 +60,12 @@
     <!-- Название трека -->
     <TextView
         android:id="@+id/track_name"
-        style="@style/BigTextStyleTrackName"
+        style="@style/TopTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constrainedWidth="true"
         app:layout_constraintStart_toStartOf="@+id/left_border"
         app:layout_constraintEnd_toEndOf="@id/right_border"
@@ -78,6 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="54dp"
         android:gravity="start"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintStart_toStartOf="@+id/left_border"
         app:layout_constraintEnd_toEndOf="@+id/right_border"
         app:layout_constraintBottom_toTopOf="@+id/add_to_playlist_button"
@@ -131,7 +135,7 @@
         app:layout_constraintBottom_toTopOf="@+id/track_duration"
         app:layout_constraintEnd_toStartOf="@+id/right_border"
         app:layout_constraintStart_toStartOf="@+id/left_border"
-        android:text="0:15" />
+        tools:text="0:15" />
 
     <!-- Продолжительность трека -->
     <TextView
@@ -140,6 +144,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/track_time_milles"
@@ -154,20 +160,14 @@
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:gravity="end"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="6"
         app:layout_constraintStart_toEndOf="@+id/track_duration"
         app:layout_constraintEnd_toEndOf="@+id/right_border_information"
         app:layout_constraintTop_toTopOf="@+id/track_duration"
         app:layout_constraintBottom_toBottomOf="@+id/track_duration"
         tools:text="5:02"/>
-
-    <!-- Видимость строк альбома -->
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/albumGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="album,album_name" />
 
     <!-- Название альбома (если есть) -->
     <TextView
@@ -176,6 +176,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/album_name"
@@ -189,6 +191,8 @@
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:gravity="end"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="6"
         app:layout_constraintStart_toEndOf="@+id/album"
         app:layout_constraintEnd_toEndOf="@+id/right_border_information"
@@ -203,6 +207,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/release_year_name"
@@ -216,6 +222,8 @@
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:gravity="end"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="6"
         app:layout_constraintStart_toEndOf="@+id/release_year"
         app:layout_constraintEnd_toEndOf="@+id/right_border_information"
@@ -230,6 +238,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/genre_name"
@@ -243,6 +253,8 @@
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:gravity="end"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="6"
         app:layout_constraintStart_toEndOf="@+id/genre"
         app:layout_constraintEnd_toEndOf="@+id/right_border_information"
@@ -259,6 +271,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/indent_8"
         android:paddingBottom="28dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/country_name"
@@ -273,6 +287,8 @@
         android:paddingTop="@dimen/indent_8"
         android:paddingBottom="28dp"
         android:gravity="end"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="6"
         app:layout_constraintStart_toEndOf="@+id/country"
         app:layout_constraintEnd_toEndOf="@+id/right_border_information"
