@@ -347,7 +347,7 @@ class SearchActivity : AppCompatActivity() {
         loadSearchHistory()
     }
 
-    private companion object {
+    companion object {
         const val TEXT_SEARCH = "TEXT_SEARCH"
         const val IS_DAY_THEME = "IS_DAY_THEME"
         const val ITUNES_URL = "https://itunes.apple.com"

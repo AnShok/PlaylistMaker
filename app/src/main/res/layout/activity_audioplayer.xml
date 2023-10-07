@@ -13,14 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp" />
+        app:layout_constraintGuide_begin="@dimen/indent_24" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/right_border"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp" />
+        app:layout_constraintGuide_end="@dimen/indent_24" />
 
     <!-- Отcтупы для информации -->
     <androidx.constraintlayout.widget.Guideline
@@ -28,17 +28,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="@dimen/indent_16" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/right_border_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_end="@dimen/indent_16" />
 
     <!-- Кнопка "Назад" -->
-    <ImageButton
+    <Button
         android:id="@+id/back_button"
         style="@style/BackButtonStyle"
         android:src="@drawable/ic_back"
@@ -48,8 +48,8 @@
     <!-- Область для отображения обложки плеера -->
     <ImageView
         android:id="@+id/cover_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/indent_0"
+        android:layout_height="@dimen/indent_0"
         android:layout_marginVertical="@dimen/indent_24"
         app:layout_constraintTop_toBottomOf="@+id/back_button"
         app:layout_constraintEnd_toEndOf="@+id/right_border"
@@ -60,10 +60,11 @@
     <!-- Название трека -->
     <TextView
         android:id="@+id/track_name"
-        style="@style/TopTextStyle"
+        style="@style/TextStyleMedium"
+        android:textSize="@dimen/string_text_size_22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="@dimen/indent_12"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constrainedWidth="true"
@@ -75,10 +76,11 @@
     <!-- Имя исполнителя -->
     <TextView
         android:id="@+id/artist_name"
-        style="@style/TextStyleArtistName"
-        android:layout_width="0dp"
+        style="@style/TextStyleMedium"
+        android:textSize="@dimen/string_text_size_14"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="54dp"
+        android:layout_marginBottom="@dimen/indent_56"
         android:gravity="start"
         android:ellipsize="end"
         android:maxLines="1"
@@ -94,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:src="@drawable/add_to_playlist_button"
+        android:src="@drawable/add_to_playlist_button_day"
         app:layout_constraintTop_toTopOf="@+id/play_pause_button"
         app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
         app:layout_constraintStart_toStartOf="@+id/left_border" />
@@ -105,9 +107,9 @@
         android:id="@+id/play_pause_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="@dimen/indent_56"
         android:background="@android:color/transparent"
-        android:src="@drawable/play_pause_button"
+        android:src="@drawable/play_pause_button_day"
         app:layout_constraintBottom_toTopOf="@+id/track_duration"
         app:layout_constraintEnd_toStartOf="@+id/right_border"
         app:layout_constraintStart_toEndOf="@+id/left_border" />
@@ -116,10 +118,10 @@
 
     <ImageButton
         android:id="@+id/add_to_favorite_button"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:src="@drawable/add_to_favorite_button"
+        android:src="@drawable/add_to_favorite_button_day"
         app:layout_constraintTop_toTopOf="@+id/play_pause_button"
         app:layout_constraintBottom_toBottomOf="@+id/play_pause_button"
         app:layout_constraintEnd_toEndOf="@+id/right_border" />
@@ -127,21 +129,23 @@
     <!-- длительность воспроизведения трека -->
     <TextView
         android:id="@+id/track_playback_time"
-        style="@style/TextStyleTrackTime"
+        style="@style/TextStyleMedium"
+        android:textSize="@dimen/string_text_size_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="@dimen/indent_4"
+        android:layout_marginBottom="@dimen/indent_36"
         app:layout_constraintBottom_toTopOf="@+id/track_duration"
         app:layout_constraintEnd_toStartOf="@+id/right_border"
         app:layout_constraintStart_toStartOf="@+id/left_border"
-        tools:text="0:15" />
+        tools:text="0:00" />
 
     <!-- Продолжительность трека -->
     <TextView
         android:id="@+id/track_duration"
         style="@style/TextStyleInformationTrack"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:ellipsize="end"
@@ -150,13 +154,14 @@
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/track_time_milles"
         app:layout_constraintBottom_toTopOf="@+id/album"
-        android:text="Продолжительность"/>
+        android:text="@string/track_duration"/>
 
 
     <TextView
         android:id="@+id/track_time_milles"
         style="@style/TextStyleInformationTrackReal"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:gravity="end"
@@ -173,7 +178,8 @@
     <TextView
         android:id="@+id/album"
         style="@style/TextStyleInformationTrack"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:ellipsize="end"
@@ -182,18 +188,19 @@
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/album_name"
         app:layout_constraintBottom_toTopOf="@+id/release_year"
-        android:text="Название альбома"/>
+        android:text="@string/album_name"/>
 
     <TextView
         android:id="@+id/album_name"
         style="@style/TextStyleInformationTrackReal"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:gravity="end"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintHorizontal_weight="6"
+        app:layout_constraintHorizontal_weight="7"
         app:layout_constraintStart_toEndOf="@+id/album"
         app:layout_constraintEnd_toEndOf="@+id/right_border_information"
         app:layout_constraintTop_toTopOf="@+id/album"
@@ -204,7 +211,8 @@
     <TextView
         android:id="@+id/release_year"
         style="@style/TextStyleInformationTrack"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:ellipsize="end"
@@ -213,18 +221,19 @@
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/release_year_name"
         app:layout_constraintBottom_toTopOf="@+id/genre"
-        android:text="Год релиза"/>
+        android:text="@string/track_release_year"/>
 
     <TextView
         android:id="@+id/release_year_name"
         style="@style/TextStyleInformationTrackReal"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:gravity="end"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintHorizontal_weight="6"
+        app:layout_constraintHorizontal_weight="7"
         app:layout_constraintStart_toEndOf="@+id/release_year"
         app:layout_constraintEnd_toEndOf="@+id/right_border_information"
         app:layout_constraintTop_toTopOf="@+id/release_year"
@@ -235,6 +244,7 @@
     <TextView
         android:id="@+id/genre"
         style="@style/TextStyleInformationTrack"
+        android:textSize="@dimen/string_text_size_13"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
@@ -244,18 +254,19 @@
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/genre_name"
         app:layout_constraintBottom_toTopOf="@+id/country"
-        android:text="Жанр"/>
+        android:text="@string/track_genre"/>
 
     <TextView
         android:id="@+id/genre_name"
         style="@style/TextStyleInformationTrackReal"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/indent_8"
         android:gravity="end"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintHorizontal_weight="6"
+        app:layout_constraintHorizontal_weight="7"
         app:layout_constraintStart_toEndOf="@+id/genre"
         app:layout_constraintEnd_toEndOf="@+id/right_border_information"
         app:layout_constraintTop_toTopOf="@+id/genre"
@@ -267,25 +278,27 @@
     <TextView
         android:id="@+id/country"
         style="@style/TextStyleInformationTrack"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/indent_8"
-        android:paddingBottom="28dp"
+        android:paddingBottom="@dimen/indent_24"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="@+id/left_border_information"
         app:layout_constraintEnd_toStartOf="@+id/country_name"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Страна исполнителя"/>
+        android:text="@string/artist_country"/>
 
     <TextView
         android:id="@+id/country_name"
         style="@style/TextStyleInformationTrackReal"
-        android:layout_width="0dp"
+        android:textSize="@dimen/string_text_size_13"
+        android:layout_width="@dimen/indent_0"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/indent_8"
-        android:paddingBottom="28dp"
+        android:paddingBottom="@dimen/indent_24"
         android:gravity="end"
         android:ellipsize="end"
         android:maxLines="1"

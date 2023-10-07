@@ -13,7 +13,7 @@
         android:text="@string/playlist_maker"
         android:textColor="@color/YP_White"
         android:textStyle="bold"
-        android:textSize="@dimen/titles_at_the_top" />
+        android:textSize="@dimen/string_text_size_22" />
 
 
     <LinearLayout

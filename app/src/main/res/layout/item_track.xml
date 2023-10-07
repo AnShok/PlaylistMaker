@@ -24,7 +24,8 @@
 
         <TextView
             android:id="@+id/track_name_text_view"
-            style="@style/TextStyle"
+            style="@style/TextStyleRegular"
+            android:textSize="@dimen/string_text_size_16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -40,6 +41,7 @@
             <TextView
                 android:id="@+id/artist_name_text_view"
                 style="@style/TextStyleArtistAndTime"
+                android:textSize="@dimen/string_text_size_11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -60,6 +62,7 @@
             <TextView
                 android:id="@+id/track_time_text_view"
                 style="@style/TextStyleArtistAndTime"
+                android:textSize="@dimen/string_text_size_11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

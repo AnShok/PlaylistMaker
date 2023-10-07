@@ -20,7 +20,8 @@
 
         <TextView
             android:id="@+id/txt_setup_menu"
-            style="@style/TopTextStyle"
+            style="@style/TextStyleMedium"
+            android:textSize="@dimen/string_text_size_22"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
             android:gravity = "fill_vertical"
@@ -79,7 +80,8 @@
         <TextView
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
-            style="@style/MediumTextStyle"
+            style="@style/TextStyleMedium"
+            android:textSize="@dimen/string_text_size_19"
             android:gravity= "center"
             android:text="@string/SearchCaption"
             android:paddingTop="@dimen/indent_18"
@@ -124,7 +126,8 @@
 
         <TextView
             android:id="@+id/nothing_found_text"
-            style="@style/MediumTextStyle"
+            style="@style/TextStyleMedium"
+            android:textSize="@dimen/string_text_size_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nothing_found" />
@@ -147,7 +150,8 @@
 
         <TextView
             android:id="@+id/error_text"
-            style="@style/MediumTextStyle"
+            style="@style/TextStyleMedium"
+            android:textSize="@dimen/string_text_size_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
