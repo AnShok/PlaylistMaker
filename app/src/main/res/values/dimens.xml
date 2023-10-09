@@ -17,7 +17,6 @@
     <dimen name="rv_margin_top">16dp</dimen>
     <dimen name="small_image_width">45dp</dimen>
     <dimen name="small_image_height">45dp</dimen>
-    <dimen name="indent_0">0dp</dimen>
     <dimen name="indent_4">4dp</dimen>
     <dimen name="indent_8">8dp</dimen>
     <dimen name="indent_9">9dp</dimen>

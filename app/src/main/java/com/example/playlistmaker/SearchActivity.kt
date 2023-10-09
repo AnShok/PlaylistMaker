@@ -175,18 +175,7 @@ class SearchActivity : AppCompatActivity() {
                 val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
 
                 //Данные о треке
-                audioPlayerIntent.putExtra("trackName", track.trackName)
-                audioPlayerIntent.putExtra("artistName", track.artistName)
-                audioPlayerIntent.putExtra("artworkUrl100", track.artworkUrl100)
-                audioPlayerIntent.putExtra("trackTimeMillis", track.trackTimeMillis)
-                audioPlayerIntent.putExtra("collectionName", track.collectionName)
-                audioPlayerIntent.putExtra("releaseDate", track.releaseDate)
-                audioPlayerIntent.putExtra("primaryGenreName", track.primaryGenreName)
-                audioPlayerIntent.putExtra("country", track.country)
-
-                val trackDurationFormatted = formatTrackDuration(track.trackTimeMillis)
-                audioPlayerIntent.putExtra("trackDuration", trackDurationFormatted)
-
+                audioPlayerIntent.putExtra("track", track)
                 startActivity(audioPlayerIntent)
 
                 addToSearchHistory(track)
@@ -199,18 +188,7 @@ class SearchActivity : AppCompatActivity() {
                 val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
 
                 //Данные о треке
-                audioPlayerIntent.putExtra("trackName", track.trackName)
-                audioPlayerIntent.putExtra("artistName", track.artistName)
-                audioPlayerIntent.putExtra("artworkUrl100", track.artworkUrl100)
-                audioPlayerIntent.putExtra("trackTimeMillis", track.trackTimeMillis)
-                audioPlayerIntent.putExtra("collectionName", track.collectionName)
-                audioPlayerIntent.putExtra("releaseDate", track.releaseDate)
-                audioPlayerIntent.putExtra("primaryGenreName", track.primaryGenreName)
-                audioPlayerIntent.putExtra("country", track.country)
-
-                val trackDurationFormatted = formatTrackDuration(track.trackTimeMillis)
-                audioPlayerIntent.putExtra("trackDuration", trackDurationFormatted)
-
+                audioPlayerIntent.putExtra("track", track)
                 startActivity(audioPlayerIntent)
 
                 addToSearchHistory(track)
