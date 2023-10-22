@@ -3,9 +3,10 @@
     <dimen name="back_button_size">48dp</dimen>
     <dimen name="settings_icons_size">24dp</dimen>
     <dimen name="search_icons_size">16dp</dimen>
-    <dimen name="titles_at_the_top">22sp</dimen>
+    <dimen name="string_text_size_22">22sp</dimen>
     <dimen name="main_menu_button_text_size">22sp</dimen>
     <dimen name="string_text_size_11">11sp</dimen>
+    <dimen name="string_text_size_13">13sp</dimen>
     <dimen name="string_text_size_14">14sp</dimen>
     <dimen name="string_text_size_16">16sp</dimen>
     <dimen name="string_text_size_19">19sp</dimen>
@@ -16,11 +17,14 @@
     <dimen name="rv_margin_top">16dp</dimen>
     <dimen name="small_image_width">45dp</dimen>
     <dimen name="small_image_height">45dp</dimen>
+    <dimen name="indent_4">4dp</dimen>
     <dimen name="indent_8">8dp</dimen>
+    <dimen name="indent_9">9dp</dimen>
     <dimen name="indent_12">12dp</dimen>
     <dimen name="indent_16">16dp</dimen>
     <dimen name="indent_18">18dp</dimen>
     <dimen name="indent_20">20dp</dimen>
     <dimen name="indent_24">24dp</dimen>
     <dimen name="indent_36">36dp</dimen>
+    <dimen name="indent_56">56dp</dimen>
 </resources>

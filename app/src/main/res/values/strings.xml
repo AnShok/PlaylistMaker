@@ -27,4 +27,11 @@
     <string name="SearchCaption">Вы искали</string>
     <string name="ClearSearchHistory">Очистить историю</string>
 
+    <!-- трек/исполнитель -->
+    <string name="artist_country">Страна исполнителя</string>
+    <string name="track_genre">Жанр</string>
+    <string name="track_release_year">Год релиза</string>
+    <string name="album_name">Название альбома</string>
+    <string name="track_duration">Продолжительность</string>
+
 </resources>

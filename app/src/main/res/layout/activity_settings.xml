@@ -20,7 +20,8 @@
 
         <TextView
             android:id="@+id/txt_setup_menu"
-            style="@style/TopTextStyle"
+            style="@style/TextStyleMedium"
+            android:textSize="@dimen/string_text_size_22"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
             android:gravity = "fill_vertical"
@@ -37,7 +38,8 @@
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/theme_switcher"
             android:text="@string/dark_theme"
-            style="@style/TextStyle"
+            style="@style/TextStyleRegular"
+            android:textSize="@dimen/string_text_size_16"
             android:layout_gravity="start"
             android:paddingVertical="@dimen/text_indent_settings"
             android:layout_width="match_parent"
@@ -51,7 +53,8 @@
 
             <TextView
                 android:id="@+id/txt_share_app"
-                style="@style/TextStyle"
+                style="@style/TextStyleRegular"
+                android:textSize="@dimen/string_text_size_16"
                 android:layout_width = "match_parent"
                 android:layout_height = "match_parent"
                 android:layout_gravity = "start"
@@ -74,7 +77,8 @@
 
             <TextView
                 android:id="@+id/txt_write_to_support"
-                style="@style/TextStyle"
+                style="@style/TextStyleRegular"
+                android:textSize="@dimen/string_text_size_16"
                 android:layout_width = "wrap_content"
                 android:layout_height = "wrap_content"
                 android:layout_gravity = "start"
@@ -97,7 +101,8 @@
 
             <TextView
                 android:id="@+id/txt_terms_of_use"
-                style="@style/TextStyle"
+                style="@style/TextStyleRegular"
+                android:textSize="@dimen/string_text_size_16"
                 android:layout_width = "wrap_content"
                 android:layout_height = "wrap_content"
                 android:layout_gravity = "start"

@@ -1,6 +1,7 @@
 package com.example.playlistmaker
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +22,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.playlistmaker.Utils.formatTrackDuration
 
 
 class SearchActivity : AppCompatActivity() {
@@ -81,6 +83,7 @@ class SearchActivity : AppCompatActivity() {
         historyRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         historyRecyclerView.adapter = historyAdapter
+
         queryInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // Выполнение поискового запроса
@@ -90,8 +93,9 @@ class SearchActivity : AppCompatActivity() {
                 false
             }
         }
+
         //изменение видимости истории поиска от фокуса на вводе текста
-        queryInput.setOnFocusChangeListener { view, hasFocus ->
+        queryInput.setOnFocusChangeListener { _, hasFocus ->
             searchHistoryLayout.visibility =
                 if (hasFocus && queryInput.text.isEmpty() && historyTracks.isNotEmpty()) View.VISIBLE
                 else View.GONE
@@ -167,8 +171,26 @@ class SearchActivity : AppCompatActivity() {
 
         searchAdapter.setOnItemClickListener(object : SearchTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
-                //обработка нажатия на трек
-                //Будущее действие для выполнения после нажатия
+                //Интент для перехода на экран аудиоплеера
+                val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
+
+                //Данные о треке
+                audioPlayerIntent.putExtra("track", track)
+                startActivity(audioPlayerIntent)
+
+                addToSearchHistory(track)
+            }
+        })
+
+        historyAdapter.setOnItemClickListener(object : HistoryTracksAdapter.OnItemClickListener {
+            override fun onItemClick(track: Track) {
+                //Интент для перехода на экран аудиоплеера
+                val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
+
+                //Данные о треке
+                audioPlayerIntent.putExtra("track", track)
+                startActivity(audioPlayerIntent)
+
                 addToSearchHistory(track)
             }
         })
@@ -303,7 +325,7 @@ class SearchActivity : AppCompatActivity() {
         loadSearchHistory()
     }
 
-    private companion object {
+    companion object {
         const val TEXT_SEARCH = "TEXT_SEARCH"
         const val IS_DAY_THEME = "IS_DAY_THEME"
         const val ITUNES_URL = "https://itunes.apple.com"

@@ -1,7 +1,6 @@
 package com.example.playlistmaker
 
 import android.content.Context
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -49,7 +48,5 @@ class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflate
             .placeholder(R.drawable.placeholder)
             .transform(RoundedCorners(cornerRadiusPx))
             .into(artworkImageView)
-
-        Log.d("MyApp", "TrackViewHolder: Оторажен трек $track")
     }
 }

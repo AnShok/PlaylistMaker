@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/artwork_image_view"
         style="@style/SmallImageTrack"
-        tools:background="#9C9C9C"/>
+        tools:background="@drawable/placeholder"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -24,9 +24,12 @@
 
         <TextView
             android:id="@+id/track_name_text_view"
-            style="@style/TextStyleTrackName"
+            style="@style/TextStyleRegular"
+            android:textSize="@dimen/string_text_size_16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             tools:text="Название трека"/>
 
         <LinearLayout
@@ -38,10 +41,13 @@
             <TextView
                 android:id="@+id/artist_name_text_view"
                 style="@style/TextStyleArtistAndTime"
+                android:textSize="@dimen/string_text_size_11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
                 tools:text="Название артиста"/>
 
             <ImageView
@@ -51,15 +57,18 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_dot"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0"/>
+                android:layout_weight="0" />
 
             <TextView
                 android:id="@+id/track_time_text_view"
                 style="@style/TextStyleArtistAndTime"
+                android:textSize="@dimen/string_text_size_11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
+                android:ellipsize="end"
+                android:maxLines="1"
                 tools:text="45:05"/>
         </LinearLayout>
 
