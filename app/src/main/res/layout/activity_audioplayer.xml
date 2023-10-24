@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/indent_56"
         android:background="@android:color/transparent"
-        android:src="@drawable/play_pause_button_day"
+        android:src="@drawable/play_button_day"
         app:layout_constraintBottom_toTopOf="@+id/track_duration"
         app:layout_constraintEnd_toStartOf="@+id/right_border"
         app:layout_constraintStart_toEndOf="@+id/left_border" />
@@ -137,8 +137,7 @@
         android:layout_marginBottom="@dimen/indent_36"
         app:layout_constraintBottom_toTopOf="@+id/track_duration"
         app:layout_constraintEnd_toStartOf="@+id/right_border"
-        app:layout_constraintStart_toStartOf="@+id/left_border"
-        tools:text="0:00" />
+        app:layout_constraintStart_toStartOf="@+id/left_border" />
 
     <!-- Продолжительность трека -->
     <TextView

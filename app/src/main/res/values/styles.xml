@@ -11,7 +11,7 @@
 
         <!-- MainActivityStyle -->
             <style name="MainActivityStyle" parent="BaseActivityStyle">
-                <item name="android:background">@color/blue</item>
+                <item name="android:background">@color/YP_blue</item>
             </style>
 
         <!-- ActivityStyle -->
