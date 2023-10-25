@@ -21,8 +21,3 @@ data class Track(
         return artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
     }
 }
-
-data class TracksResponse(
-    val resultCount: Int,
-    val results: List<Track>
-)

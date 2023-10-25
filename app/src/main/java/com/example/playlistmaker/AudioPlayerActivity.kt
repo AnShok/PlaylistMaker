@@ -146,7 +146,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
                 val duration = mediaPlayer.duration
                 val formattedDuration = SimpleDateFormat("mm:ss", Locale.getDefault()).format(duration)
-                binding.trackDuration.text = formattedDuration
+
             }
             mediaPlayer.setOnCompletionListener {
                 playPauseButton?.setImageResource(R.drawable.play_button_day)

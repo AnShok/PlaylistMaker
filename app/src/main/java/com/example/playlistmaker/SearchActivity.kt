@@ -24,7 +24,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.playlistmaker.Utils.formatTrackDuration
 
 
 class SearchActivity : AppCompatActivity() {
@@ -172,34 +171,16 @@ class SearchActivity : AppCompatActivity() {
 
         loadSearchHistory()
 
+        //Переход на экран аудиоплеера
         searchAdapter.setOnItemClickListener(object : SearchTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
-                if (clickDebounce()) {
-                    //Интент для перехода на экран аудиоплеера
-                    val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
-
-                    //Данные о треке
-                    audioPlayerIntent.putExtra("track", track)
-                    startActivity(audioPlayerIntent)
-
-                    addToSearchHistory(track)
-                }
+                startAudioPlayer(track)
             }
         })
-
+        //Переход на экран аудиоплеера
         historyAdapter.setOnItemClickListener(object : HistoryTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
-                if (clickDebounce()) {
-                    //Интент для перехода на экран аудиоплеера
-                    val audioPlayerIntent =
-                        Intent(this@SearchActivity, AudioPlayerActivity::class.java)
-
-                    //Данные о треке
-                    audioPlayerIntent.putExtra("track", track)
-                    startActivity(audioPlayerIntent)
-
-                    addToSearchHistory(track)
-                }
+                startAudioPlayer(track)
             }
         })
     }
@@ -357,6 +338,19 @@ class SearchActivity : AppCompatActivity() {
     private fun searchDebounce() {
         handler.removeCallbacks(searchRunnable)
         handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
+    private fun startAudioPlayer(track: Track) {
+        if (clickDebounce()) {
+            //Интент для перехода на экран аудиоплеера
+            val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
+
+            //Данные о треке
+            audioPlayerIntent.putExtra("track", track)
+            startActivity(audioPlayerIntent)
+
+            addToSearchHistory(track)
+        }
     }
 
     companion object {
