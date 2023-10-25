@@ -13,15 +13,11 @@ data class Track(
     val collectionName: String?,
     val releaseDate: String,
     val primaryGenreName: String,
-    val country: String
+    val country: String,
+    val previewUrl: String
 ) : Parcelable {
     //Функция расширения для форматирования обложки
     fun  getArtworkUrl512(): String {
         return artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
     }
 }
-
-data class TracksResponse(
-    val resultCount: Int,
-    val results: List<Track>
-)
