@@ -33,5 +33,6 @@
     <string name="track_release_year">Год релиза</string>
     <string name="album_name">Название альбома</string>
     <string name="track_duration">Продолжительность</string>
+    <string name="audio_file_not_available">Файл не доступен</string>
 
 </resources>

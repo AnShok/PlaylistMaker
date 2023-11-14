@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.activities.search
 
 import android.content.Context
 import android.content.Intent
@@ -24,6 +24,15 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.playlistmaker.data.network.ItunesApi
+import com.example.playlistmaker.R
+import com.example.playlistmaker.data.repository.SearchHistory
+import com.example.playlistmaker.domain.models.Track
+import com.example.playlistmaker.data.dto.TracksResponse
+import com.example.playlistmaker.domain.models.TrackSearchResult
+import com.example.playlistmaker.presentation.adapters.HistoryTracksAdapter
+import com.example.playlistmaker.presentation.adapters.SearchTracksAdapter
+import com.example.playlistmaker.presentation.activities.player.AudioPlayerActivity
 
 
 class SearchActivity : AppCompatActivity() {

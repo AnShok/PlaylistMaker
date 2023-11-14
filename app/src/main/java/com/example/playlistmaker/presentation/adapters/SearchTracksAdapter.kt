@@ -1,16 +1,17 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.domain.models.Track
 
 
-class HistoryTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
+class SearchTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
 
-    var historyTracks = ArrayList<Track>()
-    private var itemClickListener: SearchTracksAdapter.OnItemClickListener? = null
+    var searchTracks = ArrayList<Track>()
+    private var itemClickListener: OnItemClickListener? = null
 
-    interface OnItemClickListener : SearchTracksAdapter.OnItemClickListener {
-        override fun onItemClick(track: Track)
+    interface OnItemClickListener {
+        fun onItemClick(track: Track)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -23,7 +24,7 @@ class HistoryTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
 
     // Привязка данных к ViewHolder и отображение элемента списка
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        val track = historyTracks[position]
+        val track = searchTracks[position]
         holder.bind(track)
         holder.itemView.setOnClickListener {
             itemClickListener?.onItemClick(track)
@@ -31,5 +32,5 @@ class HistoryTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
     }
 
     // Возвращает общее количество элементов в списке
-    override fun getItemCount(): Int = historyTracks.size
+    override fun getItemCount(): Int = searchTracks.size
 }
