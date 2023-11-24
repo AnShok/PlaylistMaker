@@ -1,7 +1,16 @@
 package com.example.playlistmaker.domain.api.track
 
-import com.example.playlistmaker.domain.models.Track
+import com.example.playlistmaker.domain.models.TrackSearchResult
 
+/**
+ * Интерфейс репозитория для поиска треков.
+ */
 interface TrackRepository {
-    fun searchTracks(expression: String): List<Track>
+    /**
+     * Выполняет поиск треков по заданному выражению.
+     *
+     * @param expression Выражение для поиска треков.
+     * @return Результаты поиска в виде [TrackSearchResult].
+     */
+    fun searchTracks(expression: String): TrackSearchResult
 }

@@ -3,25 +3,30 @@ package com.example.playlistmaker.data.repository
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.example.playlistmaker.App
 import com.example.playlistmaker.domain.api.track_history.TrackHistoryRepository
 import com.example.playlistmaker.domain.models.Track
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class TrackHistoryRepositoryImpl(app: Application): TrackHistoryRepository {
+/**
+ * Реализация интерфейса TrackHistoryRepository для управления историей поиска треков.
+ */
+class TrackHistoryRepositoryImpl(app: Application) : TrackHistoryRepository {
 
-    private var sharedPreferences: SharedPreferences = app.getSharedPreferences(SEARCH_HISTORY, MODE_PRIVATE)
+    private var sharedPreferences: SharedPreferences =
+        app.getSharedPreferences(SEARCH_HISTORY, MODE_PRIVATE)
 
     private val gson = Gson()
+
+    // добавление трека в историю поиска
     override fun addToSearchHistory(track: Track) {
-            val history = loadSearchHistory()
-            history.removeAll { it == track }
-            history.add(0, track)
-            if (history.size > MAX_HISTORY_SIZE) {
-                history.removeAt(MAX_HISTORY_SIZE)
-            }
-            saveSearchHistory(history)
+        val history = loadSearchHistory()
+        history.removeAll { it == track }
+        history.add(0, track)
+        if (history.size > MAX_HISTORY_SIZE) {
+            history.removeAt(MAX_HISTORY_SIZE)
+        }
+        saveSearchHistory(history)
     }
 
     // Загрузка истории поиска из SharedPreferences

@@ -3,7 +3,11 @@ package com.example.playlistmaker.domain.impl.track_history
 import com.example.playlistmaker.domain.api.track_history.TrackHistoryInteractor
 import com.example.playlistmaker.domain.api.track_history.TrackHistoryRepository
 import com.example.playlistmaker.domain.models.Track
-
+/**
+ * Реализация интерфейса [TrackHistoryInteractor] для взаимодействия с историей поиска треков.
+ *
+ * @param trackHistoryRepository Репозиторий истории поиска треков.
+ */
 class TrackHistoryInteractorImpl(private val trackHistoryRepository: TrackHistoryRepository) :
     TrackHistoryInteractor {
 

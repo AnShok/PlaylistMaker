@@ -3,6 +3,9 @@ package com.example.playlistmaker.domain.models
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Класс [Track] представляет собой модель трека в приложении.
+ */
 @Parcelize
 data class Track(
     val trackId: String,

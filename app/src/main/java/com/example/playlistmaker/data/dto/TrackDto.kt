@@ -1,5 +1,8 @@
 package com.example.playlistmaker.data.dto
 
+/**
+ * Data-класс, представляющий модель данных трека из внешнего источника.
+ */
 data class TrackDto(
     val trackId: String,
     val trackName: String,

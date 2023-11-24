@@ -19,28 +19,35 @@ import com.example.playlistmaker.presentation.adapters.SearchTracksAdapter
 
 class SearchActivity : AppCompatActivity() {
 
+    // Переменные для работы с темой
     private var isDayTheme: Boolean = true
 
     private var isClickAllowed = true
 
+    // Объявление хэндлера для работы с задачами в основном потоке
     private val handler = Handler(Looper.getMainLooper())
 
+    // Объявление адаптеров для результатов поиска и истории поиска
     private val searchAdapter = SearchTracksAdapter() // Объявление адаптера для результатов поиска
     private val historyAdapter = HistoryTracksAdapter() // Объявление адаптера для истории поиска
+
+    // Инициализация контроллера для поиска треков
     private val tracksSearchController = Creator.provideTracksSearchController(this, searchAdapter, historyAdapter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        // Инициализация контроллера поиска при создании
         tracksSearchController.onCreate()
 
+        // Настройка кнопки Назад для закрытия активити
         val backButton = findViewById<Button>(R.id.button_back)
-        //Кнопка Назад - закрытие активити
         backButton.setOnClickListener {
             finish()
         }
 
+        // Восстановление состояния при повороте или восстановлении активити
         if (savedInstanceState != null) {
             tracksSearchController.lastSearchText = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения lastSearchText из сохраненного состояния
             tracksSearchController.textSearch = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения textSearch из сохраненного состояния
@@ -58,7 +65,7 @@ class SearchActivity : AppCompatActivity() {
         setTheme()
 
 
-        //Переход на экран аудиоплеера
+        // Настройка слушателей нажатия для перехода на экран аудиоплеера
         tracksSearchController.searchAdapter.setOnItemClickListener(object : SearchTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
                 startAudioPlayer(track)
@@ -89,6 +96,7 @@ class SearchActivity : AppCompatActivity() {
         )
     }
 
+    // Метод устанавливает тему (день/ночь)
     private fun setTheme() {
         if (isDayTheme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -103,7 +111,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    //Функция позволяет нажать на элемент списка не чаще одного раза в секунду
+    // Метод позволяет нажимать на элемент списка не чаще одного раза в секунду
     private fun clickDebounce() : Boolean {
         val current = isClickAllowed
         if (isClickAllowed) {
@@ -113,6 +121,7 @@ class SearchActivity : AppCompatActivity() {
         return current
     }
 
+    // Метод для перехода на экран аудиоплеера
     private fun startAudioPlayer(track: Track) {
         if (clickDebounce()) {
             //Интент для перехода на экран аудиоплеера

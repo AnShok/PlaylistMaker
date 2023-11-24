@@ -41,6 +41,7 @@ class AudioPlayerRepositoryImpl : AudioPlayerRepository {
         mediaPlayer.start()
         playerState = AudioPlayerStatus.STATE_PLAYING
     }
+
     /**
      * Приостановка воспроизведения аудиоплеера.
      */
@@ -48,6 +49,7 @@ class AudioPlayerRepositoryImpl : AudioPlayerRepository {
         mediaPlayer.pause()
         playerState = AudioPlayerStatus.STATE_PAUSED
     }
+
     /**
      * Получение статуса и текущей позиции аудиоплеера.
      * @return AudioPlayerProgressStatus - объект, содержащий статус и текущую позицию.
@@ -91,6 +93,7 @@ class AudioPlayerRepositoryImpl : AudioPlayerRepository {
             }
         }
     }
+
     /**
      * Освобождение ресурсов аудиоплеера.
      */

@@ -76,6 +76,10 @@ object Creator {
     fun provideTrackInteractor() : TrackInteractor {
         return TrackInteractorImpl(getTracksRepository())
     }
+    /**
+     * Получение репозитория для работы с треками.
+     * @return TrackRepository - объект для работы с треками.
+     */
     private fun getTracksRepository() : TrackRepository {
         return TrackRepositoryImpl(RetrofitNetworkClient())
     }
@@ -84,11 +88,15 @@ object Creator {
     fun provideTrackHistoryInteractor(): TrackHistoryInteractor {
         return TrackHistoryInteractorImpl(getTrackHistoryRepository())
     }
+    /**
+     * Получение репозитория для работы с историей поиска.
+     * @return TrackHistoryRepository - объект для работы с историей поиска.
+     */
     private fun getTrackHistoryRepository() : TrackHistoryRepository {
         return TrackHistoryRepositoryImpl(app)
     }
 
-    //Добавим инициализацию контроллера в Creator:
+    //инициализацию контроллера в Creator:
     fun provideTracksSearchController(activity: Activity, searchAdapter: SearchTracksAdapter, historyAdapter: HistoryTracksAdapter): TracksSearchController {
         return TracksSearchController(activity, searchAdapter, historyAdapter)
     }

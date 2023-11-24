@@ -8,9 +8,10 @@ import java.io.Serializable
  * Реализация интерфейса ThemeRepository для работы с настройками темы.
  * Использует SharedPreferences для хранения настроек темы.
  */
-class ThemeRepositoryImpl (app: Application): ThemeRepository, Serializable, Application() {
+class ThemeRepositoryImpl(app: Application) : ThemeRepository, Serializable, Application() {
     // SharedPreferences для хранения настроек темы
-    private val sharedPreferences = app.getSharedPreferences(APPLICATION_THEME_SHARED_FILE_NAME, MODE_PRIVATE)
+    private val sharedPreferences =
+        app.getSharedPreferences(APPLICATION_THEME_SHARED_FILE_NAME, MODE_PRIVATE)
 
     /**
      * Получение текущей настройки темы из SharedPreferences.

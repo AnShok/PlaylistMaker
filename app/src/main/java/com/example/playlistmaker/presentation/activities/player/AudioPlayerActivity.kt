@@ -43,9 +43,9 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         // Получение трека из intent
         val track = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("track", Track::class.java)!!
+            intent.getParcelableExtra(TRACK, Track::class.java)!!
         } else {
-            intent.getParcelableExtra("track")!!
+            intent.getParcelableExtra(TRACK)!!
         }
 
         // Привязка данных трека к вьюшкам
@@ -86,8 +86,7 @@ class AudioPlayerActivity : AppCompatActivity() {
                     AudioPlayerStatus.STATE_PLAYING -> {
                         updateProgressHandler.postDelayed(this, 300)
                         binding.trackPlaybackTime.text =
-                            SimpleDateFormat("mm:ss", Locale.getDefault()).format(
-                                audioPlayerProgressStatus.currentPosition
+                            timeFormat.format(audioPlayerProgressStatus.currentPosition
                             )
                     }
 
@@ -97,7 +96,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
                     else -> {
                         updateProgressHandler.removeCallbacks(this)
-                        binding.trackPlaybackTime.text = "00:00"
+                        binding.trackPlaybackTime.text = formatTime(0)
                     }
                 }
 
@@ -118,8 +117,7 @@ class AudioPlayerActivity : AppCompatActivity() {
     private fun bindingTrackDataInActivity(track: Track) {
         binding.trackName.text = track.trackName
         binding.artistName.text = track.artistName
-        binding.trackTimeMillis.text =
-            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
+        binding.trackTimeMillis.text = timeFormat.format(track.trackTimeMillis)
         binding.albumName.text = track.collectionName ?: ""
         binding.releaseYearName.text = Utils.formattedReleaseDate(track.releaseDate)
         binding.genreName.text = track.primaryGenreName
@@ -128,7 +126,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         // Улучшение качества обложки
         val artworkUrl512 = Utils.getArtworkUrl512(track.artworkUrl100)
         // Скругление обложки
-        val cornerRadiusDp = 8f
+        val cornerRadiusDp = CORNER_RADIUS_DP
         val cornerRadiusPx = dpToPx(cornerRadiusDp)
 
         Glide.with(this)
@@ -146,7 +144,7 @@ class AudioPlayerActivity : AppCompatActivity() {
     // Перевод dp в px
     private fun dpToPx(dp: Float): Int {
         val density = resources.displayMetrics.density
-        return (dp * density + 0.5f).toInt()
+        return (dp * density).toInt()
     }
 
     // Запуск воспроизведения аудиоплеера
@@ -177,5 +175,16 @@ class AudioPlayerActivity : AppCompatActivity() {
     // Отображение сообщения
     private fun showMassage() {
         Toast.makeText(this, getString(R.string.audio_file_not_available), Toast.LENGTH_LONG).show()
+    }
+
+    private val timeFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }
+
+    private fun formatTime(timeInMillis: Long): String {
+        return timeFormat.format(timeInMillis)
+    }
+    private companion object {
+        const val TRACK = "track"
+        private const val ARTWORK_QUALITY_512 = 512
+        private const val CORNER_RADIUS_DP = 8f
     }
 }
