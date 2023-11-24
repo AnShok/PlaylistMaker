@@ -2,34 +2,37 @@ package com.example.playlistmaker
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.playlistmaker.data.repository.SettingsThemeManager
+import com.example.playlistmaker.domain.api.settings.ThemeInteractor
 
+/**
+ * Класс приложения, расширяющий Application.
+ * Отвечает за инициализацию приложения, управление темой и взаимодействие с ThemeInteractor.
+ */
 class App : Application() {
 
-    lateinit var settingsThemeManager: SettingsThemeManager
+    // Интерфейс для взаимодействия с настройками темы
+    private lateinit var themeInteractor: ThemeInteractor
 
     override fun onCreate() {
         super.onCreate()
-        settingsThemeManager = SettingsThemeManager(applicationContext)
-        applyThemeFromSettings()
+        Creator.initApplication(this) // Инициализация приложения с помощью Creator
+        themeInteractor = Creator.provideThemeInteractor() // Получение ThemeInteractor с использованием Creator
+        switchTheme(themeInteractor.getThemeFromShared()) // Применение текущей темы
     }
 
-    fun switchTheme(darkthemeEnabled: Boolean) {
-        settingsThemeManager.setDarkThemeEnabled(darkthemeEnabled)
-        applyThemeFromSettings()
-    }
-
-    private fun applyThemeFromSettings() {
-        //Проверка состояния перекл.чателя из sharedPref
-        val isDarkThemeEnabled = settingsThemeManager.isDarkThemeEnabled()
-
-        // Установка темы приложения в зависимости от системных настроек
+    /**
+     * Метод для смены темы приложения.
+     *
+     * @param darkThemeEnabled флаг, указывающий включена ли темная тема
+     */
+    fun switchTheme(darkThemeEnabled: Boolean) {
         AppCompatDelegate.setDefaultNightMode(
-            if (isDarkThemeEnabled) {
+            if (darkThemeEnabled) {
                 AppCompatDelegate.MODE_NIGHT_YES
             } else {
-                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM //слежка за системной темой
+                AppCompatDelegate.MODE_NIGHT_NO
             }
         )
+        themeInteractor.setThemeToShared(darkThemeEnabled) // Обновление настройки темы в ThemeInteractor
     }
 }
