@@ -1,8 +1,11 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.domain.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Класс [Track] представляет собой модель трека в приложении.
+ */
 @Parcelize
 data class Track(
     val trackId: String,
@@ -15,9 +18,4 @@ data class Track(
     val primaryGenreName: String,
     val country: String,
     val previewUrl: String
-) : Parcelable {
-    //Функция расширения для форматирования обложки
-    fun  getArtworkUrl512(): String {
-        return artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
-    }
-}
+) : Parcelable

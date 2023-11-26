@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.activities.settings
 
 import android.content.Intent
 import android.net.Uri
@@ -6,19 +6,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import com.example.playlistmaker.App
+import com.example.playlistmaker.Creator
+import com.example.playlistmaker.R
+import com.example.playlistmaker.domain.api.settings.ThemeInteractor
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var themeSwitcher: SwitchMaterial
-    private lateinit var settingsThemeManager: SettingsThemeManager
+    private lateinit var themeInteractorImpl: ThemeInteractor
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        settingsThemeManager = SettingsThemeManager(this)
+        themeInteractorImpl = Creator.provideThemeInteractor()
 
         //Нахождение элементов интерфейса
         val backButton = findViewById<Button>(R.id.button_back)
@@ -28,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
         themeSwitcher = findViewById(R.id.theme_switcher)
 
         //определение текущей темы
-        val isDarkThemeEnabled = settingsThemeManager.isDarkThemeEnabled()
+        val isDarkThemeEnabled = themeInteractorImpl.getThemeFromShared()
 
         //Установка состояния переключателя
         themeSwitcher.isChecked = isDarkThemeEnabled

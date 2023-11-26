@@ -1,15 +1,36 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.data.repository
 
+import android.app.Application
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import com.example.playlistmaker.domain.api.track_history.TrackHistoryRepository
+import com.example.playlistmaker.domain.models.Track
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class SearchHistory(private val sharedPreferences: SharedPreferences) {
+/**
+ * Реализация интерфейса TrackHistoryRepository для управления историей поиска треков.
+ */
+class TrackHistoryRepositoryImpl(app: Application) : TrackHistoryRepository {
+
+    private var sharedPreferences: SharedPreferences =
+        app.getSharedPreferences(SEARCH_HISTORY, MODE_PRIVATE)
 
     private val gson = Gson()
 
+    // добавление трека в историю поиска
+    override fun addToSearchHistory(track: Track) {
+        val history = loadSearchHistory()
+        history.removeAll { it == track }
+        history.add(0, track)
+        if (history.size > MAX_HISTORY_SIZE) {
+            history.removeAt(MAX_HISTORY_SIZE)
+        }
+        saveSearchHistory(history)
+    }
+
     // Загрузка истории поиска из SharedPreferences
-    fun loadSearchHistory(): ArrayList<Track> {
+    override fun loadSearchHistory(): ArrayList<Track> {
         val historyJson = sharedPreferences.getString(SEARCH_HISTORY_KEY, null)
         return if (historyJson != null) {
             val type = object : TypeToken<ArrayList<Track>>() {}.type
@@ -20,7 +41,7 @@ class SearchHistory(private val sharedPreferences: SharedPreferences) {
     }
 
     // Сохранение истории поиска в SharedPreferences
-    fun saveSearchHistory(history: ArrayList<Track>) {
+    override fun saveSearchHistory(history: ArrayList<Track>) {
         val historyToSave = if (history.size > MAX_HISTORY_SIZE) {
             ArrayList(history.subList(0, MAX_HISTORY_SIZE))
         } else {
@@ -33,7 +54,7 @@ class SearchHistory(private val sharedPreferences: SharedPreferences) {
     }
 
     // Очистка истории
-    fun clearSearchHistory() {
+    override fun clearSearchHistory() {
         val editor = sharedPreferences.edit()
         editor.remove(SEARCH_HISTORY_KEY)
         editor.apply()
@@ -41,6 +62,7 @@ class SearchHistory(private val sharedPreferences: SharedPreferences) {
 
     companion object {
         private const val SEARCH_HISTORY_KEY = "SEARCH_HISTORY"
+        private const val SEARCH_HISTORY = "SearchHistory"
         const val MAX_HISTORY_SIZE = 10
     }
 }
