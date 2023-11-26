@@ -7,6 +7,6 @@ package com.example.playlistmaker.domain.models
  * @property resultStatus Статус результата поиска (по умолчанию [SearchStatus.DEFAULT]).
  */
 data class TrackSearchResult(
-    var tracks: List<Track>,
+    val tracks: List<Track>,
     var resultStatus: SearchStatus = SearchStatus.DEFAULT
 )

@@ -187,7 +187,6 @@ class TracksSearchController(
                                         tracksList.visibility = View.VISIBLE
                                         searchAdapter.notifyDataSetChanged()
                                         hidePlaceholders()
-                                        searchHistoryLayout.visibility = View.VISIBLE
                                     } else {
                                         // Показывает nothingFoundPlaceholder в случае пустого результата
                                         showNothingFoundPlaceholder()
