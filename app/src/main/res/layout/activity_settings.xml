@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/ActivityStyle"
-    tools:context=".presentation.activities.settings.SettingsActivity">
+    tools:context=".ui.settings.activity.SettingsActivity">
 
 
     <LinearLayout
@@ -61,7 +61,7 @@
                 android:text="@string/share_app" />
 
             <ImageView
-                android:id="@+id/ic_share_app"
+                android:id="@+id/share_app"
                 style="@style/IcStyle"
                 android:layout_gravity="end"
                 android:contentDescription="@string/share_app"
@@ -85,7 +85,7 @@
                 android:text="@string/write_to_support" />
 
             <ImageView
-                android:id="@+id/ic_write_to_support"
+                android:id="@+id/open_support"
                 style="@style/IcStyle"
                 android:layout_gravity="end"
                 android:contentDescription="@string/write_to_support"
@@ -109,7 +109,7 @@
                 android:text="@string/terms_of_use" />
 
             <ImageView
-                android:id="@+id/ic_terms_of_use"
+                android:id="@+id/open_terms"
                 style="@style/IcStyle"
                 android:layout_gravity="end"
                 android:contentDescription="@string/terms_of_use"

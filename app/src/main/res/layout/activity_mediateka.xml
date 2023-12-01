@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:background="@color/YP_White"
-    tools:context=".presentation.activities.mediateka.MediatekaActivity">
+    tools:context=".ui.mediateka.MediatekaActivity">
 
     <TextView
         android:id="@+id/just_txt_mediateka_screen"
