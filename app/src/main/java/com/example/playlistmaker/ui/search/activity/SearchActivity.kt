@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.R
 import com.example.playlistmaker.domain.search.model.Track
-import com.example.playlistmaker.ui.player.AudioPlayerActivity
+import com.example.playlistmaker.ui.player.activity.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
 import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
 
@@ -129,6 +129,9 @@ class SearchActivity : AppCompatActivity() {
 
             //Данные о треке
             audioPlayerIntent.putExtra("track", track)
+
+            // Добавление флага FLAG_ACTIVITY_SINGLE_TOP
+            audioPlayerIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(audioPlayerIntent)
 
             tracksSearchController.addToSearchHistory(track)
