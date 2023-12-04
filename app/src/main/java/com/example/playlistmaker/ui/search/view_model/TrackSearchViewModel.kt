@@ -26,7 +26,7 @@ import com.example.playlistmaker.ui.search.activity.SearchActivity
 import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
 import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
 
-class TracksSearchController(
+class TrackSearchViewModel(
     private val activity: Activity,
     val searchAdapter: SearchTracksAdapter,
     val historyAdapter: HistoryTracksAdapter
@@ -66,7 +66,7 @@ class TracksSearchController(
         errorPlaceholder = activity.findViewById(R.id.error_placeholder)
         errorText = activity.findViewById(R.id.error_text)
         clearButton = activity.findViewById(R.id.clear_icon)
-        tracksList = activity.findViewById(R.id.recycler_view)
+        tracksList = activity.findViewById(R.id.tracks_list)
         queryInput =
             activity.findViewById(R.id.input_edit_text) // инициализация inputEditText в onCreate
         refreshButton = activity.findViewById(R.id.refresh_button)

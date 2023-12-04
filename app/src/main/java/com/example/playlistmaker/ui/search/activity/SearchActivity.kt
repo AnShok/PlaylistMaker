@@ -32,14 +32,14 @@ class SearchActivity : AppCompatActivity() {
     private val historyAdapter = HistoryTracksAdapter() // Объявление адаптера для истории поиска
 
     // Инициализация контроллера для поиска треков
-    private val tracksSearchController = Creator.provideTracksSearchController(this, searchAdapter, historyAdapter)
+    private val TrackSearchViewModel = Creator.provideTracksSearchController(this, searchAdapter, historyAdapter)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
         // Инициализация контроллера поиска при создании
-        tracksSearchController.onCreate()
+        TrackSearchViewModel.onCreate()
 
         // Настройка кнопки Назад для закрытия активити
         val backButton = findViewById<Button>(R.id.button_back)
@@ -49,11 +49,11 @@ class SearchActivity : AppCompatActivity() {
 
         // Восстановление состояния при повороте или восстановлении активити
         if (savedInstanceState != null) {
-            tracksSearchController.lastSearchText = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения lastSearchText из сохраненного состояния
-            tracksSearchController.textSearch = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения textSearch из сохраненного состояния
-            tracksSearchController.queryInput.setText(tracksSearchController.textSearch) //Восстановление текст в EditText из сохраненного состояния
-            if (tracksSearchController.textSearch.isNotEmpty()) {
-                tracksSearchController.performSearch()
+            TrackSearchViewModel.lastSearchText = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения lastSearchText из сохраненного состояния
+            TrackSearchViewModel.textSearch = savedInstanceState.getString(TEXT_SEARCH, "") //Восстановление значения textSearch из сохраненного состояния
+            TrackSearchViewModel.queryInput.setText(TrackSearchViewModel.textSearch) //Восстановление текст в EditText из сохраненного состояния
+            if (TrackSearchViewModel.textSearch.isNotEmpty()) {
+                TrackSearchViewModel.performSearch()
             }
         }
 
@@ -66,13 +66,13 @@ class SearchActivity : AppCompatActivity() {
 
 
         // Настройка слушателей нажатия для перехода на экран аудиоплеера
-        tracksSearchController.searchAdapter.setOnItemClickListener(object : SearchTracksAdapter.OnItemClickListener {
+        TrackSearchViewModel.searchAdapter.setOnItemClickListener(object : SearchTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
                 startAudioPlayer(track)
             }
         })
         //Переход на экран аудиоплеера
-        tracksSearchController.historyAdapter.setOnItemClickListener(object : HistoryTracksAdapter.OnItemClickListener {
+        TrackSearchViewModel.historyAdapter.setOnItemClickListener(object : HistoryTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
                 startAudioPlayer(track)
             }
@@ -81,18 +81,18 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        tracksSearchController.onDestroy()
+        TrackSearchViewModel.onDestroy()
     }
 
     override fun onResume() {
         super.onResume()
-        tracksSearchController.onResume()
+        TrackSearchViewModel.onResume()
 
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        tracksSearchController.onSaveInstanceState(outState
+        TrackSearchViewModel.onSaveInstanceState(outState
         )
     }
 
@@ -134,7 +134,7 @@ class SearchActivity : AppCompatActivity() {
             audioPlayerIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(audioPlayerIntent)
 
-            tracksSearchController.addToSearchHistory(track)
+            TrackSearchViewModel.addToSearchHistory(track)
         }
     }
 

@@ -23,7 +23,7 @@ import com.example.playlistmaker.domain.search.impl.TrackHistoryInteractorImpl
 import com.example.playlistmaker.domain.sharing.SharingInteractor
 import com.example.playlistmaker.domain.sharing.SharingRepository
 import com.example.playlistmaker.domain.sharing.impl.SharingInteractorImpl
-import com.example.playlistmaker.ui.search.view_model.TracksSearchController
+import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
 import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
 
@@ -102,8 +102,8 @@ object Creator {
     }
 
     //инициализацию контроллера в Creator:
-    fun provideTracksSearchController(activity: Activity, searchAdapter: SearchTracksAdapter, historyAdapter: HistoryTracksAdapter): TracksSearchController {
-        return TracksSearchController(activity, searchAdapter, historyAdapter)
+    fun provideTracksSearchController(activity: Activity, searchAdapter: SearchTracksAdapter, historyAdapter: HistoryTracksAdapter): TrackSearchViewModel {
+        return TrackSearchViewModel(activity, searchAdapter, historyAdapter)
     }
 
     //Работа по отправки инф.о приложении
