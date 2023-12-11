@@ -6,7 +6,9 @@ package com.example.playlistmaker.domain.search.model
 enum class SearchStatus {
     DEFAULT,
     RESPONSE_RECEIVED,
-    NETWORK_ERROR
+    NETWORK_ERROR,
+    LOADING,
+    NOTHING_FOUND,
 }
 
 

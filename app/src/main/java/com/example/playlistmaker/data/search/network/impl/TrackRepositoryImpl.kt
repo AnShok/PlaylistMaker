@@ -31,7 +31,11 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
                         convertToTrack(it)
                     }
                     TrackSearchResult(tracks).apply {
-                        resultStatus = SearchStatus.RESPONSE_RECEIVED
+                        if (tracks.isEmpty()) {
+                            resultStatus = SearchStatus.NOTHING_FOUND
+                        } else {
+                            resultStatus = SearchStatus.RESPONSE_RECEIVED
+                        }
                     }
                 }
 

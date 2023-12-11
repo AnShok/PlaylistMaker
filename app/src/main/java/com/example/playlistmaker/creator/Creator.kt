@@ -23,9 +23,9 @@ import com.example.playlistmaker.domain.search.impl.TrackHistoryInteractorImpl
 import com.example.playlistmaker.domain.sharing.SharingInteractor
 import com.example.playlistmaker.domain.sharing.SharingRepository
 import com.example.playlistmaker.domain.sharing.impl.SharingInteractorImpl
-import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
 import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
+import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 
 /**
  * Объект Creator предоставляет методы для создания экземпляров интеракторов и репозиториев.
@@ -101,10 +101,10 @@ object Creator {
         return TrackHistoryRepositoryImpl(app)
     }
 
-    //инициализацию контроллера в Creator:
-    fun provideTracksSearchController(activity: Activity, searchAdapter: SearchTracksAdapter, historyAdapter: HistoryTracksAdapter): TrackSearchViewModel {
-        return TrackSearchViewModel(activity, searchAdapter, historyAdapter)
-    }
+   ////инициализацию контроллера в Creator:
+   //fun provideTracksSearchController(activity: Activity, searchAdapter: SearchTracksAdapter, historyAdapter: HistoryTracksAdapter): TrackSearchViewModel {
+   //    return TrackSearchViewModel(activity, searchAdapter, historyAdapter)
+   //         }
 
     //Работа по отправки инф.о приложении
     fun provideSharingInteractor(): SharingInteractor {

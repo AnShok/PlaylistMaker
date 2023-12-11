@@ -31,7 +31,7 @@ class RetrofitNetworkClient : NetworkClient {
      * @return Response с результатами поиска.
      */
     override fun doTrackSearchRequest(dto: TrackSearchRequest): Response {
-        if (dto is TrackSearchRequest) {
+        if (true) { //dto is TrackSearchRequest
             try {
                 val resp = itunesService.search(dto.expression).execute()
                 val body = resp.body() ?: Response()
