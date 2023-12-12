@@ -1,7 +1,9 @@
 package com.example.playlistmaker.domain.sharing
 
+import android.content.Intent
+
 interface SharingRepository {
-    fun shareApp()
-    fun openSupport()
-    fun openTerms()
+    fun shareApp(): Intent
+    fun openSupport(): Intent
+    fun openTerms(): Intent
 }

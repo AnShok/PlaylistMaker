@@ -11,10 +11,10 @@ import com.google.gson.reflect.TypeToken
 /**
  * Реализация интерфейса TrackHistoryRepository для управления историей поиска треков.
  */
-class TrackHistoryRepositoryImpl(app: Application) : TrackHistoryRepository {
+class TrackHistoryRepositoryImpl(private val sharedPreferences: SharedPreferences) : TrackHistoryRepository {
 
-    private var sharedPreferences: SharedPreferences =
-        app.getSharedPreferences(SEARCH_HISTORY, MODE_PRIVATE)
+    //private var sharedPreferences: SharedPreferences =
+    //    app.getSharedPreferences(SEARCH_HISTORY, MODE_PRIVATE)
 
     private val gson = Gson()
 

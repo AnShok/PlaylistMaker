@@ -1,5 +1,6 @@
 package com.example.playlistmaker.ui.settings.view_model
 
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,20 +14,21 @@ class SettingsViewModel(
     private val isDarkThemeEnabled  = MutableLiveData(getThemeFromShared())
     val darkThemeEnabled: LiveData<Boolean> = isDarkThemeEnabled
 
-    private fun getThemeFromShared() : Boolean {
-        return themeSettingsInteractor.getThemeFromShared()
-    }
+    // Вспомогательная LiveData для обработки событий
+    private val _settingsIntentEvent = MutableLiveData<Intent>()
+    val settingsIntentEvent: LiveData<Intent> = _settingsIntentEvent
+
 
     fun shareApp() {
-        sharingInteractor.shareApp()
+        _settingsIntentEvent.value = sharingInteractor.shareApp()
     }
 
     fun openSupport() {
-        sharingInteractor.openSupport()
+        _settingsIntentEvent.value = sharingInteractor.openSupport()
     }
 
     fun openTerms() {
-        sharingInteractor.openTerms()
+        _settingsIntentEvent.value = sharingInteractor.openTerms()
     }
 
     fun setThemeToShared(status: Boolean) {
@@ -35,6 +37,10 @@ class SettingsViewModel(
 
     fun switchTheme(checked: Boolean){
         themeSettingsInteractor.switchTheme(checked)
+    }
+
+    private fun getThemeFromShared() : Boolean {
+        return themeSettingsInteractor.getThemeFromShared()
     }
 
 

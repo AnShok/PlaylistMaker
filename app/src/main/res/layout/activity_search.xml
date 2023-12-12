@@ -137,7 +137,7 @@
             android:id="@+id/nothing_found_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_nothing_found_day" />
+            android:src="@drawable/ic_nothing_found" />
 
         <TextView
             android:id="@+id/nothing_found_text"
@@ -161,7 +161,7 @@
             android:id="@+id/error_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_error_day" />
+            android:src="@drawable/ic_error" />
 
         <TextView
             android:id="@+id/error_text"

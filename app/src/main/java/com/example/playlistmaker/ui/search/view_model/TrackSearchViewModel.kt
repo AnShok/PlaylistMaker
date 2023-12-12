@@ -16,18 +16,17 @@ class TrackSearchViewModel(
     val trackHistoryInteractor: TrackHistoryInteractor,
 ) : ViewModel(), TrackInteractor.TracksConsumer {
 
-    private val foundTracks: MutableLiveData<TrackSearchResult> =
+    private val _foundTracks: MutableLiveData<TrackSearchResult> =
         MutableLiveData(TrackSearchResult(tracks = emptyList(), SearchStatus.DEFAULT))
 
-    fun getFoundTracks(): LiveData<TrackSearchResult> = foundTracks
-
+    val foundTracks: LiveData<TrackSearchResult> get() = _foundTracks
 
     private var isClickAllowed = true
 
     // Обработчик для задержки выполнения поискового запроса
     private val handler = Handler(Looper.getMainLooper())
     private val searchRunnable = Runnable {
-        foundTracks.postValue(getLoadingStatus())
+        _foundTracks.postValue(getLoadingStatus())
         performSearch()
     }
 
@@ -47,11 +46,11 @@ class TrackSearchViewModel(
     override fun consume(foundTracks: TrackSearchResult) {
         when (foundTracks.resultStatus) {
             SearchStatus.RESPONSE_RECEIVED -> {
-                this.foundTracks.postValue(foundTracks)
+                this._foundTracks.postValue(foundTracks)
             }
 
             SearchStatus.NOTHING_FOUND, SearchStatus.NETWORK_ERROR, SearchStatus.DEFAULT -> {
-                this.foundTracks.postValue(foundTracks)
+                this._foundTracks.postValue(foundTracks)
             }
 
             SearchStatus.LOADING -> {
@@ -95,17 +94,16 @@ class TrackSearchViewModel(
         return current
     }
 
+    fun changeTextSearch(text: String) {
+        textSearch = text
+    }
+
     private fun getLoadingStatus(): TrackSearchResult {
         return TrackSearchResult(
             tracks = emptyList(),
             SearchStatus.LOADING
         )
     }
-
-    fun changeTextSearch(text: String) {
-        textSearch = text
-    }
-
 
     companion object {
         private const val CLICK_DEBOUNCE_DELAY = 1000L

@@ -14,17 +14,13 @@ class AudioPlayerViewModel(private val audioPlayerInteractor: AudioPlayerInterac
 
     private val updateProgressHandler = Handler(Looper.getMainLooper())
 
-    private val audioPlayerProgressStatus: MutableLiveData<AudioPlayerProgressStatus> =
+    private val _audioPlayerProgressStatus: MutableLiveData<AudioPlayerProgressStatus> =
         MutableLiveData(updateAudioPlayerProgressStatus())
-    fun getAudioPlayerProgressStatus(): LiveData<AudioPlayerProgressStatus> = audioPlayerProgressStatus
+    val audioPlayerProgressStatus: LiveData<AudioPlayerProgressStatus> get() = _audioPlayerProgressStatus
 
-    fun onCreate(track: Track) {
+    fun loadTrack(track: Track) {
         audioPlayerInteractor.preparePlayer(track)
-        audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
-    }
-
-    private fun updateAudioPlayerProgressStatus(): AudioPlayerProgressStatus {
-        return audioPlayerInteractor.getAudioPlayerProgressStatus()
+        _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
     }
     fun pauseAudioPlayer() {
         audioPlayerInteractor.pausePlayer()
@@ -35,13 +31,27 @@ class AudioPlayerViewModel(private val audioPlayerInteractor: AudioPlayerInterac
         audioPlayerInteractor.destroyPlayer()
     }
 
+    fun playbackControl() {
+        _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
+        when (_audioPlayerProgressStatus.value!!.audioPlayerStatus) {
+            AudioPlayerStatus.STATE_PLAYING -> pausePlayer()
+            AudioPlayerStatus.STATE_PREPARED, AudioPlayerStatus.STATE_PAUSED -> startPlayer()
+            AudioPlayerStatus.STATE_DEFAULT -> startPlayer()
+            AudioPlayerStatus.STATE_ERROR -> {}
+        }
+    }
+
+    private fun updateAudioPlayerProgressStatus(): AudioPlayerProgressStatus {
+        return audioPlayerInteractor.getAudioPlayerProgressStatus()
+    }
+
     // Обработчик для обновления времени воспроизведения
     private fun updateProgressRunnable(): Runnable {
         return object : Runnable {
             override fun run() {
-                audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
+                _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
 
-                when (audioPlayerProgressStatus.value!!.audioPlayerStatus) {
+                when (_audioPlayerProgressStatus.value!!.audioPlayerStatus) {
                     AudioPlayerStatus.STATE_PLAYING -> {
                         updateProgressHandler.postDelayed(this, 300)
                     }
@@ -62,22 +72,12 @@ class AudioPlayerViewModel(private val audioPlayerInteractor: AudioPlayerInterac
     private fun startPlayer() {
         audioPlayerInteractor.startPlayer()
         updateProgressHandler.post(updateProgressRunnable())
-        audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
+        _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
     }
 
     // Метод для паузы воспроизведения
     private fun pausePlayer() {
         audioPlayerInteractor.pausePlayer()
-        audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
-    }
-
-    fun playbackControl() {
-        audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
-        when (audioPlayerProgressStatus.value!!.audioPlayerStatus) {
-            AudioPlayerStatus.STATE_PLAYING -> pausePlayer()
-            AudioPlayerStatus.STATE_PREPARED, AudioPlayerStatus.STATE_PAUSED -> startPlayer()
-            AudioPlayerStatus.STATE_DEFAULT -> startPlayer()
-            AudioPlayerStatus.STATE_ERROR -> {}
-        }
+        _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
     }
 }

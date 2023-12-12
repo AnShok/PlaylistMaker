@@ -12,12 +12,3 @@ class TrackSearchViewModelFactory: ViewModelProvider.Factory {
         ) as T
     }
 }
-
-//class TrackSearchViewModelFactory(
-//    private val trackInteractor: TrackInteractor,
-//    private val trackHistoryInteractor: TrackHistoryInteractor
-//) : ViewModelProvider.Factory {
-//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//        return TrackSearchViewModel(trackInteractor, trackHistoryInteractor) as T
-//    }
-//}

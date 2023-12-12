@@ -1,6 +1,7 @@
 package com.example.playlistmaker.creator
 
-import android.app.Activity
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import com.example.playlistmaker.app.App
 import com.example.playlistmaker.data.player.impl.AudioPlayerRepositoryImpl
 import com.example.playlistmaker.data.search.network.RetrofitNetworkClient
@@ -23,9 +24,6 @@ import com.example.playlistmaker.domain.search.impl.TrackHistoryInteractorImpl
 import com.example.playlistmaker.domain.sharing.SharingInteractor
 import com.example.playlistmaker.domain.sharing.SharingRepository
 import com.example.playlistmaker.domain.sharing.impl.SharingInteractorImpl
-import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
-import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
-import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 
 /**
  * Объект Creator предоставляет методы для создания экземпляров интеракторов и репозиториев.
@@ -38,9 +36,11 @@ object Creator {
      * @param application экземпляр класса Application для инициализации.
      */
     private lateinit var app: App
+    private lateinit var sharedPreferences: SharedPreferences
 
     fun initApplication(application: App) {
         app = application
+        sharedPreferences = app.getSharedPreferences(SEARCH_HISTORY, MODE_PRIVATE)
     }
 
     //Работа с аудиоплеером.
@@ -97,8 +97,11 @@ object Creator {
      * Получение репозитория для работы с историей поиска.
      * @return TrackHistoryRepository - объект для работы с историей поиска.
      */
+    //private fun getTrackHistoryRepository() : TrackHistoryRepository {
+    //    return TrackHistoryRepositoryImpl(app)
+    //}
     private fun getTrackHistoryRepository() : TrackHistoryRepository {
-        return TrackHistoryRepositoryImpl(app)
+        return TrackHistoryRepositoryImpl(sharedPreferences)
     }
 
    ////инициализацию контроллера в Creator:
@@ -114,6 +117,9 @@ object Creator {
     private fun getSharingRepository(): SharingRepository {
         return SharingRepositoryImpl(app)
     }
+
+
+    private const val SEARCH_HISTORY = "SearchHistory"
 
 }
 

@@ -1,33 +1,21 @@
 package com.example.playlistmaker.domain.sharing.impl
 
+import android.content.Intent
 import com.example.playlistmaker.domain.sharing.SharingInteractor
 import com.example.playlistmaker.domain.sharing.SharingRepository
 
 class SharingInteractorImpl(
     private val repository: SharingRepository,
 ) : SharingInteractor {
-    override fun shareApp() {
-        repository.shareApp()
+    override fun shareApp(): Intent {
+        return repository.shareApp()
     }
 
-    override fun openSupport() {
-        repository.openSupport()
+    override fun openSupport(): Intent {
+        return repository.openSupport()
     }
 
-    override fun openTerms() {
-        repository.openTerms()
+    override fun openTerms(): Intent {
+        return repository.openTerms()
     }
 }
-
-  //  private fun getShareAppLink(): String {
-  //      // Нужно реализовать
-  //  }
-//
-  //  private fun getSupportEmailData(): EmailData {
-  //      // Нужно реализовать
-  //  }
-//
-  //  private fun getTermsLink(): String {
-  //      // Нужно реализовать
-  //  }
-//}

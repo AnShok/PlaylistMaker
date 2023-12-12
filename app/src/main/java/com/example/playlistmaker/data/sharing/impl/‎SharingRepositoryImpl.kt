@@ -7,16 +7,16 @@ import com.example.playlistmaker.app.App
 import com.example.playlistmaker.domain.sharing.SharingRepository
 
 class SharingRepositoryImpl (private val app: App): SharingRepository {
-    override fun shareApp() {
+    override fun shareApp(): Intent {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent . type = "text/plain"
         shareIntent.putExtra(
             Intent.EXTRA_TEXT,(app.getString(R.string.url_terms_of_use))
         )
         shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        app.startActivity(shareIntent)
+        return shareIntent
     }
-    override fun openSupport() {
+    override fun openSupport(): Intent {
         val subject = app.getString(R.string.subject_mail_support)
         val message = app.getString(R.string.message_mail_support)
         val supportIntent = Intent(Intent.ACTION_SENDTO)
@@ -25,12 +25,12 @@ class SharingRepositoryImpl (private val app: App): SharingRepository {
         supportIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("shokin3111@gmail.com"))
         supportIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
         supportIntent.putExtra(Intent.EXTRA_TEXT, message)
-        app.startActivity(supportIntent)
+        return supportIntent
     }
-    override fun openTerms() {
+    override fun openTerms(): Intent {
         val termsOfUseIntent = Intent(Intent.ACTION_VIEW)
         termsOfUseIntent.data = Uri.parse(app.getString(R.string.url_terms_of_use))
         termsOfUseIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        app.startActivity(termsOfUseIntent)
+        return termsOfUseIntent
     }
 }

@@ -28,7 +28,10 @@ import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModelFactor
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
-    private lateinit var viewModel: TrackSearchViewModel
+
+    private val viewModel: TrackSearchViewModel by lazy {
+        ViewModelProvider(this, TrackSearchViewModelFactory())[TrackSearchViewModel::class.java]
+    }
 
     private lateinit var searchTracks: ArrayList<Track>//массив результатов поиска
     private lateinit var historyTracks: ArrayList<Track>//массив для историии поиска
@@ -45,10 +48,8 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel =
-            ViewModelProvider(this, TrackSearchViewModelFactory())[TrackSearchViewModel::class.java]
 
-        viewModel.getFoundTracks().observe(this) { it ->
+        viewModel.foundTracks.observe(this) { it ->
             performSearching(it)
         }
 
@@ -66,8 +67,6 @@ class SearchActivity : AppCompatActivity() {
 
         // Загрузка истории поиска при создании
         loadSearchHistory()
-
-        setupTheme()
 
         setupListenersAdapters()
 
@@ -178,15 +177,6 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupTheme() {
-        //Определение текущей темы день/ночь
-        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        isDayTheme = currentNightMode == Configuration.UI_MODE_NIGHT_NO
-
-        //установка темы
-        setTheme()
-    }
-
     private fun setupListenersAdapters() {
         // Настройка слушателей нажатия для перехода на экран аудиоплеера
         searchAdapter.setOnItemClickListener(object : SearchTracksAdapter.OnItemClickListener {
@@ -238,21 +228,6 @@ class SearchActivity : AppCompatActivity() {
             TEXT_SEARCH,
             viewModel.textSearch
         ) //Сохранение значения textSearch в состояние активити
-    }
-
-    // Метод устанавливает тему (день/ночь)
-    private fun setTheme() {
-        if (isDayTheme) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            //Подстановка изображения для дневной темы
-            binding.nothingFoundImage.setImageResource(R.drawable.ic_nothing_found_day)
-            binding.errorImage.setImageResource(R.drawable.ic_error_day)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            //Подстановка изображения для ночной темы
-            binding.nothingFoundImage.setImageResource(R.drawable.ic_nothing_found_night)
-            binding.errorImage.setImageResource(R.drawable.ic_error_night)
-        }
     }
 
     // Метод для перехода на экран аудиоплеера

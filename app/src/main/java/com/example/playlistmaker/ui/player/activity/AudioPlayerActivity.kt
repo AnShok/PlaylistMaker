@@ -24,15 +24,12 @@ import java.util.*
  */
 class AudioPlayerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAudioplayerBinding
-    private lateinit var viewModel: AudioPlayerViewModel
+    private val viewModel by lazy { ViewModelProvider(this, AudioPlayerViewModelFactory(Creator.provideAudioPlayerInteractor()))[AudioPlayerViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAudioplayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel =
-            ViewModelProvider(this, AudioPlayerViewModelFactory(Creator.provideAudioPlayerInteractor()))[AudioPlayerViewModel::class.java]
 
         // Кнопка для возвращения на предыдущий экран
         binding.backButton.setOnClickListener {
@@ -48,9 +45,9 @@ class AudioPlayerActivity : AppCompatActivity() {
 
         // Привязка данных трека к вьюшкам
         bindingTrackDataInActivity(track)
-        viewModel.onCreate(track)
+        viewModel.loadTrack(track)
 
-        viewModel.getAudioPlayerProgressStatus().observe(this) {audioPlayerProgressStatus ->
+        viewModel.audioPlayerProgressStatus.observe(this) {audioPlayerProgressStatus ->
             playbackControl(audioPlayerProgressStatus)
         }
 
@@ -76,7 +73,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         binding.trackName.text = track.trackName
         binding.artistName.text = track.artistName
         binding.trackTimeMillis.text = timeFormat.format(track.trackTimeMillis)
-        binding.albumName.text = track.collectionName ?: ""
+        binding.albumName.text = track.collectionName.orEmpty()
         binding.releaseYearName.text = Utils.formattedReleaseDate(track.releaseDate)
         binding.genreName.text = track.primaryGenreName
         binding.countryName.text = track.country
@@ -108,12 +105,8 @@ class AudioPlayerActivity : AppCompatActivity() {
                     timeFormat.format(audioPlayerProgressStatus2.currentPosition)
                 binding.playPauseButton.setImageResource(R.drawable.pause_button_day)
             }
-            AudioPlayerStatus.STATE_PREPARED -> {
-                binding.playPauseButton.setImageResource(R.drawable.play_button_day)
-            }
-            AudioPlayerStatus.STATE_PAUSED -> {
-                binding.playPauseButton.setImageResource(R.drawable.play_button_day)
-            }
+            AudioPlayerStatus.STATE_PREPARED -> binding.playPauseButton.setImageResource(R.drawable.play_button_day)
+            AudioPlayerStatus.STATE_PAUSED -> binding.playPauseButton.setImageResource(R.drawable.play_button_day)
             AudioPlayerStatus.STATE_DEFAULT -> {}
             AudioPlayerStatus.STATE_ERROR -> showMassage()
         }
