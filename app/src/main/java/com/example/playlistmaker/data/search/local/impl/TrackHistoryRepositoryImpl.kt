@@ -1,7 +1,5 @@
 package com.example.playlistmaker.data.search.local.impl
 
-import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.example.playlistmaker.domain.search.TrackHistoryRepository
 import com.example.playlistmaker.domain.search.model.Track
@@ -11,12 +9,13 @@ import com.google.gson.reflect.TypeToken
 /**
  * Реализация интерфейса TrackHistoryRepository для управления историей поиска треков.
  */
-class TrackHistoryRepositoryImpl(private val sharedPreferences: SharedPreferences) : TrackHistoryRepository {
+class TrackHistoryRepositoryImpl(val sharedPreferences: SharedPreferences,
+                                 val gson: Gson) : TrackHistoryRepository {
 
     //private var sharedPreferences: SharedPreferences =
     //    app.getSharedPreferences(SEARCH_HISTORY, MODE_PRIVATE)
 
-    private val gson = Gson()
+    //private val gson = Gson()
 
     // добавление трека в историю поиска
     override fun addToSearchHistory(track: Track) {
@@ -62,7 +61,7 @@ class TrackHistoryRepositoryImpl(private val sharedPreferences: SharedPreference
 
     companion object {
         private const val SEARCH_HISTORY_KEY = "SEARCH_HISTORY"
-        private const val SEARCH_HISTORY = "SearchHistory"
+        //private const val SEARCH_HISTORY = "SearchHistory"
         const val MAX_HISTORY_SIZE = 10
     }
 }

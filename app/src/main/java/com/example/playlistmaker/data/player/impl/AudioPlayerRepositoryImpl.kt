@@ -10,10 +10,11 @@ import com.example.playlistmaker.domain.search.model.Track
  * Реализация интерфейса AudioPlayerRepository для работы с аудиоплеером.
  * Использует MediaPlayer для воспроизведения аудио.
  */
-class AudioPlayerRepositoryImpl : AudioPlayerRepository {
+class AudioPlayerRepositoryImpl(private var mediaPlayer: MediaPlayer,
+                                private var playerState: AudioPlayerStatus = AudioPlayerStatus.STATE_DEFAULT) : AudioPlayerRepository {
 
-    private var mediaPlayer = MediaPlayer()
-    private var playerState = AudioPlayerStatus.STATE_DEFAULT
+    //private var mediaPlayer = MediaPlayer()
+    //private var playerState = AudioPlayerStatus.STATE_DEFAULT
 
     /**
      * Подготовка аудиоплеера к воспроизведению трека.

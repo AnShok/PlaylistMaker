@@ -8,8 +8,8 @@ import com.example.playlistmaker.domain.settings.ThemeSettingsInteractor
 import com.example.playlistmaker.domain.sharing.SharingInteractor
 
 class SettingsViewModel(
-    private val sharingInteractor: SharingInteractor,
-    private val themeSettingsInteractor: ThemeSettingsInteractor,
+    val sharingInteractor: SharingInteractor,
+    val themeSettingsInteractor: ThemeSettingsInteractor,
 ) : ViewModel() {
     private val isDarkThemeEnabled  = MutableLiveData(getThemeFromShared())
     val darkThemeEnabled: LiveData<Boolean> = isDarkThemeEnabled
