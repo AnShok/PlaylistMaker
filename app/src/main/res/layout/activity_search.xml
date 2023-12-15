@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/ActivityStyle"
-    tools:context=".presentation.activities.search.SearchActivity">
+    tools:context=".ui.search.activity.SearchActivity">
 
 
     <LinearLayout
@@ -61,7 +61,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/search_recycler_view"
         style="@style/StyleRecyclerView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_track"
@@ -137,7 +137,7 @@
             android:id="@+id/nothing_found_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_nothing_found_day" />
+            android:src="@drawable/ic_nothing_found" />
 
         <TextView
             android:id="@+id/nothing_found_text"
@@ -161,7 +161,7 @@
             android:id="@+id/error_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_error_day" />
+            android:src="@drawable/ic_error" />
 
         <TextView
             android:id="@+id/error_text"
