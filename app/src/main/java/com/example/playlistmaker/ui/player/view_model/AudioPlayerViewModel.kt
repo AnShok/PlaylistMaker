@@ -22,6 +22,7 @@ class AudioPlayerViewModel(val audioPlayerInteractor: AudioPlayerInteractor) : V
         audioPlayerInteractor.preparePlayer(track)
         _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
     }
+
     fun pauseAudioPlayer() {
         audioPlayerInteractor.pausePlayer()
     }

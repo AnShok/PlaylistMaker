@@ -5,10 +5,6 @@ import com.example.playlistmaker.domain.player.AudioPlayerRepository
 import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
 import com.example.playlistmaker.domain.search.model.Track
 
-/**
- * Реализация интерфейса AudioPlayerInteractor для взаимодействия с аудиоплеером.
- * Использует AudioPlayerRepository для выполнения действий с аудиоплеером.
- */
 class AudioPlayerInteractorImpl(private val audioPlayerRepository: AudioPlayerRepository) :
     AudioPlayerInteractor {
     override fun preparePlayer(track: Track) {

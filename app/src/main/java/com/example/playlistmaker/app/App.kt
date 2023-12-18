@@ -26,9 +26,6 @@ class App : Application() {
             androidContext(this@App)
             modules(dataModule, interactorModule, repositoryModule, viewModelModule)
         }
-        //Creator.initApplication(this) // Инициализация приложения с помощью Creator
-        //themeSettingsInteractor =
-        //    Creator.provideThemeSettingsInteractor() // Получение ThemeInteractor с использованием Creator
         themeSettingsInteractor = getKoin().get()
         switchTheme(themeSettingsInteractor.getThemeFromShared()) // Применение текущей темы
     }

@@ -15,8 +15,10 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 // Внутренний класс ViewHolder, содержащий элементы интерфейса для каждого элемента списка
-class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
-    .inflate(R.layout.item_track, parent, false)) {
+class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context)
+        .inflate(R.layout.item_track, parent, false)
+) {
 
     private val trackNameTextView: TextView = itemView.findViewById(R.id.track_name_text_view)
     private val artistNameTextView: TextView = itemView.findViewById(R.id.artist_name_text_view)
@@ -28,7 +30,8 @@ class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflate
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             dp,
-            context.resources.displayMetrics).toInt()
+            context.resources.displayMetrics
+        ).toInt()
     }
 
     // Метод для привязки данных трека к элементам интерфейса

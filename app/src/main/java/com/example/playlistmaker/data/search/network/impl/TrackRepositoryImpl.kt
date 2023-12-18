@@ -9,9 +9,6 @@ import com.example.playlistmaker.domain.search.TrackRepository
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
 import com.example.playlistmaker.domain.search.model.Track
 
-/**
- * Реализация интерфейса TrackRepository для выполнения поиска треков с использованием NetworkClient.
- */
 class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepository {
 
     /**

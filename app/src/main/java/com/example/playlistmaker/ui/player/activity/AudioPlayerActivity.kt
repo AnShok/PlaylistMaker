@@ -17,9 +17,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Активити для воспроизведения аудиофайлов. Использует аудиоплеер и отображает информацию о текущем треке.
- */
 class AudioPlayerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAudioplayerBinding
     private val viewModel by viewModel<AudioPlayerViewModel>()
@@ -45,7 +42,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         bindingTrackDataInActivity(track)
         viewModel.loadTrack(track)
 
-        viewModel.audioPlayerProgressStatus.observe(this) {audioPlayerProgressStatus ->
+        viewModel.audioPlayerProgressStatus.observe(this) { audioPlayerProgressStatus ->
             playbackControl(audioPlayerProgressStatus)
         }
 
@@ -96,13 +93,14 @@ class AudioPlayerActivity : AppCompatActivity() {
     }
 
     // Управление воспроизведением
-    private fun playbackControl(audioPlayerProgressStatus2:AudioPlayerProgressStatus) {
+    private fun playbackControl(audioPlayerProgressStatus2: AudioPlayerProgressStatus) {
         when (audioPlayerProgressStatus2.audioPlayerStatus) {
             AudioPlayerStatus.STATE_PLAYING -> {
                 binding.trackPlaybackTime.text =
                     timeFormat.format(audioPlayerProgressStatus2.currentPosition)
                 binding.playPauseButton.setImageResource(R.drawable.pause_button_day)
             }
+
             AudioPlayerStatus.STATE_PREPARED -> binding.playPauseButton.setImageResource(R.drawable.play_button_day)
             AudioPlayerStatus.STATE_PAUSED -> binding.playPauseButton.setImageResource(R.drawable.play_button_day)
             AudioPlayerStatus.STATE_DEFAULT -> {}

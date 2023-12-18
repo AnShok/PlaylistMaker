@@ -1,6 +1,5 @@
 package com.example.playlistmaker.ui.settings.activity
 
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.playlistmaker.databinding.ActivitySettingsBinding
@@ -21,6 +20,9 @@ class SettingsActivity : AppCompatActivity() {
         viewModel.darkThemeEnabled.observe(this) { isChecked ->
             binding.themeSwitcher.isChecked = isChecked
         }
+        viewModel.settingsIntentEvent.observe(this) { intent ->
+            startActivity(intent)
+        }
 
         //обработчик событ изменения состояиния перееключателя
         binding.themeSwitcher.setOnCheckedChangeListener { _, checked ->
@@ -40,20 +42,17 @@ class SettingsActivity : AppCompatActivity() {
 
         //Кнопка поделиться ссылкой
         binding.shareApp.setOnClickListener {
-            viewModel.shareApp()?.let { startActivity(viewModel.settingsIntentEvent.value) }
-            //viewModel.shareApp()
+            viewModel.onShareClick()
         }
 
         //Кнопка письма в поддержку с предзаполненной темой и сообщением
         binding.openSupport.setOnClickListener {
-            viewModel.openSupport()?.let { startActivity(viewModel.settingsIntentEvent.value) }
-            //viewModel.openSupport()
+            viewModel.onSupportClick()
         }
 
         //Кнопка открытия пользовательского соглашения
         binding.openTerms.setOnClickListener {
-            viewModel.openTerms()?.let { startActivity(viewModel.settingsIntentEvent.value) }
-            //viewModel.openTerms()
+            viewModel.onTermsClick()
         }
     }
 }
