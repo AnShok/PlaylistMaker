@@ -1,21 +1,14 @@
 package com.example.playlistmaker.ui.settings.activity
 
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.databinding.ActivitySettingsBinding
 import com.example.playlistmaker.ui.settings.view_model.SettingsViewModel
-import com.example.playlistmaker.ui.settings.view_model.SettingsViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            SettingsViewModelFactory()
-        )[SettingsViewModel::class.java]
-    }
+    private val viewModel by viewModel<SettingsViewModel>()
     private var currentThemeChecked: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +19,9 @@ class SettingsActivity : AppCompatActivity() {
         // Обновление состояния переключателя при изменении значения в darkThemeEnabled
         viewModel.darkThemeEnabled.observe(this) { isChecked ->
             binding.themeSwitcher.isChecked = isChecked
+        }
+        viewModel.settingsIntentEvent.observe(this) { intent ->
+            startActivity(intent)
         }
 
         //обработчик событ изменения состояиния перееключателя
@@ -46,20 +42,17 @@ class SettingsActivity : AppCompatActivity() {
 
         //Кнопка поделиться ссылкой
         binding.shareApp.setOnClickListener {
-            viewModel.shareApp()?.let { startActivity(viewModel.settingsIntentEvent.value) }
-            //viewModel.shareApp()
+            viewModel.onShareClick()
         }
 
         //Кнопка письма в поддержку с предзаполненной темой и сообщением
         binding.openSupport.setOnClickListener {
-            viewModel.openSupport()?.let { startActivity(viewModel.settingsIntentEvent.value) }
-            //viewModel.openSupport()
+            viewModel.onSupportClick()
         }
 
         //Кнопка открытия пользовательского соглашения
         binding.openTerms.setOnClickListener {
-            viewModel.openTerms()?.let { startActivity(viewModel.settingsIntentEvent.value) }
-            //viewModel.openTerms()
+            viewModel.onTermsClick()
         }
     }
 }

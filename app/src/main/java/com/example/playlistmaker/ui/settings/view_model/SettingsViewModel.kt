@@ -8,10 +8,10 @@ import com.example.playlistmaker.domain.settings.ThemeSettingsInteractor
 import com.example.playlistmaker.domain.sharing.SharingInteractor
 
 class SettingsViewModel(
-    private val sharingInteractor: SharingInteractor,
-    private val themeSettingsInteractor: ThemeSettingsInteractor,
+    val sharingInteractor: SharingInteractor,
+    val themeSettingsInteractor: ThemeSettingsInteractor,
 ) : ViewModel() {
-    private val isDarkThemeEnabled  = MutableLiveData(getThemeFromShared())
+    private val isDarkThemeEnabled = MutableLiveData(getThemeFromShared())
     val darkThemeEnabled: LiveData<Boolean> = isDarkThemeEnabled
 
     // Вспомогательная LiveData для обработки событий
@@ -19,15 +19,15 @@ class SettingsViewModel(
     val settingsIntentEvent: LiveData<Intent> = _settingsIntentEvent
 
 
-    fun shareApp() {
+    fun onShareClick() {
         _settingsIntentEvent.value = sharingInteractor.shareApp()
     }
 
-    fun openSupport() {
+    fun onSupportClick() {
         _settingsIntentEvent.value = sharingInteractor.openSupport()
     }
 
-    fun openTerms() {
+    fun onTermsClick() {
         _settingsIntentEvent.value = sharingInteractor.openTerms()
     }
 
@@ -35,11 +35,11 @@ class SettingsViewModel(
         themeSettingsInteractor.setThemeToShared(status)
     }
 
-    fun switchTheme(checked: Boolean){
+    fun switchTheme(checked: Boolean) {
         themeSettingsInteractor.switchTheme(checked)
     }
 
-    private fun getThemeFromShared() : Boolean {
+    private fun getThemeFromShared(): Boolean {
         return themeSettingsInteractor.getThemeFromShared()
     }
 

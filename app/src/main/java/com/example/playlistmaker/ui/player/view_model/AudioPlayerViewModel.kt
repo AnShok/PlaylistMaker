@@ -10,7 +10,7 @@ import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.domain.search.model.Track
 
-class AudioPlayerViewModel(private val audioPlayerInteractor: AudioPlayerInteractor) : ViewModel() {
+class AudioPlayerViewModel(val audioPlayerInteractor: AudioPlayerInteractor) : ViewModel() {
 
     private val updateProgressHandler = Handler(Looper.getMainLooper())
 
@@ -22,6 +22,7 @@ class AudioPlayerViewModel(private val audioPlayerInteractor: AudioPlayerInterac
         audioPlayerInteractor.preparePlayer(track)
         _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
     }
+
     fun pauseAudioPlayer() {
         audioPlayerInteractor.pausePlayer()
     }

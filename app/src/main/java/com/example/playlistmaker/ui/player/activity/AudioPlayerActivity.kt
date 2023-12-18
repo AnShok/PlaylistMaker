@@ -4,27 +4,22 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivityAudioplayerBinding
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
-import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModelFactory
 import com.example.playlistmaker.utils.Utils
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Активити для воспроизведения аудиофайлов. Использует аудиоплеер и отображает информацию о текущем треке.
- */
 class AudioPlayerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAudioplayerBinding
-    private val viewModel by lazy { ViewModelProvider(this, AudioPlayerViewModelFactory(Creator.provideAudioPlayerInteractor()))[AudioPlayerViewModel::class.java] }
+    private val viewModel by viewModel<AudioPlayerViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +42,7 @@ class AudioPlayerActivity : AppCompatActivity() {
         bindingTrackDataInActivity(track)
         viewModel.loadTrack(track)
 
-        viewModel.audioPlayerProgressStatus.observe(this) {audioPlayerProgressStatus ->
+        viewModel.audioPlayerProgressStatus.observe(this) { audioPlayerProgressStatus ->
             playbackControl(audioPlayerProgressStatus)
         }
 
@@ -98,13 +93,14 @@ class AudioPlayerActivity : AppCompatActivity() {
     }
 
     // Управление воспроизведением
-    private fun playbackControl(audioPlayerProgressStatus2:AudioPlayerProgressStatus) {
+    private fun playbackControl(audioPlayerProgressStatus2: AudioPlayerProgressStatus) {
         when (audioPlayerProgressStatus2.audioPlayerStatus) {
             AudioPlayerStatus.STATE_PLAYING -> {
                 binding.trackPlaybackTime.text =
                     timeFormat.format(audioPlayerProgressStatus2.currentPosition)
                 binding.playPauseButton.setImageResource(R.drawable.pause_button_day)
             }
+
             AudioPlayerStatus.STATE_PREPARED -> binding.playPauseButton.setImageResource(R.drawable.play_button_day)
             AudioPlayerStatus.STATE_PAUSED -> binding.playPauseButton.setImageResource(R.drawable.play_button_day)
             AudioPlayerStatus.STATE_DEFAULT -> {}

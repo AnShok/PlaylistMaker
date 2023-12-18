@@ -19,7 +19,8 @@ class SearchTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
     }
 
     // Создание нового ViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder = TrackViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder =
+        TrackViewHolder(parent)
 
 
     // Привязка данных к ViewHolder и отображение элемента списка

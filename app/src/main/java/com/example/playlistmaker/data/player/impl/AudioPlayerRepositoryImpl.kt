@@ -6,14 +6,10 @@ import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.domain.search.model.Track
 
-/**
- * Реализация интерфейса AudioPlayerRepository для работы с аудиоплеером.
- * Использует MediaPlayer для воспроизведения аудио.
- */
-class AudioPlayerRepositoryImpl : AudioPlayerRepository {
-
-    private var mediaPlayer = MediaPlayer()
-    private var playerState = AudioPlayerStatus.STATE_DEFAULT
+class AudioPlayerRepositoryImpl(
+    private var mediaPlayer: MediaPlayer,
+    private var playerState: AudioPlayerStatus = AudioPlayerStatus.STATE_DEFAULT
+) : AudioPlayerRepository {
 
     /**
      * Подготовка аудиоплеера к воспроизведению трека.

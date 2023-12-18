@@ -3,6 +3,7 @@ package com.example.playlistmaker.domain.search.impl
 import com.example.playlistmaker.domain.search.TrackHistoryInteractor
 import com.example.playlistmaker.domain.search.TrackHistoryRepository
 import com.example.playlistmaker.domain.search.model.Track
+
 /**
  * Реализация интерфейса [TrackHistoryInteractor] для взаимодействия с историей поиска треков.
  *
@@ -19,7 +20,8 @@ class TrackHistoryInteractorImpl(private val trackHistoryRepository: TrackHistor
     override fun loadSearchHistory(): ArrayList<Track> {
         return trackHistoryRepository.loadSearchHistory()
     }
-    override fun saveSearchHistory(history: ArrayList<Track>){
+
+    override fun saveSearchHistory(history: ArrayList<Track>) {
         trackHistoryRepository.saveSearchHistory(history)
     }
 

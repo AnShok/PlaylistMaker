@@ -11,18 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Реализация интерфейса NetworkClient с использованием Retrofit.
  * Отправляет запрос на поиск треков к сервису iTunes API.
  */
-class RetrofitNetworkClient : NetworkClient {
-
-    // Базовый URL для iTunes API
-    private val itunesBaseUrl = "https://itunes.apple.com"
-
-    // Создание объекта Retrofit с указанием базового URL и конвертера JSON
-    private val retrofit =
-        Retrofit.Builder().baseUrl(itunesBaseUrl).addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-    // Создание экземпляра сервиса для взаимодействия с API
-    private val itunesService = retrofit.create(ItunesApi::class.java)
+class RetrofitNetworkClient(private val itunesService: ItunesApi) : NetworkClient {
 
     /**
      * Отправляет запрос на поиск треков к iTunes API.

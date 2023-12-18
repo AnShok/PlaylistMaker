@@ -2,7 +2,6 @@ package com.example.playlistmaker.ui.search.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -10,10 +9,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivitySearchBinding
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
@@ -22,23 +18,18 @@ import com.example.playlistmaker.ui.player.activity.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
 import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
 import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
-import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
 
-    private val viewModel: TrackSearchViewModel by lazy {
-        ViewModelProvider(this, TrackSearchViewModelFactory())[TrackSearchViewModel::class.java]
-    }
+    private val viewModel by viewModel<TrackSearchViewModel>()
 
     private lateinit var searchTracks: ArrayList<Track>//массив результатов поиска
     private lateinit var historyTracks: ArrayList<Track>//массив для историии поиска
     private var editTextSearch = ""
-
-    // Переменные для работы с темой
-    private var isDayTheme: Boolean = true
 
     // Объявление адаптеров для результатов поиска и истории поиска
     private lateinit var searchAdapter: SearchTracksAdapter // Объявление адаптера для результатов поиска
