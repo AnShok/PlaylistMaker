@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <!-- Списка треков нет -->
+    <LinearLayout
+        android:id="@+id/mediateka_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="106dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:gravity="center_horizontal"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/nothing_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_nothing_found" />
+
+        <TextView
+            android:id="@+id/mediateka_empty_text"
+            style="@style/TextStyleMedium"
+            android:textSize="@dimen/string_text_size_19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/indent_16"
+            android:text="@string/mediateka_empty_text" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.example.playlistmaker.ui.player.activity
 
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore.Audio.AudioColumns.TRACK
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -12,6 +13,7 @@ import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
+import com.example.playlistmaker.utils.CORNER_RADIUS_DP
 import com.example.playlistmaker.utils.Utils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -115,8 +117,4 @@ class AudioPlayerActivity : AppCompatActivity() {
 
     private val timeFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }
 
-    private companion object {
-        const val TRACK = "track"
-        private const val CORNER_RADIUS_DP = 8f
-    }
 }

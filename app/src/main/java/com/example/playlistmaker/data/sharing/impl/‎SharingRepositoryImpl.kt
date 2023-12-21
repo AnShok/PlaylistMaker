@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.example.playlistmaker.R
-import com.example.playlistmaker.app.App
 import com.example.playlistmaker.domain.sharing.SharingRepository
 
 class SharingRepositoryImpl(private val context: Context) : SharingRepository {

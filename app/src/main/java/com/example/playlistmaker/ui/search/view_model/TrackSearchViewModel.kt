@@ -10,6 +10,8 @@ import com.example.playlistmaker.domain.search.TrackInteractor
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
+import com.example.playlistmaker.utils.CLICK_DEBOUNCE_DELAY
+import com.example.playlistmaker.utils.SEARCH_DEBOUNCE_DELAY
 
 class TrackSearchViewModel(
     val trackInteractor: TrackInteractor,
@@ -103,11 +105,6 @@ class TrackSearchViewModel(
             tracks = emptyList(),
             SearchStatus.LOADING
         )
-    }
-
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
 

@@ -10,6 +10,8 @@ import com.example.playlistmaker.domain.search.TrackHistoryRepository
 import com.example.playlistmaker.domain.search.TrackRepository
 import com.example.playlistmaker.domain.settings.ThemeSettingsRepository
 import com.example.playlistmaker.domain.sharing.SharingRepository
+import com.example.playlistmaker.utils.SEARCH_HISTORY
+import com.example.playlistmaker.utils.THEME_SHARED
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -21,7 +23,7 @@ val repositoryModule = module {
     }
 
     factory<TrackHistoryRepository> {
-        TrackHistoryRepositoryImpl(get(named("search_history")), get())
+        TrackHistoryRepositoryImpl(get(named(SEARCH_HISTORY)), get())
     }
 
     factory<AudioPlayerRepository> {
@@ -29,7 +31,7 @@ val repositoryModule = module {
     }
 
     factory<ThemeSettingsRepository> {
-        ThemeSettingsRepositoryImpl(get(named("themeShared")))
+        ThemeSettingsRepositoryImpl(get(named(THEME_SHARED)))
     }
 
     factory<SharingRepository> {

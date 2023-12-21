@@ -1,27 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MediatekaActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:background="@color/YP_White"
-    tools:context=".ui.mediateka.MediatekaActivity">
+    tools:context=".ui.mediateka.activity.MediatekaActivity">
 
-    <TextView
-        android:id="@+id/just_txt_mediateka_screen"
+    <LinearLayout
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/this_is_the_mediateka_screen"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="20dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/indent_16"
+        android:layout_marginStart="@dimen/indent_16">
 
+        <Button
+            android:id="@+id/button_back"
+            style="@style/BackButtonStyle"
+            tools:ignore="SpeakableTextPresentCheck"/>
 
+        <TextView
+            android:id="@+id/mediateka_text"
+            style="@style/TextStyleMedium"
+            android:textSize="@dimen/string_text_size_22"
+            android:layout_width = "match_parent"
+            android:layout_height="48dp"
+            android:gravity = "fill_vertical"
+            android:text="@string/mediateka" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_mediateka"
+        style="@style/TabLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/indent_16"
+        android:layout_marginRight="@dimen/indent_16"
+        android:textSize="@dimen/string_text_size_14"
+        app:tabTextAppearance="@style/CustomTabText"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

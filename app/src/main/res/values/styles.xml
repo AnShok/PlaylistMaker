@@ -25,6 +25,11 @@
                 <item name="android:layout_height">match_parent</item>
                 <item name="android:background">@color/YP_White</item>
             </style>
+
+        <!-- MediatekaActivity -->
+        <style name="MediatekaActivity">
+            <item name="android:background">@color/YP_White</item>
+        </style>
     <!-- Конец блока стилей активити -->
 
     <!-- Блок кнопки -->
@@ -157,6 +162,18 @@
             <item name="android:layout_height">wrap_content</item>
             <item name="android:layout_marginTop">@dimen/rv_margin_top</item>
         </style>
+    <!-- Конец блока -->
+
+    <!-- Блок TabLayout -->
+    <style name="TabLayoutStyle">
+        <item name="tabTextColor">@color/YP_Black</item>
+        <item name="tabIndicatorColor">@color/YP_Black</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CustomTabText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">16sp</item>
+    </style>
     <!-- Конец блока -->
 
 </resources>
