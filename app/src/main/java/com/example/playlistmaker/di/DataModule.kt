@@ -6,10 +6,6 @@ import com.example.playlistmaker.app.App
 import com.example.playlistmaker.data.NetworkClient
 import com.example.playlistmaker.data.search.network.ItunesApi
 import com.example.playlistmaker.data.search.network.RetrofitNetworkClient
-import com.example.playlistmaker.utils.CONTEXT
-import com.example.playlistmaker.utils.ITUNES_URL
-import com.example.playlistmaker.utils.SEARCH_HISTORY
-import com.example.playlistmaker.utils.THEME_SHARED
 import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named

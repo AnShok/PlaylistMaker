@@ -11,24 +11,18 @@
 
         <!-- MainActivityStyle -->
             <style name="MainActivityStyle" parent="BaseActivityStyle">
-                <item name="android:background">@color/black</item>
+                <item name="android:background">@color/YP_Black</item>
             </style>
 
         <!-- ActivityStyle -->
             <style name="ActivityStyle" parent="BaseActivityStyle">
-                <item name="android:background">@color/black</item>
+                <item name="android:background">@color/YP_Black</item>
             </style>
 
-        <!-- AudioPlayerActivity -->
-            <style name="AudioPlayerActivity">
-                <item name="android:layout_width">match_parent</item>
-                <item name="android:layout_height">match_parent</item>
-                <item name="android:background">@color/black</item>
+        <!-- ActivityStyleColor -->
+            <style name="ActivityStyleColor">
+                <item name="android:background">@color/YP_Black</item>
             </style>
-        <!-- MediatekaActivity -->
-        <style name="MediatekaActivity">
-            <item name="android:background">@color/black</item>
-        </style>
     <!-- Конец блока стилей активити -->
 
     <!-- Блок кнопки -->

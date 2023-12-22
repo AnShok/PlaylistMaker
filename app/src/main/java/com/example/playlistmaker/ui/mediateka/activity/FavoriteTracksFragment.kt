@@ -29,8 +29,8 @@ class FavoriteTracksFragment : Fragment() {
     }
 
     // Освобождение ресурсов при уничтожении фрагмента
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

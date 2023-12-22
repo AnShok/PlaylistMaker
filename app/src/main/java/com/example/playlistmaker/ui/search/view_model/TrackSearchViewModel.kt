@@ -10,8 +10,8 @@ import com.example.playlistmaker.domain.search.TrackInteractor
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
-import com.example.playlistmaker.utils.CLICK_DEBOUNCE_DELAY
-import com.example.playlistmaker.utils.SEARCH_DEBOUNCE_DELAY
+import com.example.playlistmaker.ui.CLICK_DEBOUNCE_DELAY
+import com.example.playlistmaker.ui.SEARCH_DEBOUNCE_DELAY
 
 class TrackSearchViewModel(
     val trackInteractor: TrackInteractor,

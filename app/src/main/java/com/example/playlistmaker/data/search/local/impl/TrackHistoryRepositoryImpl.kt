@@ -1,6 +1,8 @@
 package com.example.playlistmaker.data.search.local.impl
 
 import android.content.SharedPreferences
+import com.example.playlistmaker.data.MAX_HISTORY_SIZE
+import com.example.playlistmaker.data.SEARCH_HISTORY_KEY
 import com.example.playlistmaker.domain.search.TrackHistoryRepository
 import com.example.playlistmaker.domain.search.model.Track
 import com.google.gson.Gson
@@ -51,10 +53,5 @@ class TrackHistoryRepositoryImpl(
         val editor = sharedPreferences.edit()
         editor.remove(SEARCH_HISTORY_KEY)
         editor.apply()
-    }
-
-    companion object {
-        private const val SEARCH_HISTORY_KEY = "SEARCH_HISTORY"
-        const val MAX_HISTORY_SIZE = 10
     }
 }

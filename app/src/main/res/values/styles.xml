@@ -19,17 +19,10 @@
                 <item name="android:background">@color/YP_White</item>
             </style>
 
-        <!-- AudioPlayerActivity -->
-            <style name="AudioPlayerActivity">
-                <item name="android:layout_width">match_parent</item>
-                <item name="android:layout_height">match_parent</item>
+        <!-- ActivityStyleColor -->
+            <style name="ActivityStyleColor">
                 <item name="android:background">@color/YP_White</item>
             </style>
-
-        <!-- MediatekaActivity -->
-        <style name="MediatekaActivity">
-            <item name="android:background">@color/YP_White</item>
-        </style>
     <!-- Конец блока стилей активити -->
 
     <!-- Блок кнопки -->

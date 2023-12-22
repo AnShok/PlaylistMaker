@@ -3,8 +3,8 @@ package com.example.playlistmaker.data.settings.impl
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.playlistmaker.data.APPLICATION_THEME_SWITCHER_SETTINGS
 import com.example.playlistmaker.domain.settings.ThemeSettingsRepository
-import com.example.playlistmaker.utils.APPLICATION_THEME_SWITCHER_SETTINGS
 import java.io.Serializable
 
 class ThemeSettingsRepositoryImpl(private val sharedPreferences: SharedPreferences) :

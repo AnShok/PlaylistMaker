@@ -10,8 +10,6 @@ import com.example.playlistmaker.domain.search.TrackHistoryRepository
 import com.example.playlistmaker.domain.search.TrackRepository
 import com.example.playlistmaker.domain.settings.ThemeSettingsRepository
 import com.example.playlistmaker.domain.sharing.SharingRepository
-import com.example.playlistmaker.utils.SEARCH_HISTORY
-import com.example.playlistmaker.utils.THEME_SHARED
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
