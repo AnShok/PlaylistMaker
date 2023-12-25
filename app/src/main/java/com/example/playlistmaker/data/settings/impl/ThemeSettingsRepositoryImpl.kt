@@ -3,7 +3,6 @@ package com.example.playlistmaker.data.settings.impl
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.playlistmaker.data.APPLICATION_THEME_SWITCHER_SETTINGS
 import com.example.playlistmaker.domain.settings.ThemeSettingsRepository
 import java.io.Serializable
 
@@ -40,5 +39,11 @@ class ThemeSettingsRepositoryImpl(private val sharedPreferences: SharedPreferenc
                 AppCompatDelegate.MODE_NIGHT_NO
             }
         )
+    }
+
+    companion object {
+        // Ключ для сохранения статуса переключателя темы в SharedPreferences
+        private const val APPLICATION_THEME_SWITCHER_SETTINGS = "theme_switch_status"
+
     }
 }
