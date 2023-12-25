@@ -11,19 +11,17 @@
 
         <!-- MainActivityStyle -->
             <style name="MainActivityStyle" parent="BaseActivityStyle">
-                <item name="android:background">@color/black</item>
+                <item name="android:background">@color/YP_Black</item>
             </style>
 
         <!-- ActivityStyle -->
             <style name="ActivityStyle" parent="BaseActivityStyle">
-                <item name="android:background">@color/black</item>
+                <item name="android:background">@color/YP_Black</item>
             </style>
 
-        <!-- AudioPlayerActivity -->
-            <style name="AudioPlayerActivity">
-                <item name="android:layout_width">match_parent</item>
-                <item name="android:layout_height">match_parent</item>
-                <item name="android:background">@color/black</item>
+        <!-- ActivityStyleColor -->
+            <style name="ActivityStyleColor">
+                <item name="android:background">@color/YP_Black</item>
             </style>
     <!-- Конец блока стилей активити -->
 
@@ -149,6 +147,18 @@
             <item name="android:layout_height">wrap_content</item>
             <item name="android:layout_marginTop">@dimen/rv_margin_top</item>
         </style>
+    <!-- Конец блока -->
+
+    <!-- Блок TabLayout -->
+    <style name="TabLayoutStyle">
+        <item name="tabTextColor">@color/YP_White</item>
+        <item name="tabIndicatorColor">@color/YP_White</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CustomTabText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">16sp</item>
+    </style>
     <!-- Конец блока -->
 
 </resources>

@@ -54,7 +54,10 @@ class TrackHistoryRepositoryImpl(
     }
 
     companion object {
+        // Максимальный размер истории поиска
+        private const val MAX_HISTORY_SIZE = 10
+
+        // Ключ для сохранения истории поиска в SharedPreferences
         private const val SEARCH_HISTORY_KEY = "SEARCH_HISTORY"
-        const val MAX_HISTORY_SIZE = 10
     }
 }

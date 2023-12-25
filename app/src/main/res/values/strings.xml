@@ -10,6 +10,9 @@
     <string name="write_to_support">Написать в поддержку</string>
     <string name="share_app">Поделиться приложением</string>
     <string name="this_is_the_mediateka_screen">Это экран медиатеки</string>
+    <string name="favorite_tracks">Избранные треки</string>
+    <string name="playlists">Плейлисты</string>
+    <string name="mediateka">Медиатека</string>
 
     <!-- Ссылки -->
     <string name="url_terms_of_use">https://yandex.ru/legal/practicum_offer</string>
@@ -19,13 +22,16 @@
     <string name="subject_mail_support">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="message_mail_support">Спасибо разработчикам и разработчицам за крутое приложение!</string>
 
-    <!-- Неиспользуемые -->
+    <!-- Кнопки и текст -->
     <string name="this_is_the_search_screen">Это экран поиска</string>
     <string name="something_went_wrong">\nПроблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету\n</string>
     <string name="nothing_found">\nНичего не нашлось</string>
     <string name="refreshButton">Обновить</string>
     <string name="SearchCaption">Вы искали</string>
     <string name="ClearSearchHistory">Очистить историю</string>
+    <string name="new_playlist">Новый плейлист</string>
+    <string name="mediateka_empty_text">Ваша медиатека пуста</string>
+    <string name="playlist_empty_text">Вы не создали\nни одного плейлиста</string>
 
     <!-- трек/исполнитель -->
     <string name="artist_country">Страна исполнителя</string>
@@ -34,5 +40,6 @@
     <string name="album_name">Название альбома</string>
     <string name="track_duration">Продолжительность</string>
     <string name="audio_file_not_available">Файл не доступен</string>
+
 
 </resources>

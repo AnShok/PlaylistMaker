@@ -4,10 +4,8 @@ import android.content.Context
 import android.media.MediaPlayer
 import com.example.playlistmaker.app.App
 import com.example.playlistmaker.data.NetworkClient
-import com.example.playlistmaker.data.search.local.impl.TrackHistoryRepositoryImpl
 import com.example.playlistmaker.data.search.network.ItunesApi
 import com.example.playlistmaker.data.search.network.RetrofitNetworkClient
-import com.example.playlistmaker.domain.search.TrackHistoryRepository
 import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
@@ -19,20 +17,20 @@ val dataModule = module {
 
     single<ItunesApi> {
         Retrofit.Builder()
-            .baseUrl("https://itunes.apple.com")
+            .baseUrl(ITUNES_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ItunesApi::class.java)
     }
 
-    single(named("search_history")) {
+    single(named(SEARCH_HISTORY)) {
         androidContext()
-            .getSharedPreferences("search_history", Context.MODE_PRIVATE)
+            .getSharedPreferences(SEARCH_HISTORY, Context.MODE_PRIVATE)
     }
 
-    single(named("themeShared")) {
+    single(named(THEME_SHARED)) {
         androidContext()
-            .getSharedPreferences("theme_shared_preferences", Context.MODE_PRIVATE)
+            .getSharedPreferences(THEME_SHARED, Context.MODE_PRIVATE)
     }
 
     factory { Gson() }
@@ -45,7 +43,7 @@ val dataModule = module {
         RetrofitNetworkClient(get())
     }
 
-    single(named("context")) {
+    single(named(CONTEXT)) {
         App()
     }
 

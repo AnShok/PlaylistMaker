@@ -2,6 +2,7 @@ package com.example.playlistmaker.ui.player.activity
 
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore.Audio.AudioColumns.TRACK
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -115,8 +116,8 @@ class AudioPlayerActivity : AppCompatActivity() {
 
     private val timeFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }
 
-    private companion object {
-        const val TRACK = "track"
+    companion object{
+        // Радиус скругления углов в dp
         private const val CORNER_RADIUS_DP = 8f
     }
 }

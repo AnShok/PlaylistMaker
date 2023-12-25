@@ -106,7 +106,10 @@ class TrackSearchViewModel(
     }
 
     companion object {
+        // Задержка для избегания многократных кликов (в миллисекундах)
         private const val CLICK_DEBOUNCE_DELAY = 1000L
+
+        // Задержка для избегания многократных запросов поиска (в миллисекундах)
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

@@ -21,7 +21,7 @@ val repositoryModule = module {
     }
 
     factory<TrackHistoryRepository> {
-        TrackHistoryRepositoryImpl(get(named("search_history")), get())
+        TrackHistoryRepositoryImpl(get(named(SEARCH_HISTORY)), get())
     }
 
     factory<AudioPlayerRepository> {
@@ -29,7 +29,7 @@ val repositoryModule = module {
     }
 
     factory<ThemeSettingsRepository> {
-        ThemeSettingsRepositoryImpl(get(named("themeShared")))
+        ThemeSettingsRepositoryImpl(get(named(THEME_SHARED)))
     }
 
     factory<SharingRepository> {
