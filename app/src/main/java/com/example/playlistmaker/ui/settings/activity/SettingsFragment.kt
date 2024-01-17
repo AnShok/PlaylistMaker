@@ -12,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
     private val viewModel by viewModel<SettingsViewModel>()
-    private var currentThemeChecked: Boolean = false
+//    private var currentThemeChecked: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -26,7 +26,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Обновление состояния переключателя при изменении значения в darkThemeEnabled
-        viewModel.darkThemeEnabled.observe(viewLifecycleOwner) { isChecked ->
+        viewModel.isThemeSwitcherEnabled.observe(viewLifecycleOwner) { isChecked ->
             binding.themeSwitcher.isChecked = isChecked
         }
         viewModel.settingsIntentEvent.observe(viewLifecycleOwner) { intent ->
@@ -34,14 +34,16 @@ class SettingsFragment : Fragment() {
         }
 
         //обработчик событ изменения состояиния перееключателя
+        // review не нужно указывать viewmodel что делать. Только транслируем события
         binding.themeSwitcher.setOnCheckedChangeListener { _, checked ->
-            if (currentThemeChecked != checked) {
-                currentThemeChecked = checked
-                viewModel.setThemeToShared(checked)
-                binding.root.post {
-                    viewModel.switchTheme(checked)
-                }
-            }
+//            if (currentThemeChecked != checked) {
+//                currentThemeChecked = checked
+//                viewModel.setThemeToShared(checked)
+//                binding.root.post {
+//                    viewModel.switchTheme(checked)
+//                }
+//            }
+            viewModel.onThemeSwitcherChecked(checked)
         }
 
         //Кнопка поделиться ссылкой

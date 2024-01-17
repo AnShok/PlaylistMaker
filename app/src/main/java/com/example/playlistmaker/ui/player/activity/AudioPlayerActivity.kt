@@ -88,6 +88,7 @@ class AudioPlayerActivity : AppCompatActivity() {
     }
 
     // Перевод dp в px
+    // review Лучше в Utils убрать
     private fun dpToPx(dp: Float): Int {
         val density = resources.displayMetrics.density
         return (dp * density).toInt()
