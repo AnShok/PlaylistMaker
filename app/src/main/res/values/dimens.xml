@@ -12,7 +12,7 @@
     <dimen name="string_text_size_19">19sp</dimen>
     <dimen name="corner_radius_16">16dp</dimen>
     <dimen name="corner_radius_54">54dp</dimen>
-    <dimen name="activity_padding">16dp</dimen>
+    <dimen name="activity_padding">4dp</dimen>
     <dimen name="text_indent_settings">21dp</dimen>
     <dimen name="rv_margin_top">16dp</dimen>
     <dimen name="small_image_width">45dp</dimen>

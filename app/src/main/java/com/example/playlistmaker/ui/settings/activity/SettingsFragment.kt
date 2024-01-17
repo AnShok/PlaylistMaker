@@ -1,26 +1,35 @@
 package com.example.playlistmaker.ui.settings.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.playlistmaker.databinding.ActivitySettingsBinding
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.playlistmaker.databinding.FragmentSettingsBinding
 import com.example.playlistmaker.ui.settings.view_model.SettingsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SettingsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySettingsBinding
+class SettingsFragment : Fragment() {
+    private lateinit var binding: FragmentSettingsBinding
     private val viewModel by viewModel<SettingsViewModel>()
     private var currentThemeChecked: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Обновление состояния переключателя при изменении значения в darkThemeEnabled
-        viewModel.darkThemeEnabled.observe(this) { isChecked ->
+        viewModel.darkThemeEnabled.observe(viewLifecycleOwner) { isChecked ->
             binding.themeSwitcher.isChecked = isChecked
         }
-        viewModel.settingsIntentEvent.observe(this) { intent ->
+        viewModel.settingsIntentEvent.observe(viewLifecycleOwner) { intent ->
             startActivity(intent)
         }
 
@@ -33,11 +42,6 @@ class SettingsActivity : AppCompatActivity() {
                     viewModel.switchTheme(checked)
                 }
             }
-        }
-
-        //Кнопка Назад - закрытие активити
-        binding.buttonBack.setOnClickListener {
-            finish()
         }
 
         //Кнопка поделиться ссылкой

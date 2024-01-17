@@ -2,15 +2,17 @@ package com.example.playlistmaker.ui.search.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.playlistmaker.databinding.ActivitySearchBinding
+import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
@@ -21,9 +23,9 @@ import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class SearchActivity : AppCompatActivity() {
+class SearchFragment : Fragment()  {
 
-    private lateinit var binding: ActivitySearchBinding
+    private lateinit var binding: FragmentSearchBinding
 
     private val viewModel by viewModel<TrackSearchViewModel>()
 
@@ -35,12 +37,18 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchAdapter: SearchTracksAdapter // Объявление адаптера для результатов поиска
     private lateinit var historyAdapter: HistoryTracksAdapter// Объявление адаптера для истории поиска
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSearchBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        viewModel.foundTracks.observe(this) { it ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.foundTracks.observe(viewLifecycleOwner) { it ->
             performSearching(it)
         }
 
@@ -68,13 +76,13 @@ class SearchActivity : AppCompatActivity() {
         // Настройка адаптера для списка найденных треков
         searchAdapter.searchTracks = searchTracks
         binding.searchRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.searchRecyclerView.adapter = searchAdapter
 
         // Настройка адаптера для списка истории поиска
         historyAdapter.historyTracks = historyTracks
         binding.historyRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.historyRecyclerView.adapter = historyAdapter
     }
 
@@ -161,11 +169,6 @@ class SearchActivity : AppCompatActivity() {
                 viewModel.searchDebounce()
             }
         }
-
-        // Настройка кнопки Назад для закрытия активити
-        binding.buttonBack.setOnClickListener {
-            finish()
-        }
     }
 
     private fun setupListenersAdapters() {
@@ -198,8 +201,8 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         viewModel.removeCallbacks()
     }
 
@@ -225,7 +228,7 @@ class SearchActivity : AppCompatActivity() {
     private fun startAudioPlayer(track: Track) {
         if (viewModel.clickDebounce()) {
             //Интент для перехода на экран аудиоплеера
-            val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
+            val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
 
             //Данные о треке
             audioPlayerIntent.putExtra(TRACK, track)
@@ -264,7 +267,7 @@ class SearchActivity : AppCompatActivity() {
     //Функция скрытия клавиатуры после очистки
     private fun hideKeyboard() {
         val inputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.inputEditText.windowToken, 0)
     }
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/mediatekaFragment">
+    <fragment
+        android:id="@+id/mediatekaFragment"
+        android:name="com.example.playlistmaker.ui.mediateka.activity.MediatekaFragment"
+        tools:layout="@layout/fragment_mediateka">
+        <action
+            android:id="@+id/action_mediatekaFragment_to_audioPlayerActivity"
+            app:destination="@id/audioPlayerActivity" />
+        <action
+            android:id="@+id/action_mediatekaFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mediatekaFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.playlistmaker.ui.settings.activity.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.playlistmaker.ui.search.activity.SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_audioPlayerActivity"
+            app:destination="@id/audioPlayerActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/audioPlayerActivity"
+        android:name="com.example.playlistmaker.ui.player.activity.AudioPlayerActivity"
+        tools:layout="@layout/activity_audioplayer" />
+</navigation>

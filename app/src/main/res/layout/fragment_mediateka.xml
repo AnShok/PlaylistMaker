@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/ActivityStyleColor"
+    style="@style/FragmentStyleColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.mediateka.activity.MediatekaActivity">
+    tools:context=".ui.mediateka.activity.MediatekaFragment">
 
     <LinearLayout
         android:id="@+id/linear_layout"
@@ -14,19 +14,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/indent_16"
-        android:layout_marginStart="@dimen/indent_16">
-
-        <Button
-            android:id="@+id/button_back"
-            style="@style/BackButtonStyle"
-            tools:ignore="SpeakableTextPresentCheck"/>
+        android:layout_marginBottom="@dimen/indent_16"
+        android:layout_marginStart="@dimen/indent_16"
+        android:layout_marginEnd="@dimen/indent_16">
 
         <TextView
             android:id="@+id/mediateka_text"
             style="@style/TextStyleMedium"
             android:textSize="@dimen/string_text_size_22"
             android:layout_width = "match_parent"
-            android:layout_height="48dp"
+            android:layout_height= "wrap_content"
             android:gravity = "fill_vertical"
             android:text="@string/mediateka" />
 
@@ -37,13 +34,15 @@
         style="@style/TabLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/indent_16"
-        android:layout_marginRight="@dimen/indent_16"
+        android:layout_marginStart="@dimen/indent_16"
+        android:layout_marginEnd="@dimen/indent_16"
         android:textSize="@dimen/string_text_size_14"
         app:tabTextAppearance="@style/CustomTabText"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/indent_16"
+        android:layout_marginEnd="@dimen/indent_16"/>
 </LinearLayout>
