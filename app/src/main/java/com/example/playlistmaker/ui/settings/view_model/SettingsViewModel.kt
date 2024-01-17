@@ -8,11 +8,18 @@ import com.example.playlistmaker.domain.settings.ThemeSettingsInteractor
 import com.example.playlistmaker.domain.sharing.SharingInteractor
 
 class SettingsViewModel(
-    val sharingInteractor: SharingInteractor,
-    val themeSettingsInteractor: ThemeSettingsInteractor,
+    // review private. Студия подсвечивает некоторые ошибки
+    private val sharingInteractor: SharingInteractor,
+    private val themeSettingsInteractor: ThemeSettingsInteractor,
 ) : ViewModel() {
-    private val isDarkThemeEnabled = MutableLiveData(getThemeFromShared())
-    val darkThemeEnabled: LiveData<Boolean> = isDarkThemeEnabled
+    // review названия mutableLiveData и LiveData обычно различаются _
+    private val _isThemeSwitcherEnabled = MutableLiveData(false)
+    val isThemeSwitcherEnabled: LiveData<Boolean> = _isThemeSwitcherEnabled
+
+    init {
+        val theme = getThemeFromShared()
+
+    }
 
     // Вспомогательная LiveData для обработки событий
     private val _settingsIntentEvent = MutableLiveData<Intent>()
@@ -31,17 +38,33 @@ class SettingsViewModel(
         _settingsIntentEvent.value = sharingInteractor.openTerms()
     }
 
-    fun setThemeToShared(status: Boolean) {
+    fun setThemeToShared(status: ThemeSettingsInteractor.ThemeMode) {
+        // review паттерн repository подразумевает, что мы скрываем способ хранения данных внутри репо. Поэтому не стоит указывать способ хранения во viewModel.
+        // Сейчас это shared, а в следующий раз может быть БД
         themeSettingsInteractor.setThemeToShared(status)
+        getThemeFromShared()
     }
 
-    fun switchTheme(checked: Boolean) {
-        themeSettingsInteractor.switchTheme(checked)
+//    fun switchTheme(checked: Boolean) {
+//        themeSettingsInteractor.switchTheme(checked)
+//    }
+
+    private fun getThemeFromShared(): ThemeSettingsInteractor.ThemeMode {
+        val theme = themeSettingsInteractor.applyTheme()
+        _isThemeSwitcherEnabled.value = when(theme){
+            ThemeSettingsInteractor.ThemeMode.Light -> false
+            ThemeSettingsInteractor.ThemeMode.Night -> true
+        }
+        return theme
     }
 
-    private fun getThemeFromShared(): Boolean {
-        return themeSettingsInteractor.getThemeFromShared()
+    fun onThemeSwitcherChecked(checked: Boolean) {
+        // review Вместо Boolean можно использовать sealed class. Код будет легче читаться. Не нужно будет запоминать, что обозначают true - false
+        if (checked){
+            setThemeToShared(ThemeSettingsInteractor.ThemeMode.Night)
+        } else {
+            setThemeToShared(ThemeSettingsInteractor.ThemeMode.Light)
+        }
     }
-
 
 }

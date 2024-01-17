@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.databinding.FragmentSearchBinding
@@ -29,7 +30,13 @@ class SearchFragment : Fragment()  {
 
     private val viewModel by viewModel<TrackSearchViewModel>()
 
-    private lateinit var searchTracks: ArrayList<Track>//массив результатов поиска
+        // review К lateinit нужно относиться с осторожностью. Очень легко не проинициализировать поле и получить падение. В
+    // данном случае можно легко обойтись без lateinit и указать поле сразу
+
+    // review В данном случае searchTracks и historyTracks дублируют аналогичные поля в адаптерах. Можно оставить только поля в адаптерах
+        //  и сразу устанавилвать обновленные данные туда. Типа, searchAdapter.searchTracks = newTracks. Данные лучше не дублировать
+    // потому, что проще запутаться и забыть обновить какое то из двух полей. https://ru.wikipedia.org/wiki/Don%E2%80%99t_repeat_yourself
+    private lateinit var searchTracks = ArrayList<Track>()//массив результатов поиска
     private lateinit var historyTracks: ArrayList<Track>//массив для историии поиска
     private var editTextSearch = ""
 
@@ -121,6 +128,8 @@ class SearchFragment : Fragment()  {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 //Когда тект поискового запроса меняется, он сохраняется в переменную textSearch
                 viewModel.textSearch = s.toString()
+                    // review можно немного упростить код
+                    // binding.clearIcon.isVisible = !s.isNullOrEmpty()
                 binding.clearIcon.visibility = clearButtonVisibility(s)
                 // Изменение видимости истории поиска при наличии фокуса и пустом тексте
                 binding.searchHistoryLayout.visibility =

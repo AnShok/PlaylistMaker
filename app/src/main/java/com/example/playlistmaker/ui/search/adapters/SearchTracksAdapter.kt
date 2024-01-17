@@ -14,6 +14,7 @@ class SearchTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
         fun onItemClick(track: Track)
     }
 
+    // review kotlin автоматически генерирует set и get методы, поэтому самому можно не указывать
     fun setOnItemClickListener(listener: OnItemClickListener) {
         itemClickListener = listener
     }

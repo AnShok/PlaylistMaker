@@ -1,7 +1,6 @@
 package com.example.playlistmaker.app
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
 import com.example.playlistmaker.di.dataModule
 import com.example.playlistmaker.di.interactorModule
 import com.example.playlistmaker.di.repositoryModule
@@ -27,7 +26,7 @@ class App : Application() {
             modules(dataModule, interactorModule, repositoryModule, viewModelModule)
         }
         themeSettingsInteractor = getKoin().get()
-        switchTheme(themeSettingsInteractor.getThemeFromShared()) // Применение текущей темы
+        themeSettingsInteractor.applyTheme() // Применение текущей темы
     }
 
     /**
@@ -35,14 +34,15 @@ class App : Application() {
      *
      * @param darkThemeEnabled флаг, указывающий включена ли темная тема
      */
-    fun switchTheme(darkThemeEnabled: Boolean) {
-        AppCompatDelegate.setDefaultNightMode(
-            if (darkThemeEnabled) {
-                AppCompatDelegate.MODE_NIGHT_YES
-            } else {
-                AppCompatDelegate.MODE_NIGHT_NO
-            }
-        )
-        themeSettingsInteractor.setThemeToShared(darkThemeEnabled) // Обновление настройки темы в ThemeInteractor
-    }
+    // review дублирование одинакового кода. Нужно оставить только в одном месте
+//    fun switchTheme(darkThemeEnabled: Boolean) {
+//        AppCompatDelegate.setDefaultNightMode(
+//            if (darkThemeEnabled) {
+//                AppCompatDelegate.MODE_NIGHT_YES
+//            } else {
+//                AppCompatDelegate.MODE_NIGHT_NO
+//            }
+//        )
+//        themeSettingsInteractor.setThemeToShared(darkThemeEnabled) // Обновление настройки темы в ThemeInteractor
+//    }
 }
