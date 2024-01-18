@@ -31,8 +31,8 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModel<TrackSearchViewModel>()
 
     // Объявление адаптеров для результатов поиска и истории поиска
-    private lateinit var searchAdapter: SearchTracksAdapter // Объявление адаптера для результатов поиска
-    private lateinit var historyAdapter: HistoryTracksAdapter// Объявление адаптера для истории поиска
+    private val searchAdapter = SearchTracksAdapter() // Объявление адаптера для результатов поиска
+    private val historyAdapter = HistoryTracksAdapter()// Объявление адаптера для истории поиска
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +49,6 @@ class SearchFragment : Fragment() {
         viewModel.foundTracks.observe(viewLifecycleOwner) { it ->
             performSearching(it)
         }
-
-        searchAdapter = SearchTracksAdapter()
-        historyAdapter = HistoryTracksAdapter()
 
         setupAdapters()
 

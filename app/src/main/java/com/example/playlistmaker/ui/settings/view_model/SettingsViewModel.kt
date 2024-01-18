@@ -15,7 +15,7 @@ class SettingsViewModel(
     val isThemeSwitcherEnabled: LiveData<Boolean> = _isThemeSwitcherEnabled
 
     init {
-        val theme = getThemeFromShared()
+        val theme = getTheme()
     }
 
     // Вспомогательная LiveData для обработки событий
@@ -35,12 +35,12 @@ class SettingsViewModel(
         _settingsIntentEvent.value = sharingInteractor.openTerms()
     }
 
-    fun setThemeToShared(status: ThemeSettingsInteractor.ThemeMode) {
+    fun setTheme(status: ThemeSettingsInteractor.ThemeMode) {
         themeSettingsInteractor.setThemeToShared(status)
-        getThemeFromShared()
+        getTheme()
     }
 
-    private fun getThemeFromShared(): ThemeSettingsInteractor.ThemeMode {
+    private fun getTheme(): ThemeSettingsInteractor.ThemeMode {
         val theme = themeSettingsInteractor.applyTheme()
         _isThemeSwitcherEnabled.value = when (theme) {
             ThemeSettingsInteractor.ThemeMode.Light -> false
@@ -51,9 +51,9 @@ class SettingsViewModel(
 
     fun onThemeSwitcherChecked(checked: Boolean) {
         if (checked) {
-            setThemeToShared(ThemeSettingsInteractor.ThemeMode.Night)
+            setTheme(ThemeSettingsInteractor.ThemeMode.Night)
         } else {
-            setThemeToShared(ThemeSettingsInteractor.ThemeMode.Light)
+            setTheme(ThemeSettingsInteractor.ThemeMode.Light)
         }
     }
 }
