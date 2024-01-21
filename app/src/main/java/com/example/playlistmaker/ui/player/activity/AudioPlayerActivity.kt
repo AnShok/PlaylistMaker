@@ -78,19 +78,13 @@ class AudioPlayerActivity : AppCompatActivity() {
         val artworkUrl512 = Utils.getArtworkUrl512(track.artworkUrl100)
         // Скругление обложки
         val cornerRadiusDp = CORNER_RADIUS_DP
-        val cornerRadiusPx = dpToPx(cornerRadiusDp)
+        val cornerRadiusPx = Utils.dpToPx(cornerRadiusDp, resources)
 
         Glide.with(this)
             .load(artworkUrl512)
             .placeholder(R.drawable.placeholder)
             .transform(RoundedCorners(cornerRadiusPx))
             .into(binding.coverImage)
-    }
-
-    // Перевод dp в px
-    private fun dpToPx(dp: Float): Int {
-        val density = resources.displayMetrics.density
-        return (dp * density).toInt()
     }
 
     // Управление воспроизведением
@@ -116,7 +110,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
     private val timeFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }
 
-    companion object{
+    companion object {
         // Радиус скругления углов в dp
         private const val CORNER_RADIUS_DP = 8f
     }

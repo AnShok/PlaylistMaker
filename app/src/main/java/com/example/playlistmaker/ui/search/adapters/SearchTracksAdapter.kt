@@ -8,14 +8,10 @@ import com.example.playlistmaker.domain.search.model.Track
 class SearchTracksAdapter : RecyclerView.Adapter<TrackViewHolder>() {
 
     var searchTracks = ArrayList<Track>()
-    private var itemClickListener: OnItemClickListener? = null
+    var itemClickListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
         fun onItemClick(track: Track)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        itemClickListener = listener
     }
 
     // Создание нового ViewHolder

@@ -5,7 +5,11 @@ package com.example.playlistmaker.domain.settings
  * Этот интерфейс предоставляет методы для получения текущей настройки темы и установки новой настройки темы.
  */
 interface ThemeSettingsInteractor {
-    fun getThemeFromShared(): Boolean //Получение текущей настройки темы.
-    fun setThemeToShared(status: Boolean) //Установка новой настройки темы.
-    fun switchTheme(darkThemeEnabled: Boolean)
+    fun applyTheme(): ThemeMode //Получение текущей настройки темы.
+    fun setThemeToShared(status: ThemeMode) //Установка новой настройки темы.
+
+    sealed class ThemeMode {
+        object Night : ThemeMode()
+        object Light : ThemeMode()
+    }
 }

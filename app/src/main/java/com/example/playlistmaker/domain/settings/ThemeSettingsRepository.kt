@@ -5,7 +5,6 @@ package com.example.playlistmaker.domain.settings
  * Предоставляет методы для получения текущей настройки темы и установки новой настройки темы.
  */
 interface ThemeSettingsRepository {
-    fun getThemeFromShared(): Boolean
-    fun setThemeToShared(status: Boolean)
-    fun switchTheme(darkThemeEnabled: Boolean)
+    fun getThemeFromShared(): ThemeSettingsInteractor.ThemeMode
+    fun setThemeToShared(status: ThemeSettingsInteractor.ThemeMode)
 }

@@ -8,11 +8,15 @@ import com.example.playlistmaker.domain.settings.ThemeSettingsInteractor
 import com.example.playlistmaker.domain.sharing.SharingInteractor
 
 class SettingsViewModel(
-    val sharingInteractor: SharingInteractor,
-    val themeSettingsInteractor: ThemeSettingsInteractor,
+    private val sharingInteractor: SharingInteractor,
+    private val themeSettingsInteractor: ThemeSettingsInteractor,
 ) : ViewModel() {
-    private val isDarkThemeEnabled = MutableLiveData(getThemeFromShared())
-    val darkThemeEnabled: LiveData<Boolean> = isDarkThemeEnabled
+    private val _isThemeSwitcherEnabled = MutableLiveData(false)
+    val isThemeSwitcherEnabled: LiveData<Boolean> = _isThemeSwitcherEnabled
+
+    init {
+        val theme = getTheme()
+    }
 
     // Вспомогательная LiveData для обработки событий
     private val _settingsIntentEvent = MutableLiveData<Intent>()
@@ -31,17 +35,25 @@ class SettingsViewModel(
         _settingsIntentEvent.value = sharingInteractor.openTerms()
     }
 
-    fun setThemeToShared(status: Boolean) {
+    fun setTheme(status: ThemeSettingsInteractor.ThemeMode) {
         themeSettingsInteractor.setThemeToShared(status)
+        getTheme()
     }
 
-    fun switchTheme(checked: Boolean) {
-        themeSettingsInteractor.switchTheme(checked)
+    private fun getTheme(): ThemeSettingsInteractor.ThemeMode {
+        val theme = themeSettingsInteractor.applyTheme()
+        _isThemeSwitcherEnabled.value = when (theme) {
+            ThemeSettingsInteractor.ThemeMode.Light -> false
+            ThemeSettingsInteractor.ThemeMode.Night -> true
+        }
+        return theme
     }
 
-    private fun getThemeFromShared(): Boolean {
-        return themeSettingsInteractor.getThemeFromShared()
+    fun onThemeSwitcherChecked(checked: Boolean) {
+        if (checked) {
+            setTheme(ThemeSettingsInteractor.ThemeMode.Night)
+        } else {
+            setTheme(ThemeSettingsInteractor.ThemeMode.Light)
+        }
     }
-
-
 }

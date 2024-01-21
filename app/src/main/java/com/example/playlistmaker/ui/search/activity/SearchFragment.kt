@@ -2,15 +2,18 @@ package com.example.playlistmaker.ui.search.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.playlistmaker.databinding.ActivitySearchBinding
+import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
@@ -21,34 +24,31 @@ import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class SearchActivity : AppCompatActivity() {
+class SearchFragment : Fragment() {
 
-    private lateinit var binding: ActivitySearchBinding
+    private lateinit var binding: FragmentSearchBinding
 
     private val viewModel by viewModel<TrackSearchViewModel>()
 
-    private lateinit var searchTracks: ArrayList<Track>//массив результатов поиска
-    private lateinit var historyTracks: ArrayList<Track>//массив для историии поиска
-    private var editTextSearch = ""
-
     // Объявление адаптеров для результатов поиска и истории поиска
-    private lateinit var searchAdapter: SearchTracksAdapter // Объявление адаптера для результатов поиска
-    private lateinit var historyAdapter: HistoryTracksAdapter// Объявление адаптера для истории поиска
+    private val searchAdapter = SearchTracksAdapter() // Объявление адаптера для результатов поиска
+    private val historyAdapter = HistoryTracksAdapter()// Объявление адаптера для истории поиска
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSearchBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        viewModel.foundTracks.observe(this) { it ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.foundTracks.observe(viewLifecycleOwner) { it ->
             performSearching(it)
         }
-
-        searchTracks = ArrayList<Track>()
-        historyTracks = ArrayList<Track>()
-
-        searchAdapter = SearchTracksAdapter()
-        historyAdapter = HistoryTracksAdapter()
 
         setupAdapters()
 
@@ -66,15 +66,13 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupAdapters() {
         // Настройка адаптера для списка найденных треков
-        searchAdapter.searchTracks = searchTracks
         binding.searchRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.searchRecyclerView.adapter = searchAdapter
 
         // Настройка адаптера для списка истории поиска
-        historyAdapter.historyTracks = historyTracks
         binding.historyRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.historyRecyclerView.adapter = historyAdapter
     }
 
@@ -113,16 +111,15 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 //Когда тект поискового запроса меняется, он сохраняется в переменную textSearch
                 viewModel.textSearch = s.toString()
-                binding.clearIcon.visibility = clearButtonVisibility(s)
+                binding.clearIcon.isVisible = !s.isNullOrEmpty()
                 // Изменение видимости истории поиска при наличии фокуса и пустом тексте
                 binding.searchHistoryLayout.visibility =
                     if (binding.inputEditText.hasFocus() && s?.isEmpty() == true && viewModel.loadSearchHistory()
                             .isNotEmpty()
                     ) View.VISIBLE
                     else View.GONE
-                editTextSearch = binding.inputEditText.text.toString()
                 // Запуск отложенного поискового запроса только если текст не пустой
-                if (editTextSearch.isEmpty()) {
+                if (binding.inputEditText.text.toString().isEmpty()) {
                     hidePlaceholders()
                     viewModel.removeCallbacks()
                 } else {
@@ -148,7 +145,7 @@ class SearchActivity : AppCompatActivity() {
 
         // Обработка нажатия на кнопку очистки истории поиска
         binding.clearSearchHistoryButton.setOnClickListener {
-            historyTracks.clear()
+            historyAdapter.historyTracks.clear()
             viewModel.clearSearchHistory()
             historyAdapter.notifyDataSetChanged()
             binding.searchHistoryLayout.visibility = View.GONE
@@ -161,27 +158,22 @@ class SearchActivity : AppCompatActivity() {
                 viewModel.searchDebounce()
             }
         }
-
-        // Настройка кнопки Назад для закрытия активити
-        binding.buttonBack.setOnClickListener {
-            finish()
-        }
     }
 
     private fun setupListenersAdapters() {
         // Настройка слушателей нажатия для перехода на экран аудиоплеера
-        searchAdapter.setOnItemClickListener(object : SearchTracksAdapter.OnItemClickListener {
+        searchAdapter.itemClickListener = object : SearchTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
                 startAudioPlayer(track)
             }
-        })
-        //Переход на экран аудиоплеера
-        historyAdapter.setOnItemClickListener(object : HistoryTracksAdapter.OnItemClickListener {
-            override fun onItemClick(track: Track) {
+        }
 
+        // Переход на экран аудиоплеера
+        historyAdapter.itemClickListener = object : HistoryTracksAdapter.OnItemClickListener {
+            override fun onItemClick(track: Track) {
                 startAudioPlayer(track)
             }
-        })
+        }
     }
 
     private fun restoreState(savedInstanceState: Bundle?) {
@@ -190,7 +182,7 @@ class SearchActivity : AppCompatActivity() {
             viewModel.textSearch = savedInstanceState.getString(
                 TEXT_SEARCH,
                 ""
-            ) //Восстановление значения textSearch из сохраненного состояния
+            ) ?: "" //Восстановление значения textSearch из сохраненного состояния
             binding.inputEditText.setText(viewModel.textSearch) //Восстановление текст в EditText из сохраненного состояния
             if (viewModel.textSearch.isNotEmpty()) {
                 viewModel.searchDebounce()
@@ -198,8 +190,8 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         viewModel.removeCallbacks()
     }
 
@@ -225,7 +217,7 @@ class SearchActivity : AppCompatActivity() {
     private fun startAudioPlayer(track: Track) {
         if (viewModel.clickDebounce()) {
             //Интент для перехода на экран аудиоплеера
-            val audioPlayerIntent = Intent(this@SearchActivity, AudioPlayerActivity::class.java)
+            val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
 
             //Данные о треке
             audioPlayerIntent.putExtra(TRACK, track)
@@ -238,33 +230,25 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun clearButtonVisibility(s: CharSequence?): Int {
-        return if (s.isNullOrEmpty()) {
-            View.GONE
-        } else {
-            View.VISIBLE
-        }
-    }
-
     private fun clearSearch() {
         binding.inputEditText.setText("")
         hideKeyboard()
-        searchTracks.clear()
+        searchAdapter.searchTracks.clear()
         searchAdapter.notifyDataSetChanged()
         hidePlaceholders()
     }
 
     private fun loadSearchHistory() {
         val history = viewModel.loadSearchHistory()
-        historyTracks.clear()
-        historyTracks.addAll(history)
+        historyAdapter.historyTracks.clear()
+        historyAdapter.historyTracks.addAll(history)
         historyAdapter.notifyDataSetChanged()
     }
 
     //Функция скрытия клавиатуры после очистки
     private fun hideKeyboard() {
         val inputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.inputEditText.windowToken, 0)
     }
 
@@ -287,7 +271,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun performSearching(foundTracks: TrackSearchResult) {
-        searchTracks.clear()
+        searchAdapter.searchTracks.clear()
         binding.searchHistoryLayout.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
 
@@ -295,7 +279,7 @@ class SearchActivity : AppCompatActivity() {
             SearchStatus.RESPONSE_RECEIVED -> {
                 binding.progressBar.visibility = View.GONE
                 binding.searchRecyclerView.visibility = View.VISIBLE
-                searchTracks.addAll(foundTracks.tracks)
+                searchAdapter.searchTracks.addAll(foundTracks.tracks)
                 searchAdapter.notifyDataSetChanged()
             }
 

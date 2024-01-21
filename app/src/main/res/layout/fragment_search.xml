@@ -3,25 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/ActivityStyle"
-    tools:context=".ui.search.activity.SearchActivity">
+    style="@style/FragmentStyleColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.search.activity.SearchFragment">
 
 
     <LinearLayout
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button_back"
-            style="@style/BackButtonStyle"
-            tools:ignore="SpeakableTextPresentCheck" />
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/indent_16"
+        android:layout_marginStart="@dimen/indent_16"
+        android:layout_marginEnd="@dimen/indent_16">
 
         <TextView
             android:id="@+id/txt_setup_menu"
             style="@style/TextStyleMedium"
             android:textSize="@dimen/string_text_size_22"
+            android:layout_marginBottom="@dimen/indent_12"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
             android:gravity = "fill_vertical"
@@ -35,6 +37,8 @@
         android:layout_height="@dimen/indent_36"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/indent_8"
+        android:layout_marginStart="@dimen/indent_16"
+        android:layout_marginEnd="@dimen/indent_16"
         style="@style/SearchInputContainerStyle"
         tools:layout_editor_absoluteX="@dimen/indent_20">
 
@@ -63,6 +67,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recycler_view"
         style="@style/StyleRecyclerView"
+        android:layout_marginStart="@dimen/indent_16"
+        android:layout_marginEnd="@dimen/indent_16"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_track"
         tools:visibility="gone"/>
@@ -91,6 +97,8 @@
             android:id="@+id/history_recycler_view"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
+            android:layout_marginStart="@dimen/indent_12"
+            android:layout_marginEnd="@dimen/indent_12"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             android:layout_weight="1"
@@ -130,6 +138,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginStart="@dimen/indent_16"
+        android:layout_marginEnd="@dimen/indent_16"
         android:gravity="center"
         android:visibility="gone">
 
@@ -154,6 +164,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginStart="@dimen/indent_16"
+        android:layout_marginEnd="@dimen/indent_16"
         android:gravity="center"
         android:visibility="gone">
 
