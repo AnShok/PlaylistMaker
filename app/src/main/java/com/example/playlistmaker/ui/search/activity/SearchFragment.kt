@@ -81,7 +81,7 @@ class SearchFragment : Fragment() {
         binding.inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // Выполнение поискового запроса
-                viewModel.searchDebounce()
+                viewModel.search()
                 true
             } else {
                 false
@@ -121,10 +121,9 @@ class SearchFragment : Fragment() {
                 // Запуск отложенного поискового запроса только если текст не пустой
                 if (binding.inputEditText.text.toString().isEmpty()) {
                     hidePlaceholders()
-                    //viewModel.removeCallbacks() //Может вернуть?
                 } else {
                     viewModel.changeTextSearch(binding.inputEditText.text.toString())
-                    viewModel.searchDebounce()
+                    viewModel.search()
                     hidePlaceholders()
                 }
 
@@ -155,7 +154,7 @@ class SearchFragment : Fragment() {
         binding.refreshButton.setOnClickListener {
             if (viewModel.textSearch.isNotEmpty()) { //для кнопки обновить используемпоследний запрос
                 binding.inputEditText.setText(viewModel.textSearch)
-                viewModel.searchDebounce()
+                viewModel.search()
             }
         }
     }
@@ -185,14 +184,9 @@ class SearchFragment : Fragment() {
             ) ?: "" //Восстановление значения textSearch из сохраненного состояния
             binding.inputEditText.setText(viewModel.textSearch) //Восстановление текст в EditText из сохраненного состояния
             if (viewModel.textSearch.isNotEmpty()) {
-                viewModel.searchDebounce()
+                viewModel.search()
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        //viewModel.removeCallbacks() //Может вернуть?
     }
 
     override fun onResume() {

@@ -14,24 +14,19 @@ import kotlinx.coroutines.withContext
 class RetrofitNetworkClient(private val itunesService: ItunesApi) : NetworkClient {
 
     override suspend fun doTrackSearchRequest(dto: TrackSearchRequest): Response {
-        return if (true) { //dto is TrackSearchRequest
-            withContext(Dispatchers.IO) {
-                try {
-                    val resp = itunesService.search(dto.expression)
-                    resp.apply {
-                        resultStatus = SearchStatus.RESPONSE_RECEIVED
-                    }
-                } catch (e: Exception) {
-                    // Обработка ошибки, вывод в лог
-                    e.printStackTrace()
-
-                    // Возвращаем результат с ошибкой
-                    Response().apply { resultStatus = SearchStatus.NETWORK_ERROR }
+        return withContext(Dispatchers.IO) {
+            try {
+                val resp = itunesService.search(dto.expression)
+                resp.apply {
+                    resultStatus = SearchStatus.RESPONSE_RECEIVED
                 }
+            } catch (e: Exception) {
+                // Обработка ошибки, вывод в лог
+                e.printStackTrace()
+
+                // Возвращаем результат с ошибкой
+                Response().apply { resultStatus = SearchStatus.NETWORK_ERROR }
             }
-            // Возвращаем результат с ошибкой, если dto не является объектом TrackSearchRequest
-        } else {
-            Response().apply { resultStatus = SearchStatus.NETWORK_ERROR }
         }
     }
 }

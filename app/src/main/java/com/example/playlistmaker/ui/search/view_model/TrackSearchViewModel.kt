@@ -1,7 +1,5 @@
 package com.example.playlistmaker.ui.search.view_model
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,14 +28,14 @@ class TrackSearchViewModel(
 
     var textSearch: String = ""
 
-    //// Обработчик для задержки выполнения поискового запроса
-    //private val handler = Handler(Looper.getMainLooper())
-    private fun search() {
-        _foundTracks.postValue(getLoadingStatus())
+    fun search() {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(SEARCH_DEBOUNCE_DELAY)
-            performSearch()
+            if (textSearch.length >= MIN_SEARCH_LENGTH) {
+                _foundTracks.postValue(getLoadingStatus())
+                performSearch()
+            }
         }
     }
 
@@ -52,10 +50,6 @@ class TrackSearchViewModel(
         }
     }
 
-    //fun removeCallbacks() {
-    //    searchJob?.cancel()
-    //}
-
     fun loadSearchHistory(): List<Track> =
         trackHistoryInteractor.loadSearchHistory()
 
@@ -67,16 +61,6 @@ class TrackSearchViewModel(
     fun addToSearchHistory(track: Track) {
         trackHistoryInteractor.addToSearchHistory(track)
         loadSearchHistory()
-    }
-
-
-    //Функция отложенного запроса
-    fun searchDebounce() {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(SEARCH_DEBOUNCE_DELAY)
-            search()
-        }
     }
 
     // Метод позволяет нажимать на элемент списка не чаще одного раза в секунду
@@ -92,8 +76,7 @@ class TrackSearchViewModel(
         return current
     }
 
-
-        fun changeTextSearch(text: String) {
+    fun changeTextSearch(text: String) {
         textSearch = text
     }
 
@@ -110,6 +93,9 @@ class TrackSearchViewModel(
 
         // Задержка для избегания многократных запросов поиска (в миллисекундах)
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
+
+        // Минимальная длина текста для выполнения поискового запроса
+        private const val MIN_SEARCH_LENGTH = 2
     }
 }
 
