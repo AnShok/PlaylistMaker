@@ -121,7 +121,7 @@ class SearchFragment : Fragment() {
                 // Запуск отложенного поискового запроса только если текст не пустой
                 if (binding.inputEditText.text.toString().isEmpty()) {
                     hidePlaceholders()
-                    viewModel.removeCallbacks()
+                    //viewModel.removeCallbacks() //Может вернуть?
                 } else {
                     viewModel.changeTextSearch(binding.inputEditText.text.toString())
                     viewModel.searchDebounce()
@@ -192,7 +192,7 @@ class SearchFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.removeCallbacks()
+        //viewModel.removeCallbacks() //Может вернуть?
     }
 
     override fun onResume() {

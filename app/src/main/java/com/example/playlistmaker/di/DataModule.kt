@@ -40,7 +40,7 @@ val dataModule = module {
     }
 
     factory<NetworkClient> {
-        RetrofitNetworkClient(get())
+        RetrofitNetworkClient(get(),)
     }
 
     single(named(CONTEXT)) {

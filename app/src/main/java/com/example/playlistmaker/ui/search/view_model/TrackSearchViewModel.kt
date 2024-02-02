@@ -5,16 +5,20 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.domain.search.TrackHistoryInteractor
 import com.example.playlistmaker.domain.search.TrackInteractor
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class TrackSearchViewModel(
     val trackInteractor: TrackInteractor,
     val trackHistoryInteractor: TrackHistoryInteractor,
-) : ViewModel(), TrackInteractor.TracksConsumer {
+) : ViewModel() {
 
     private val _foundTracks: MutableLiveData<TrackSearchResult> =
         MutableLiveData(TrackSearchResult(tracks = emptyList(), SearchStatus.DEFAULT))
@@ -22,49 +26,37 @@ class TrackSearchViewModel(
     val foundTracks: LiveData<TrackSearchResult> get() = _foundTracks
 
     private var isClickAllowed = true
-
-    // Обработчик для задержки выполнения поискового запроса
-    private val handler = Handler(Looper.getMainLooper())
-    private val searchRunnable = Runnable {
-        _foundTracks.postValue(getLoadingStatus())
-        performSearch()
-    }
+    private var searchJob: Job? = null
 
     var textSearch: String = ""
 
+    //// Обработчик для задержки выполнения поискового запроса
+    //private val handler = Handler(Looper.getMainLooper())
+    private fun search() {
+        _foundTracks.postValue(getLoadingStatus())
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(SEARCH_DEBOUNCE_DELAY)
+            performSearch()
+        }
+    }
+
+
     // Выполнение поискового запроса
-    private fun performSearch() {
+    private suspend fun performSearch() {
         // Проверка наличия текста перед выполнением запроса
         if (textSearch.isNotEmpty()) {
-
-            trackInteractor.searchTracks( // Выполнение поискового запроса через TrackInteractor
-                textSearch, this
-            )
-        }
-    }
-
-    override fun consume(foundTracks: TrackSearchResult) {
-        when (foundTracks.resultStatus) {
-            SearchStatus.RESPONSE_RECEIVED -> {
-                this._foundTracks.postValue(foundTracks)
-            }
-
-            SearchStatus.NOTHING_FOUND, SearchStatus.NETWORK_ERROR, SearchStatus.DEFAULT -> {
-                this._foundTracks.postValue(foundTracks)
-            }
-
-            SearchStatus.LOADING -> {
-
+            trackInteractor.searchTracks(textSearch).collect { result ->
+                _foundTracks.postValue(result)
             }
         }
     }
 
+    //fun removeCallbacks() {
+    //    searchJob?.cancel()
+    //}
 
-    fun removeCallbacks() {
-        handler.removeCallbacks(searchRunnable)
-    }
-
-    fun loadSearchHistory(): ArrayList<Track> =
+    fun loadSearchHistory(): List<Track> =
         trackHistoryInteractor.loadSearchHistory()
 
 
@@ -80,8 +72,11 @@ class TrackSearchViewModel(
 
     //Функция отложенного запроса
     fun searchDebounce() {
-        handler.removeCallbacks(searchRunnable)
-        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(SEARCH_DEBOUNCE_DELAY)
+            search()
+        }
     }
 
     // Метод позволяет нажимать на элемент списка не чаще одного раза в секунду
@@ -89,12 +84,16 @@ class TrackSearchViewModel(
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+            viewModelScope.launch {
+                delay(CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
         }
         return current
     }
 
-    fun changeTextSearch(text: String) {
+
+        fun changeTextSearch(text: String) {
         textSearch = text
     }
 
@@ -113,5 +112,4 @@ class TrackSearchViewModel(
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
-
 

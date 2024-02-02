@@ -14,6 +14,7 @@ import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
 import com.example.playlistmaker.utils.Utils
+import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -98,7 +99,10 @@ class AudioPlayerActivity : AppCompatActivity() {
 
             AudioPlayerStatus.STATE_PREPARED -> binding.playPauseButton.setImageResource(R.drawable.play_button_day)
             AudioPlayerStatus.STATE_PAUSED -> binding.playPauseButton.setImageResource(R.drawable.play_button_day)
-            AudioPlayerStatus.STATE_DEFAULT -> {}
+            AudioPlayerStatus.STATE_DEFAULT ->  {
+                binding.playPauseButton.setImageResource(R.drawable.play_button_day)
+                binding.trackPlaybackTime.setText(R.string.timer)
+            }//{}
             AudioPlayerStatus.STATE_ERROR -> showMassage()
         }
     }
