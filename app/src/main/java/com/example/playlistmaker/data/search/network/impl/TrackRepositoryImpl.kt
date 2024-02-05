@@ -46,7 +46,8 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
                 }
             )
         }
-    }.catch { _ ->
+    }.catch { e ->
+        e.printStackTrace()
         // Возвращаем результат с ошибкой
         emit(
             TrackSearchResult(emptyList()).apply {
@@ -70,7 +71,7 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
             trackDto.artworkUrl100,
             trackDto.collectionName ?: "unknown",
             trackDto.releaseDate.takeIf { it.isNotEmpty() } ?: "unknown",
-            trackDto.primaryGenreName,
+            trackDto.primaryGenreName ?: "unknown",
             trackDto.country,
             trackDto.previewUrl
         )
