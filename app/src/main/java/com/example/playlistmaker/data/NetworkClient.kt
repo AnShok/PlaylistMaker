@@ -7,5 +7,5 @@ import com.example.playlistmaker.data.search.dto.TrackSearchRequest
  * Интерфейс NetworkClient определяет метод для выполнения запроса поиска треков.
  */
 interface NetworkClient {
-    fun doTrackSearchRequest(dto: TrackSearchRequest): Response
+    suspend fun doTrackSearchRequest(dto: TrackSearchRequest): Response
 }

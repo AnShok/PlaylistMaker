@@ -5,18 +5,23 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.domain.player.AudioPlayerInteractor
 import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.domain.search.model.Track
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class AudioPlayerViewModel(val audioPlayerInteractor: AudioPlayerInteractor) : ViewModel() {
 
-    private val updateProgressHandler = Handler(Looper.getMainLooper())
 
     private val _audioPlayerProgressStatus: MutableLiveData<AudioPlayerProgressStatus> =
         MutableLiveData(updateAudioPlayerProgressStatus())
     val audioPlayerProgressStatus: LiveData<AudioPlayerProgressStatus> get() = _audioPlayerProgressStatus
+
+    private var timerJob: Job? = null
 
     fun loadTrack(track: Track) {
         audioPlayerInteractor.preparePlayer(track)
@@ -25,11 +30,12 @@ class AudioPlayerViewModel(val audioPlayerInteractor: AudioPlayerInteractor) : V
 
     fun pauseAudioPlayer() {
         audioPlayerInteractor.pausePlayer()
+        timerJob?.cancel()
     }
 
     fun destroyMediaPlayer() {
-        updateProgressHandler.removeCallbacks(updateProgressRunnable())
         audioPlayerInteractor.destroyPlayer()
+        timerJob?.cancel()
     }
 
     fun playbackControl() {
@@ -46,39 +52,39 @@ class AudioPlayerViewModel(val audioPlayerInteractor: AudioPlayerInteractor) : V
         return audioPlayerInteractor.getAudioPlayerProgressStatus()
     }
 
-    // Обработчик для обновления времени воспроизведения
-    private fun updateProgressRunnable(): Runnable {
-        return object : Runnable {
-            override fun run() {
+    // Метод для запуска воспроизведения и отсчета таймера
+    private fun startPlayer() {
+        audioPlayerInteractor.startPlayer()
+        timerJob?.cancel()
+        timerJob = viewModelScope.launch {
+            while (true) {
                 _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
 
                 when (_audioPlayerProgressStatus.value!!.audioPlayerStatus) {
                     AudioPlayerStatus.STATE_PLAYING -> {
-                        updateProgressHandler.postDelayed(this, 300)
+                        delay(TIMER_DELAY)
                     }
 
                     AudioPlayerStatus.STATE_PAUSED -> {
-                        updateProgressHandler.removeCallbacks(this)
+                        break
                     }
 
                     else -> {
-                        updateProgressHandler.removeCallbacks(this)
+                        break
                     }
                 }
             }
         }
     }
 
-    // Метод для запуска воспроизведения
-    private fun startPlayer() {
-        audioPlayerInteractor.startPlayer()
-        updateProgressHandler.post(updateProgressRunnable())
-        _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
-    }
-
     // Метод для паузы воспроизведения
     private fun pausePlayer() {
         audioPlayerInteractor.pausePlayer()
-        _audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
+        //_audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
+    }
+
+    companion object {
+        // Задержка для избегания многократных кликов (в миллисекундах)
+        private const val TIMER_DELAY = 300L
     }
 }
