@@ -12,7 +12,9 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
@@ -210,6 +212,14 @@ class SearchFragment : Fragment() {
     // Метод для перехода на экран аудиоплеера
     private fun startAudioPlayer(track: Track) {
         if (viewModel.clickDebounce()) {
+            //val bundle = Bundle()
+            //bundle.putParcelable(TRACK, track)
+            //findNavController().navigate(
+            //    R.id.action_searchFragment_to_audioPlayerActivity,
+            //    bundle
+            //)
+
+
             //Интент для перехода на экран аудиоплеера
             val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
 

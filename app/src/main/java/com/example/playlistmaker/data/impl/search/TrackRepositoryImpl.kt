@@ -1,4 +1,4 @@
-package com.example.playlistmaker.data.search.network.impl
+package com.example.playlistmaker.data.impl.search
 
 import com.example.playlistmaker.data.NetworkClient
 import com.example.playlistmaker.data.search.dto.TrackDto
@@ -73,7 +73,8 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
             trackDto.releaseDate.takeIf { it.isNotEmpty() } ?: "unknown",
             trackDto.primaryGenreName ?: "unknown",
             trackDto.country,
-            trackDto.previewUrl
+            trackDto.previewUrl,
+            trackDto.additionTime
         )
     }
 }

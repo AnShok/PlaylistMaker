@@ -1,5 +1,7 @@
 package com.example.playlistmaker.di
 
+import com.example.playlistmaker.ui.mediateka.favoriteTracks.FavoriteTracksViewModel
+import com.example.playlistmaker.ui.mediateka.playlists.PlaylistViewModel
 import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
 import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 import com.example.playlistmaker.ui.settings.view_model.SettingsViewModel
@@ -13,7 +15,15 @@ val viewModelModule = module {
     }
 
     viewModel {
-        AudioPlayerViewModel(get())
+        AudioPlayerViewModel(get(), get())
+    }
+
+    viewModel {
+        PlaylistViewModel()
+    }
+
+    viewModel {
+        FavoriteTracksViewModel(get())
     }
 
     viewModel {

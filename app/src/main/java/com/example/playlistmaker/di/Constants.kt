@@ -11,3 +11,6 @@ const val THEME_SHARED = "theme_shared"
 
 // Ключ для передачи контекста между компонентами приложения
 const val CONTEXT = "context"
+
+// Константа, содержащая имя базы данных, используемой для сохранения информации об избранных треках в приложении.
+const val FAVORITE_DATABASE = "database.db"

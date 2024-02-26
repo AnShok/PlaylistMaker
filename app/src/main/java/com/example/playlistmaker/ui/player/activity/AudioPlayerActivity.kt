@@ -9,12 +9,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivityAudioplayerBinding
+import com.example.playlistmaker.domain.db.models.FavoriteTracksStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
 import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
 import com.example.playlistmaker.utils.Utils
-import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,6 +51,14 @@ class AudioPlayerActivity : AppCompatActivity() {
         // Обработчик для кнопки воспроизведения/паузы
         binding.playPauseButton.setOnClickListener {
             viewModel.playbackControl()
+        }
+        viewModel.isFavorite(track)
+        viewModel.favoriteState.observe(this) { isFavorite ->
+            like(isFavorite)
+        }
+
+        binding.addToFavoriteButton.setOnClickListener {
+            viewModel.clickOnFavorite(track)
         }
     }
 
@@ -104,6 +112,13 @@ class AudioPlayerActivity : AppCompatActivity() {
                 binding.trackPlaybackTime.setText(R.string.timer)
             }//{}
             AudioPlayerStatus.STATE_ERROR -> showMassage()
+        }
+    }
+
+    private fun like(isFavoriteState: FavoriteTracksStatus) {
+        when (isFavoriteState) {
+            FavoriteTracksStatus(true) -> binding.addToFavoriteButton.setImageResource(R.drawable.ic_favorite_button_pressed)
+            FavoriteTracksStatus(false) -> binding.addToFavoriteButton.setImageResource(R.drawable.ic_favorite_button)
         }
     }
 

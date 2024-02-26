@@ -1,8 +1,7 @@
-package com.example.playlistmaker.data.settings.impl
+package com.example.playlistmaker.data.impl.settings
 
 import android.app.Application
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatDelegate
 import com.example.playlistmaker.domain.settings.ThemeSettingsInteractor
 import com.example.playlistmaker.domain.settings.ThemeSettingsRepository
 import java.io.Serializable
