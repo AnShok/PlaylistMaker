@@ -56,3 +56,18 @@ val dataModule = module {
     }
 
 }
+
+// URL для доступа к iTunes API
+private const val ITUNES_URL = "https://itunes.apple.com"
+
+// Ключ для сохранения истории поиска в SharedPreferences
+private const val SEARCH_HISTORY = "search_history"
+
+// Ключ для сохранения текущей темы приложения в SharedPreferences
+private const val THEME_SHARED = "theme_shared"
+
+// Ключ для передачи контекста между компонентами приложения
+private const val CONTEXT = "context"
+
+// Константа, содержащая имя базы данных, используемой для сохранения информации об избранных треках в приложении.
+private const val FAVORITE_DATABASE = "database.db"

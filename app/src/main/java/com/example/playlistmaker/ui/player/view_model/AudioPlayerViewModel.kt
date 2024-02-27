@@ -14,8 +14,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class AudioPlayerViewModel(private val audioPlayerInteractor: AudioPlayerInteractor,
-                           private val favoriteTracksInteractor: FavoriteTracksInteractor
+class AudioPlayerViewModel(
+    private val audioPlayerInteractor: AudioPlayerInteractor,
+    private val favoriteTracksInteractor: FavoriteTracksInteractor
 ) : ViewModel() {
 
     private val _favoriteState = MutableLiveData<FavoriteTracksStatus>()
@@ -24,8 +25,6 @@ class AudioPlayerViewModel(private val audioPlayerInteractor: AudioPlayerInterac
     private val _audioPlayerProgressStatus: MutableLiveData<AudioPlayerProgressStatus> =
         MutableLiveData(updateAudioPlayerProgressStatus())
     val audioPlayerProgressStatus: LiveData<AudioPlayerProgressStatus> get() = _audioPlayerProgressStatus
-
-    private var isFavoriteTrack: Boolean = false
 
     private var timerJob: Job? = null
 
@@ -86,32 +85,26 @@ class AudioPlayerViewModel(private val audioPlayerInteractor: AudioPlayerInterac
     // Метод для паузы воспроизведения
     private fun pausePlayer() {
         audioPlayerInteractor.pausePlayer()
-        //_audioPlayerProgressStatus.value = updateAudioPlayerProgressStatus()
     }
 
     fun isFavorite(track: Track) {
         viewModelScope.launch {
-            favoriteTracksInteractor
-                .isFavoriteTrack(track.trackId ?: 0)
+            favoriteTracksInteractor.isFavoriteTrack(track.trackId ?: 0)
                 .collect { isFavorite ->
-                    isFavoriteTrack = isFavorite
                     _favoriteState.postValue(FavoriteTracksStatus(isFavorite))
-
                 }
         }
     }
 
     fun clickOnFavorite(track: Track) {
         viewModelScope.launch {
-            if (isFavoriteTrack) {
+            val currentFavoriteState = _favoriteState.value?.isFavorite ?: false
+            if (currentFavoriteState) {
                 favoriteTracksInteractor.deleteTrack(track.trackId ?: 0)
-                _favoriteState.postValue(FavoriteTracksStatus(false))
-                isFavoriteTrack = false
             } else {
-                favoriteTracksInteractor.additionTime(track)
-                _favoriteState.postValue(FavoriteTracksStatus(true))
-                isFavoriteTrack = true
+                favoriteTracksInteractor.additionTrack(track)
             }
+            _favoriteState.postValue(FavoriteTracksStatus(!currentFavoriteState))
         }
     }
 

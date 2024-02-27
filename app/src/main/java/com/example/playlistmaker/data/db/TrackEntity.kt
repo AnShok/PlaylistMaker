@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = FAVORITE_TRACKS_TABLET)
 data class TrackEntity(
     @PrimaryKey
-    val trackId: Int?,
+    val trackId: Int,
     val trackName: String?,
     val artistName: String?,
     val trackTimeMillis: Long?,
@@ -16,7 +16,7 @@ data class TrackEntity(
     val primaryGenreName: String?,
     val country: String?,
     val previewUrl: String?,
-    var additionTime: Long?
+    val isFavorite: Boolean
 )
 
 const val FAVORITE_TRACKS_TABLET = "favorite_tracks_tablet"

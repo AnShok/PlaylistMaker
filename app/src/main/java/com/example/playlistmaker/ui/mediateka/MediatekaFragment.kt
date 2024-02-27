@@ -11,7 +11,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class MediatekaFragment : Fragment() {
 
-    private lateinit var binding: FragmentMediatekaBinding
+    private var _binding: FragmentMediatekaBinding? = null
+    private val binding get() = _binding!!
 
     // Объект для связывания вкладок и ViewPager в медиатеке
     private lateinit var tabMediator: TabLayoutMediator
@@ -19,7 +20,7 @@ class MediatekaFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMediatekaBinding.inflate(inflater, container, false)
+        _binding = FragmentMediatekaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,6 +41,7 @@ class MediatekaFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         tabMediator.detach()
     }
 }

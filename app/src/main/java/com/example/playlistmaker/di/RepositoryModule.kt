@@ -45,3 +45,9 @@ val repositoryModule = module {
         SharingRepositoryImpl(androidContext())
     }
 }
+
+// Ключ для сохранения истории поиска в SharedPreferences
+private const val SEARCH_HISTORY = "search_history"
+
+// Ключ для сохранения текущей темы приложения в SharedPreferences
+private const val THEME_SHARED = "theme_shared"

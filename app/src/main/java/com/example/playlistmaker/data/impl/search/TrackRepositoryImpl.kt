@@ -74,7 +74,7 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
             trackDto.primaryGenreName ?: "unknown",
             trackDto.country,
             trackDto.previewUrl,
-            trackDto.additionTime
+            trackDto.isFavorite
         )
     }
 }

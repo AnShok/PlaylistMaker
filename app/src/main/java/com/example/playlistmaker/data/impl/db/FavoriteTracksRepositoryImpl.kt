@@ -5,15 +5,20 @@ import com.example.playlistmaker.data.db.TrackEntity
 import com.example.playlistmaker.data.db.converters.TrackDbConverter
 import com.example.playlistmaker.domain.db.FavoriteTracksRepository
 import com.example.playlistmaker.domain.search.model.Track
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
 class FavoriteTracksRepositoryImpl(
-    private val appDatabase: AppDatabase, private val trackDbConverter: TrackDbConverter
+    private val appDatabase: AppDatabase,
+    private val trackDbConverter: TrackDbConverter
 ) : FavoriteTracksRepository {
-    override suspend fun getTracks(): Flow<List<Track>> = flow {
-        val favoriteTracks = appDatabase.tracksDao().getTracks()
-        emit(converterForEntity(favoriteTracks))
+    override fun getTracks(): Flow<List<Track>> = flow {
+        val favoriteTracks = withContext(Dispatchers.IO) {
+            appDatabase.tracksDao().getTracks()
+        }
+        emit(convertTrackEntitiesToTracks(favoriteTracks))
     }
 
     override suspend fun additionTrack(track: Track) {
@@ -24,12 +29,18 @@ class FavoriteTracksRepositoryImpl(
         appDatabase.tracksDao().deleteTrackEntity(trackId)
     }
 
-    override suspend fun isFavoriteTrack(trackId: Int): Flow<Boolean> = flow {
-        val isFavorite = appDatabase.tracksDao().isFavoriteTrack(trackId)
+    override fun isFavoriteTrack(trackId: Int): Flow<Boolean> = flow {
+        val isFavorite = withContext(Dispatchers.IO) {
+            appDatabase.tracksDao().isFavoriteTrack(trackId)
+        }
         emit(isFavorite)
     }
 
-    private fun converterForEntity(track: List<TrackEntity>): List<Track> {
-        return track.map { track -> trackDbConverter.map(track) }
+    private fun convertTrackEntitiesToTracks(track: List<TrackEntity>): List<Track> {
+        return track.map { trackEntity ->
+            trackDbConverter.map(trackEntity).apply {
+                isFavorite = true
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ import java.util.Date
  */
 @Parcelize
 data class Track(
-    val trackId: Int?,
+    val trackId: Int,
     val trackName: String?,
     val artistName: String?,
     val trackTimeMillis: Long?,
@@ -19,9 +19,5 @@ data class Track(
     val primaryGenreName: String?,
     val country: String?,
     val previewUrl: String?,
-    var additionTime: Long?
-) : Parcelable {
-    init {
-        additionTime = additionTime ?: Date().time
-    }
-}
+    var isFavorite: Boolean = false
+) : Parcelable

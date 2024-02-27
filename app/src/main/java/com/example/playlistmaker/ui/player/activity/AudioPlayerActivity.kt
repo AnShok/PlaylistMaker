@@ -110,7 +110,7 @@ class AudioPlayerActivity : AppCompatActivity() {
             AudioPlayerStatus.STATE_DEFAULT ->  {
                 binding.playPauseButton.setImageResource(R.drawable.play_button_day)
                 binding.trackPlaybackTime.setText(R.string.timer)
-            }//{}
+            }
             AudioPlayerStatus.STATE_ERROR -> showMassage()
         }
     }

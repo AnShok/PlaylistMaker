@@ -15,10 +15,10 @@ interface TracksDao {
     @Query("DELETE FROM favorite_tracks_tablet WHERE trackId = :trackId")
     suspend fun deleteTrackEntity(trackId: Int)
 
-    @Query("SELECT * FROM favorite_tracks_tablet ORDER BY additionTime DESC")
-    suspend fun getTracks(): List<TrackEntity>
+    @Query("SELECT * FROM favorite_tracks_tablet ORDER BY isFavorite DESC")
+    fun getTracks(): List<TrackEntity>
 
     @Query("SELECT EXISTS (SELECT 1 FROM favorite_tracks_tablet  WHERE trackId = :trackId)")
-    suspend fun isFavoriteTrack(trackId: Int): Boolean
+    fun isFavoriteTrack(trackId: Int): Boolean
 
 }

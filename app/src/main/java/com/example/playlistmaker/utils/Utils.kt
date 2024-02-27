@@ -17,8 +17,8 @@ object Utils {
     }
 
     // Улучшение качества обложки
-    fun getArtworkUrl512(artworkUrl100: String?): String {
-        return artworkUrl100?.substringBeforeLast('/') + "512x512bb.jpg"
+    fun getArtworkUrl512(artworkUrl100: String?): String? {
+        return artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg")
     }
 
     // Перевод dp в px

@@ -11,7 +11,7 @@ class FavoriteTracksInteractorImpl(private val favoriteTracksRepository: Favorit
         return favoriteTracksRepository.getTracks()
     }
 
-    override suspend fun additionTime(track: Track) {
+    override suspend fun additionTrack(track: Track) {
         return favoriteTracksRepository.additionTrack(track)
     }
 
