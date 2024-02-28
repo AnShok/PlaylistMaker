@@ -1,14 +1,17 @@
 package com.example.playlistmaker.ui.player.activity
 
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore.Audio.AudioColumns.TRACK
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
-import com.example.playlistmaker.databinding.ActivityAudioplayerBinding
+import com.example.playlistmaker.databinding.FragmentAudioplayerBinding
 import com.example.playlistmaker.domain.db.models.FavoriteTracksStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.player.model.AudioPlayerProgressStatus
@@ -19,32 +22,39 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AudioPlayerActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAudioplayerBinding
+class AudioPlayerFragment : Fragment() {
+    private var _binding: FragmentAudioplayerBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModel<AudioPlayerViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityAudioplayerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAudioplayerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //binding = ActivityAudioplayerBinding.inflate(layoutInflater)
+        //setContentView(binding.root)
 
         // Кнопка для возвращения на предыдущий экран
         binding.backButton.setOnClickListener {
-            finish()
+            findNavController().navigateUp()
         }
 
         // Получение трека из intent
-        val track = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(TRACK, Track::class.java)!!
-        } else {
-            intent.getParcelableExtra(TRACK)!!
-        }
+        val track = requireArguments().getParcelable<Track>(TRACK)
+            ?: throw IllegalArgumentException("Track must not be null")
 
         // Привязка данных трека к вьюшкам
         bindingTrackDataInActivity(track)
         viewModel.loadTrack(track)
 
-        viewModel.audioPlayerProgressStatus.observe(this) { audioPlayerProgressStatus ->
+        viewModel.audioPlayerProgressStatus.observe(viewLifecycleOwner) { audioPlayerProgressStatus ->
             playbackControl(audioPlayerProgressStatus)
         }
 
@@ -53,7 +63,7 @@ class AudioPlayerActivity : AppCompatActivity() {
             viewModel.playbackControl()
         }
         viewModel.isFavorite(track)
-        viewModel.favoriteState.observe(this) { isFavorite ->
+        viewModel.favoriteState.observe(viewLifecycleOwner) { isFavorite ->
             like(isFavorite)
         }
 
@@ -69,6 +79,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        _binding = null
         viewModel.destroyMediaPlayer()
     }
 
@@ -97,11 +108,11 @@ class AudioPlayerActivity : AppCompatActivity() {
     }
 
     // Управление воспроизведением
-    private fun playbackControl(audioPlayerProgressStatus2: AudioPlayerProgressStatus) {
-        when (audioPlayerProgressStatus2.audioPlayerStatus) {
+    private fun playbackControl(audioPlayerProgressStatus: AudioPlayerProgressStatus) {
+        when (audioPlayerProgressStatus.audioPlayerStatus) {
             AudioPlayerStatus.STATE_PLAYING -> {
                 binding.trackPlaybackTime.text =
-                    timeFormat.format(audioPlayerProgressStatus2.currentPosition)
+                    timeFormat.format(audioPlayerProgressStatus.currentPosition)
                 binding.playPauseButton.setImageResource(R.drawable.pause_button_day)
             }
 
@@ -124,7 +135,7 @@ class AudioPlayerActivity : AppCompatActivity() {
 
     // Отображение сообщения
     private fun showMassage() {
-        Toast.makeText(this, getString(R.string.audio_file_not_available), Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), getString(R.string.audio_file_not_available), Toast.LENGTH_LONG).show()
     }
 
     private val timeFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }

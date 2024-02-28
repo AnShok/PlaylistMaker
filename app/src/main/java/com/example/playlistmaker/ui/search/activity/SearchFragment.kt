@@ -1,7 +1,6 @@
 package com.example.playlistmaker.ui.search.activity
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,12 +11,13 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
-import com.example.playlistmaker.ui.player.activity.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
 import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
 import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
@@ -210,23 +210,23 @@ class SearchFragment : Fragment() {
     // Метод для перехода на экран аудиоплеера
     private fun startAudioPlayer(track: Track) {
         if (viewModel.clickDebounce()) {
-            //val bundle = Bundle()
-            //bundle.putParcelable(TRACK, track)
-            //findNavController().navigate(
-            //    R.id.action_searchFragment_to_audioPlayerActivity,
-            //    bundle
-            //)
+            val bundle = Bundle()
+            bundle.putParcelable(TRACK, track)
+            findNavController().navigate(
+                R.id.action_searchFragment_to_audioPlayerFragment,
+                bundle
+            )
 
 
-            //Интент для перехода на экран аудиоплеера
-            val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
-
-            //Данные о треке
-            audioPlayerIntent.putExtra(TRACK, track)
-
-            // Добавление флага FLAG_ACTIVITY_SINGLE_TOP
-            audioPlayerIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(audioPlayerIntent)
+            ////Интент для перехода на экран аудиоплеера
+            //val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
+//
+            ////Данные о треке
+            //audioPlayerIntent.putExtra(TRACK, track)
+//
+            //// Добавление флага FLAG_ACTIVITY_SINGLE_TOP
+            //audioPlayerIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            //startActivity(audioPlayerIntent)
 
             viewModel.addToSearchHistory(track)
         }
@@ -307,6 +307,6 @@ class SearchFragment : Fragment() {
 
     companion object {
         private const val TEXT_SEARCH = "TEXT_SEARCH"
-        private const val TRACK = "track"
+        const val TRACK = "track"
     }
 }
