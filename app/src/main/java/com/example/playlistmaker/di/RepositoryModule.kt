@@ -1,10 +1,13 @@
 package com.example.playlistmaker.di
 
-import com.example.playlistmaker.data.player.impl.AudioPlayerRepositoryImpl
-import com.example.playlistmaker.data.search.local.impl.TrackHistoryRepositoryImpl
-import com.example.playlistmaker.data.search.network.impl.TrackRepositoryImpl
-import com.example.playlistmaker.data.settings.impl.ThemeSettingsRepositoryImpl
-import com.example.playlistmaker.data.sharing.impl.SharingRepositoryImpl
+import com.example.playlistmaker.data.db.converters.TrackDbConverter
+import com.example.playlistmaker.data.impl.db.FavoriteTracksRepositoryImpl
+import com.example.playlistmaker.data.impl.player.AudioPlayerRepositoryImpl
+import com.example.playlistmaker.data.impl.search.TrackHistoryRepositoryImpl
+import com.example.playlistmaker.data.impl.search.TrackRepositoryImpl
+import com.example.playlistmaker.data.impl.settings.ThemeSettingsRepositoryImpl
+import com.example.playlistmaker.data.impl.settings.SharingRepositoryImpl
+import com.example.playlistmaker.domain.db.FavoriteTracksRepository
 import com.example.playlistmaker.domain.player.AudioPlayerRepository
 import com.example.playlistmaker.domain.search.TrackHistoryRepository
 import com.example.playlistmaker.domain.search.TrackRepository
@@ -28,6 +31,12 @@ val repositoryModule = module {
         AudioPlayerRepositoryImpl(get())
     }
 
+    factory { TrackDbConverter() }
+
+    single<FavoriteTracksRepository> {
+        FavoriteTracksRepositoryImpl(appDatabase = get(), trackDbConverter = get())
+    }
+
     factory<ThemeSettingsRepository> {
         ThemeSettingsRepositoryImpl(get(named(THEME_SHARED)))
     }
@@ -36,3 +45,9 @@ val repositoryModule = module {
         SharingRepositoryImpl(androidContext())
     }
 }
+
+// Ключ для сохранения истории поиска в SharedPreferences
+private const val SEARCH_HISTORY = "search_history"
+
+// Ключ для сохранения текущей темы приложения в SharedPreferences
+private const val THEME_SHARED = "theme_shared"

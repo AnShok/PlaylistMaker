@@ -1,4 +1,4 @@
-package com.example.playlistmaker.ui.mediateka.activity
+package com.example.playlistmaker.ui.mediateka
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentMediatekaBinding
-import com.example.playlistmaker.ui.mediateka.adapter.MediatekaViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MediatekaFragment : Fragment() {
 
-    private lateinit var binding: FragmentMediatekaBinding
+    private var _binding: FragmentMediatekaBinding? = null
+    private val binding get() = _binding!!
 
     // Объект для связывания вкладок и ViewPager в медиатеке
     private lateinit var tabMediator: TabLayoutMediator
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        binding = FragmentMediatekaBinding.inflate(inflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMediatekaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,6 +41,7 @@ class MediatekaFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         tabMediator.detach()
     }
 }

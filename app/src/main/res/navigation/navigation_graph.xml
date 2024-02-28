@@ -6,7 +6,7 @@
     app:startDestination="@id/mediatekaFragment">
     <fragment
         android:id="@+id/mediatekaFragment"
-        android:name="com.example.playlistmaker.ui.mediateka.activity.MediatekaFragment"
+        android:name="com.example.playlistmaker.ui.mediateka.MediatekaFragment"
         tools:layout="@layout/fragment_mediateka">
         <action
             android:id="@+id/action_mediatekaFragment_to_audioPlayerActivity"

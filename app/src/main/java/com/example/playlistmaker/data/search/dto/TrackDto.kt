@@ -4,7 +4,7 @@ package com.example.playlistmaker.data.search.dto
  * Data-класс, представляющий модель данных трека из внешнего источника.
  */
 data class TrackDto(
-    val trackId: String,
+    val trackId: Int,
     val trackName: String,
     val artistName: String,
     val trackTimeMillis: Long,
@@ -13,5 +13,6 @@ data class TrackDto(
     val releaseDate: String,
     val primaryGenreName: String?,
     val country: String,
-    val previewUrl: String
+    val previewUrl: String,
+    val isFavorite: Boolean = false
 )

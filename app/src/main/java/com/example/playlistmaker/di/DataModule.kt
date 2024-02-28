@@ -2,8 +2,10 @@ package com.example.playlistmaker.di
 
 import android.content.Context
 import android.media.MediaPlayer
+import androidx.room.Room
 import com.example.playlistmaker.app.App
 import com.example.playlistmaker.data.NetworkClient
+import com.example.playlistmaker.data.db.AppDatabase
 import com.example.playlistmaker.data.search.network.ItunesApi
 import com.example.playlistmaker.data.search.network.RetrofitNetworkClient
 import com.google.gson.Gson
@@ -47,4 +49,25 @@ val dataModule = module {
         App()
     }
 
+    single {
+        Room.databaseBuilder(androidContext(), AppDatabase::class.java, FAVORITE_DATABASE)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
 }
+
+// URL для доступа к iTunes API
+private const val ITUNES_URL = "https://itunes.apple.com"
+
+// Ключ для сохранения истории поиска в SharedPreferences
+private const val SEARCH_HISTORY = "search_history"
+
+// Ключ для сохранения текущей темы приложения в SharedPreferences
+private const val THEME_SHARED = "theme_shared"
+
+// Ключ для передачи контекста между компонентами приложения
+private const val CONTEXT = "context"
+
+// Константа, содержащая имя базы данных, используемой для сохранения информации об избранных треках в приложении.
+private const val FAVORITE_DATABASE = "database.db"
