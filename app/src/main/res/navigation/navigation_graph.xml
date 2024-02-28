@@ -9,8 +9,8 @@
         android:name="com.example.playlistmaker.ui.mediateka.MediatekaFragment"
         tools:layout="@layout/fragment_mediateka">
         <action
-            android:id="@+id/action_mediatekaFragment_to_audioPlayerActivity"
-            app:destination="@id/audioPlayerActivity" />
+            android:id="@+id/action_mediatekaFragment_to_audioPlayerFragment"
+            app:destination="@id/audioPlayerFragment" />
         <action
             android:id="@+id/action_mediatekaFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -27,11 +27,11 @@
         android:name="com.example.playlistmaker.ui.search.activity.SearchFragment"
         tools:layout="@layout/fragment_search">
         <action
-            android:id="@+id/action_searchFragment_to_audioPlayerActivity"
-            app:destination="@id/audioPlayerActivity" />
+            android:id="@+id/action_searchFragment_to_audioPlayerFragment"
+            app:destination="@id/audioPlayerFragment" />
     </fragment>
-    <activity
-        android:id="@+id/audioPlayerActivity"
-        android:name="com.example.playlistmaker.ui.player.activity.AudioPlayerActivity"
-        tools:layout="@layout/activity_audioplayer" />
+    <fragment
+        android:id="@+id/audioPlayerFragment"
+        android:name="com.example.playlistmaker.ui.player.activity.AudioPlayerFragment"
+        tools:layout="@layout/fragment_audioplayer" />
 </navigation>
