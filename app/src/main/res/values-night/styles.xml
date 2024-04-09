@@ -65,7 +65,7 @@
         </style>
 
         <style name="TextStyleInformationTrack" parent="TextStyleRegular">
-            <item name="android:textColor">@color/YP_Text_Gray</item>
+            <item name="android:textColor">@color/YP_Gray</item>
         </style>
 
         <style name="TextStyleInformationTrackReal" parent="TextStyleRegular"/>
@@ -163,6 +163,43 @@
         <item name="backgroundTint">@color/YP_Black</item>
         <item name="itemIconTint">@drawable/bottom_nav_color_state_dark</item>
         <item name="itemTextColor">@drawable/bottom_nav_color_state_dark</item>
+    </style>
+
+
+    <style name="textLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@drawable/box_stroke</item>
+        <item name="android:textColorHint">@color/YP_White</item>
+        <item name="android:textColor">@color/YP_White</item>
+    </style>
+
+    <style name="bottom_sheet_button_style" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="cornerRadius">54dp</item>
+        <item name="android:backgroundTint">@color/YP_White</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="layout_goneMarginTop">24dp</item>
+        <item name="android:text">@string/new_playlist</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="bottom_sheet_background">
+        <item name="android:backgroundTint">@color/YP_Black</item>
+    </style>
+
+    <style name="bottom_sheet_line_style">
+        <item name="android:backgroundTint">@color/YP_White</item>
+    </style>
+
+    <style name="new_playlist_image_shape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="new_playlist_background">
+        <item name="android:background">@color/YP_Black</item>
     </style>
 
 </resources>

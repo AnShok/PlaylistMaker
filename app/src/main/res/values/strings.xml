@@ -15,6 +15,25 @@
     <string name="mediateka">Медиатека</string>
     <string name="timer">00:00</string>
 
+    <!-- Плейлисты -->
+    <string name="playlist_add">Добавить в плейлист</string>
+    <string name="added_to_playlist">Добавлено в плейлист</string>
+    <string name="already_in_playlist">Трек уже добавлен в плейлист</string>
+    <string name="new_playlist">Новый плейлист</string>
+    <string name="track_multiplie">треков</string>
+    <string name="track_several">трека</string>
+    <string name="track_one">трек</string>
+    <string name="description">Описание</string>
+    <string name="playlist_title">Название*</string>
+    <string name="playlist_create">Создать</string>
+    <string name="dialog_title">Завершить создание плейлиста?</string>
+    <string name="dialog_message">Все несохраненные данные будут потеряны</string>
+    <string name="dialog_positive_btn">Завершить</string>
+    <string name="dialog_negative_btn">Отмена</string>
+    <string name="new_playlist_btn">Новый плейлист</string>
+    <string name="no_playlists">Вы не создали\n ни одного плейлиста</string>
+
+
     <!-- Ссылки -->
     <string name="url_terms_of_use">https://yandex.ru/legal/practicum_offer</string>
     <string name="url_for_share">https://practicum.yandex.ru/android-developer/?from=catalog</string>
@@ -30,7 +49,6 @@
     <string name="refreshButton">Обновить</string>
     <string name="SearchCaption">Вы искали</string>
     <string name="ClearSearchHistory">Очистить историю</string>
-    <string name="new_playlist">Новый плейлист</string>
     <string name="mediateka_empty_text">Ваша медиатека пуста</string>
     <string name="playlist_empty_text">Вы не создали\nни одного плейлиста</string>
 
