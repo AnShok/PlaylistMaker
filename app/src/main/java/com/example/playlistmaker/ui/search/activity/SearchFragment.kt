@@ -306,7 +306,7 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
-        private const val TEXT_SEARCH = "TEXT_SEARCH"
+        const val TEXT_SEARCH = "TEXT_SEARCH"
         const val TRACK = "track"
     }
 }

@@ -12,4 +12,9 @@ interface AudioPlayerInteractor {
     fun pausePlayer()
     fun getAudioPlayerProgressStatus(): AudioPlayerProgressStatus
     fun destroyPlayer()
+    fun setOnPreparedListener(listener: (() -> Unit)?)
+    fun setOnCompletionListener(listener: (() -> Unit)?)
+    fun reset()
+    fun playerCheck(): Boolean
+    fun getCurrentPosition(): Int
 }

@@ -17,10 +17,6 @@
             <style name="FragmentStyleColor">
                 <item name="android:background">@color/YP_White</item>
             </style>
-
-        <!-- Статусбар -->
-
-
     <!-- Конец блока стилей активити -->
 
     <!-- Блок кнопки -->
@@ -177,6 +173,12 @@
         <item name="itemTextColor">@drawable/bottom_nav_color_state</item>
     </style>
 
+    <style name="textLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@drawable/box_stroke</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <!-- Стиль для theme_switcher -->
     <style name="ThemeSwitcherStyle">
         <item name="android:textColor">@color/black</item>
@@ -212,12 +214,6 @@
         <item name="titleMarginTop">10dp</item>
         <item name="navigationIcon">@drawable/ic_back</item>
         <item name="titleTextAppearance">@style/main</item>
-    </style>
-
-    <style name="textLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@drawable/box_stroke</item>
-        <item name="android:textColorHint">@color/black</item>
-        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="new_playlist_image_shape">

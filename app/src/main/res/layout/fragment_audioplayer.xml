@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,6 +27,18 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/indent_24" />
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarplayer"
+            style="@style/toolbaraudio"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="@dimen/indent_4"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toTopOf="@id/cover_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <!-- Отcтупы для информации -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/left_border_information"
@@ -43,24 +55,25 @@
             app:layout_constraintGuide_end="@dimen/indent_16" />
 
         <!-- Кнопка "Назад" -->
-        <Button
+        <!--<Button
             android:id="@+id/back_button"
             style="@style/BackButtonStyle"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" /> -->
 
         <!-- Область для отображения обложки плеера -->
         <ImageView
             android:id="@+id/cover_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginVertical="@dimen/indent_24"
-            app:layout_constraintTop_toBottomOf="@+id/back_button"
+            android:layout_marginTop="@dimen/indent_24"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarplayer"
             app:layout_constraintEnd_toEndOf="@+id/right_border"
             app:layout_constraintStart_toStartOf="@+id/left_border"
             app:layout_constraintBottom_toTopOf="@+id/track_name"
-            android:src="@drawable/placeholderlarge"/>
+            android:src="@drawable/placeholderlarge" />
 
         <!-- Название трека -->
         <TextView
@@ -69,12 +82,14 @@
             android:textSize="@dimen/string_text_size_22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/indent_24"
             android:layout_marginBottom="@dimen/indent_12"
             android:ellipsize="end"
             android:maxLines="1"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="@+id/left_border"
             app:layout_constraintEnd_toEndOf="@id/right_border"
+            app:layout_constraintTop_toBottomOf="@id/cover_image"
             app:layout_constraintBottom_toTopOf="@+id/artist_name"
             tools:text="Название трека" />
 
@@ -91,6 +106,7 @@
             android:maxLines="1"
             app:layout_constraintStart_toStartOf="@+id/left_border"
             app:layout_constraintEnd_toEndOf="@+id/right_border"
+            app:layout_constraintTop_toBottomOf="@id/track_name"
             app:layout_constraintBottom_toTopOf="@+id/add_to_playlist_button"
             tools:text="Имя исполнителя"/>
 
@@ -313,6 +329,14 @@
             app:layout_constraintBottom_toBottomOf="@+id/country"
             tools:text="Австралия"/>
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="60dp"
+            app:barrierDirection="end" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -364,4 +388,4 @@
             android:layout_marginTop="24dp" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -18,21 +18,6 @@ class PlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor) : 
         _playlistsState.postValue(playlistState)
     }
 
-//    fun getPlaylists() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            playlistsInteractor
-//                .getPlaylists()
-//                .collect { playlists ->
-//                    if (playlists.isEmpty()) {
-//                        setState(PlaylistState.Empty)
-//                    } else {
-//                        setState(PlaylistState.Data(playlists))
-//                    }
-//                }
-//        }
-//    }
-//}
-
     fun getPlaylists() {
         viewModelScope.launch(Dispatchers.IO) {
             playlistsInteractor

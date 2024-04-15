@@ -28,7 +28,7 @@ class PlaylistFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPlaylistBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentPlaylistBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,7 +41,11 @@ class PlaylistFragment : Fragment() {
         viewModel.getPlaylists()
 
 
-        adapter = PlaylistsAdapter(this)
+        adapter = PlaylistsAdapter (object : PlaylistsViewHolder.ClickListener {
+            override fun onClick(playlist: Playlist) {
+                // Реализация обработки нажатия на плейлист
+            }
+        })
         binding.playlistsRecycleView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.playlistsRecycleView.adapter = adapter
 
@@ -102,7 +106,6 @@ class PlaylistFragment : Fragment() {
         }
     }
 
-    override fun onClick(playlist: Playlist) {
-        // TODO:  
-    }
+    //override fun onClick(playlist: Playlist) {
+    //}
 }

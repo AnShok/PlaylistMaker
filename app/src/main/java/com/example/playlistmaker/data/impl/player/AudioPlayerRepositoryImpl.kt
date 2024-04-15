@@ -90,11 +90,31 @@ class AudioPlayerRepositoryImpl(
         }
     }
 
+    override fun reset() {
+        mediaPlayer.reset()
+    }
+
     /**
      * Освобождение ресурсов аудиоплеера.
      */
     override fun destroyPlayer() {
         mediaPlayer.release()
         mediaPlayer = MediaPlayer()
+    }
+
+    override fun setOnPreparedListener(listener: (() -> Unit)?) {
+        mediaPlayer.setOnPreparedListener { listener?.invoke() }
+    }
+
+    override fun setOnCompletionListener(listener: (() -> Unit)?) {
+        mediaPlayer.setOnCompletionListener { listener?.invoke() }
+    }
+
+    override fun playerCheck(): Boolean {
+        return mediaPlayer.isPlaying
+    }
+
+    override fun getCurrentPosition(): Int {
+        return mediaPlayer.currentPosition
     }
 }
