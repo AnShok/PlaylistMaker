@@ -63,9 +63,11 @@ class FavoriteTracksFragment : Fragment() {
         binding.favoriteListEmpty.visibility = View.GONE
         binding.favoriteProgressBar.visibility = View.GONE
         binding.favoriteRecyclerView.visibility = View.VISIBLE
+        // Сортируем треки
+        val sortedTracks = tracks.sortedByDescending { it.trackId }
         with(favoriteAdapter) {
             searchTracks.clear()
-            searchTracks.addAll(tracks)
+            searchTracks.addAll(sortedTracks)
             notifyDataSetChanged()
         }
     }
