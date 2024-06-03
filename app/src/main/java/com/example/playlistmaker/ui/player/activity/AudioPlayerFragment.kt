@@ -103,6 +103,11 @@ class AudioPlayerFragment : Fragment(), AudioPlayerViewHolder.ClickListener {
 
         viewModel.getPlaylists()
 
+        viewModel.playlistState.onEach { state ->
+            playlistStateManage(state)
+            adapter.notifyDataSetChanged() // добавлено обновление адаптера
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
         viewModel.audioPlayerProgressStatus.observe(viewLifecycleOwner) { state ->
             binding.trackPlaybackTime.text =
                 android.icu.text.SimpleDateFormat("mm:ss", Locale.getDefault())
@@ -234,9 +239,8 @@ class AudioPlayerFragment : Fragment(), AudioPlayerViewHolder.ClickListener {
                 requireContext().applicationContext,
                 "${getString(R.string.added_to_playlist)} ${playlist.name}",
                 Toast.LENGTH_SHORT
-            )
-                .show()
-            playlist.tracksAmount = playlist.tracksIds.size
+            ).show()
+            adapter.notifyDataSetChanged() // обновляем адаптер
             BottomSheetBehavior.from(binding.bottomSheetAudioPlayer).apply {
                 state = BottomSheetBehavior.STATE_HIDDEN
             }
@@ -245,8 +249,7 @@ class AudioPlayerFragment : Fragment(), AudioPlayerViewHolder.ClickListener {
                 requireContext().applicationContext,
                 "${getString(R.string.already_in_playlist)} ${playlist.name}",
                 Toast.LENGTH_SHORT
-            )
-                .show()
+            ).show()
         }
         adapter.notifyDataSetChanged()
     }

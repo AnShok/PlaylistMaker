@@ -21,6 +21,11 @@ class PlaylistsAdapter(private val clickListener: PlaylistsViewHolder.ClickListe
 
     override fun onBindViewHolder(holder: PlaylistsViewHolder, position: Int) {
         holder.bind(playlists[position], clickListener)
+    }
 
+    fun updatePlaylists(newPlaylists: List<Playlist>) {
+        playlists.clear()
+        playlists.addAll(newPlaylists)
+        notifyDataSetChanged()
     }
 }

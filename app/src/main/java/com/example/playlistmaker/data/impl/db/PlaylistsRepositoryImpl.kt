@@ -40,7 +40,13 @@ class PlaylistsRepositoryImpl(
         if (trackId == 0L) {
             throw IllegalArgumentException(NULL_ARGUMENT_TRACK_ID)
         }
-        addPlaylist(playlist = playList)
+
+        val updatedTracks = ArrayList(playList.tracksIds)
+        updatedTracks.add(trackId)
+        playList.tracksIds = updatedTracks
+        playList.tracksAmount = updatedTracks.size
+
+        appDatabasePlaylists.playlistsDao().updatePlayList(playlistsDbConverter.map(playList))
         val addTime = Date().time
         appDatabasePlaylists.playlistsDao()
             .addTrackToPlaylist(tracksToPlaylistConverter.map(track, addTime))

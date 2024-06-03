@@ -32,7 +32,6 @@ class AudioPlayerViewModel(
     private val _playlistsState = MutableStateFlow<PlaylistState>(PlaylistState.Empty)
     val playlistState: StateFlow<PlaylistState> = _playlistsState
 
-
     private val _audioPlayerProgressStatus = MutableLiveData(
         AudioPlayerProgressStatus(
             audioPlayerStatus = AudioPlayerStatus.STATE_DEFAULT,
@@ -41,14 +40,9 @@ class AudioPlayerViewModel(
     )
     val audioPlayerProgressStatus: LiveData<AudioPlayerProgressStatus> = _audioPlayerProgressStatus
 
-
-
-    //private val _audioPlayerProgressStatus: MutableLiveData<AudioPlayerProgressStatus> =
-    //    MutableLiveData(updateAudioPlayerProgressStatus())
-    //val audioPlayerProgressStatus: LiveData<AudioPlayerProgressStatus> get() = _audioPlayerProgressStatus
-
     private var timerJob: Job? = null
     private var isFavoriteTrack: Boolean = false
+
     private fun setState(audioPlayerStatus: AudioPlayerStatus) {
         _audioPlayerProgressStatus.postValue(audioPlayerProgressStatus.value?.copy(audioPlayerStatus = audioPlayerStatus))
     }
@@ -79,23 +73,19 @@ class AudioPlayerViewModel(
     }
 
     fun inPlaylist(playlist: Playlist, trackId: Long): Boolean {
-        var data = false
-        for (track in playlist.tracksIds) {
-            if (track == trackId) data = true
-        }
-        return data
+        return playlist.tracksIds.contains(trackId)
     }
 
     fun clickOnAddtoPlaylist(playlist: Playlist, track: Track) {
         viewModelScope.launch {
-            playlist.tracksAmount = playlist.tracksIds.size + 1
             playlistsInteractor.addTrackToPlaylist(playlist, track)
+            getPlaylists()  // Обновляем списки плейлистов после добавления трека
         }
     }
 
     fun getPlaylists() {
         viewModelScope.launch(Dispatchers.IO) {
-            playlistsInteractor.getPlaylists().collect() { playlists ->
+            playlistsInteractor.getPlaylists().collect { playlists ->
                 if (playlists.isEmpty()) {
                     _playlistsState.value = PlaylistState.Empty
                 } else {
@@ -165,7 +155,6 @@ class AudioPlayerViewModel(
             setTimer()
         }
     }
-
 
     companion object {
         // Задержка для избегания многократных кликов (в миллисекундах)

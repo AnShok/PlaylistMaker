@@ -9,7 +9,7 @@ data class Playlist(
     val name: String,
     val description: String,
     val coverPath: String,
-    val tracksIds: ArrayList<Long>,
+    var tracksIds: ArrayList<Long>,
     var tracksAmount: Int,
     val imageUri: String?
 ) : Parcelable

@@ -22,6 +22,12 @@ class AudioPlayerAdapter(private val clickListener: AudioPlayerViewHolder.ClickL
 
     override fun onBindViewHolder(holder: AudioPlayerViewHolder, position: Int) {
         holder.bind(playlists[position], clickListener)
+    }
 
+    fun updatePlaylists(newPlaylists: List<Playlist>) {
+        playlists.clear()
+        playlists.addAll(newPlaylists)
+        notifyDataSetChanged()
     }
 }
+
