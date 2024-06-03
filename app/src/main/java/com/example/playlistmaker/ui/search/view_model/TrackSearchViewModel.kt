@@ -39,7 +39,6 @@ class TrackSearchViewModel(
         }
     }
 
-
     // Выполнение поискового запроса
     private suspend fun performSearch() {
         // Проверка наличия текста перед выполнением запроса
@@ -52,7 +51,6 @@ class TrackSearchViewModel(
 
     fun loadSearchHistory(): List<Track> =
         trackHistoryInteractor.loadSearchHistory()
-
 
     fun clearSearchHistory() {
         trackHistoryInteractor.clearSearchHistory()
