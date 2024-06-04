@@ -14,8 +14,7 @@ class SettingsFragment : Fragment() {
     private val viewModel by viewModel<SettingsViewModel>()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
@@ -25,30 +24,28 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Обновление состояния переключателя при изменении значения в darkThemeEnabled
         viewModel.isThemeSwitcherEnabled.observe(viewLifecycleOwner) { isChecked ->
             binding.themeSwitcher.isChecked = isChecked
         }
-        viewModel.settingsIntentEvent.observe(viewLifecycleOwner) { intent ->
-            startActivity(intent)
+
+        viewModel.settingsIntentEvent.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { intent ->
+                startActivity(intent)
+            }
         }
 
-        //обработчик событ изменения состояиния перееключателя
         binding.themeSwitcher.setOnCheckedChangeListener { _, checked ->
             viewModel.onThemeSwitcherChecked(checked)
         }
 
-        //Кнопка поделиться ссылкой
         binding.shareApp.setOnClickListener {
             viewModel.onShareClick()
         }
 
-        //Кнопка письма в поддержку с предзаполненной темой и сообщением
         binding.openSupport.setOnClickListener {
             viewModel.onSupportClick()
         }
 
-        //Кнопка открытия пользовательского соглашения
         binding.openTerms.setOnClickListener {
             viewModel.onTermsClick()
         }

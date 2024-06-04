@@ -42,20 +42,20 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0' // Kotlin Extensions для основного функционала
-    implementation 'androidx.appcompat:appcompat:1.4.1' // Библиотека AppCompat для обеспечения совместимости с более старыми версиями Android
-    implementation 'com.google.android.material:material:1.6.1' // Библиотека Material Components для современного дизайна пользовательского интерфейса Android
-    implementation "androidx.activity:activity-ktx:1.3.0" // Kotlin Extensions для работы с активити
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3' // ConstraintLayout для создания гибких и эффективных макетов
-    implementation 'androidx.compose.ui:ui-text-android:1.5.4'
+    implementation 'androidx.core:core-ktx:1.13.1' // Kotlin Extensions для основного функционала
+    implementation 'androidx.appcompat:appcompat:1.7.0' // Библиотека AppCompat для обеспечения совместимости с более старыми версиями Android
+    implementation 'com.google.android.material:material:1.12.0' // Библиотека Material Components для современного дизайна пользовательского интерфейса Android
+    implementation "androidx.activity:activity-ktx:1.9.0" // Kotlin Extensions для работы с активити
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4' // ConstraintLayout для создания гибких и эффективных макетов
+    implementation 'androidx.compose.ui:ui-text-android:1.6.7'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
 // Библиотека Compose UI для создания декларативных пользовательских интерфейсов с Jetpack Compose
     testImplementation 'junit:junit:4.13.2' // JUnit для юнит-тестирования
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3' // Android JUnit extensions для тестирования
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0' // Espresso для UI-тестирования
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5' // Android JUnit extensions для тестирования
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1' // Espresso для UI-тестирования
 
-    implementation "androidx.viewpager2:viewpager2:1.0.0" // ViewPager2 для обработки навигации по свайпу
-    implementation "androidx.fragment:fragment-ktx:1.6.2" // Kotlin Extensions для работы с фрагментами
+    implementation "androidx.viewpager2:viewpager2:1.1.0" // ViewPager2 для обработки навигации по свайпу
+    implementation "androidx.fragment:fragment-ktx:1.7.1" // Kotlin Extensions для работы с фрагментами
 
     implementation "io.insert-koin:koin-android:3.3.0" // Koin для внедрения зависимостей в Kotlin
 
@@ -64,31 +64,33 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     
     // Retrofit для выполнения сетевых запросов и преобразования ответов
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.11.0'
 
     // Библиотека AdapterDelegates для упрощения реализации адаптера RecyclerView
-    implementation ("com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.2")
-    implementation ("com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.2")
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.2"
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.2"
 
     //Navigation Graph Компоненты навигации для навигации внутри вашего приложения
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.5.3")
-    implementation ("androidx.fragment:fragment-ktx:1.5.6")
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.7"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.7"
 
     //Зависимость на RxJava для реактивного программирования
-    implementation ("io.reactivex.rxjava2:rxjava:2.2.21")
+    implementation "io.reactivex.rxjava2:rxjava:2.2.21"
     // Зависимость на RxAndroid
-    implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
     // Зависимость на Сoroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
 
     // Зависимость на Room для работы с базами данных
     def room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version") // библиотека Room
+    implementation "androidx.room:room-runtime:$room_version" // библиотека Room
     //kapt("androidx.room:room-compiler:$room_version") // Kotlin-кодогенератор
-    ksp("androidx.room:room-compiler:$room_version") // Kotlin-кодогенератор
-    implementation("androidx.room:room-ktx:$room_version") // поддержка корутин
+    ksp "androidx.room:room-compiler:$room_version" // Kotlin-кодогенератор
+    implementation "androidx.room:room-ktx:$room_version" // поддержка корутин
+
+    // Библиотека RxPermissions для управления разрешениями в приложении
+    implementation "com.github.tbruyelle:rxpermissions:0.12"
 }

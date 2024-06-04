@@ -27,4 +27,25 @@ class AudioPlayerInteractorImpl(private val audioPlayerRepository: AudioPlayerRe
         audioPlayerRepository.destroyPlayer()
     }
 
+    override fun setOnPreparedListener(listener: (() -> Unit)?) {
+        audioPlayerRepository.setOnPreparedListener(listener)
+    }
+
+    override fun setOnCompletionListener(listener: (() -> Unit)?) {
+        audioPlayerRepository.setOnCompletionListener(listener)
+    }
+
+    override fun reset() {
+        audioPlayerRepository.reset()
+    }
+
+    override fun playerCheck(): Boolean {
+        return audioPlayerRepository.playerCheck()
+    }
+
+    override fun getCurrentPosition(): Int {
+        return audioPlayerRepository.getCurrentPosition()
+    }
+
+
 }

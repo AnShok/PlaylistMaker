@@ -7,9 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentFavoriteTracksBinding
 import com.example.playlistmaker.domain.search.model.Track
-import com.example.playlistmaker.ui.player.activity.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -62,9 +63,11 @@ class FavoriteTracksFragment : Fragment() {
         binding.favoriteListEmpty.visibility = View.GONE
         binding.favoriteProgressBar.visibility = View.GONE
         binding.favoriteRecyclerView.visibility = View.VISIBLE
+        // Сортируем треки
+        val sortedTracks = tracks.sortedByDescending { it.trackId }
         with(favoriteAdapter) {
             searchTracks.clear()
-            searchTracks.addAll(tracks)
+            searchTracks.addAll(sortedTracks)
             notifyDataSetChanged()
         }
     }
@@ -83,15 +86,21 @@ class FavoriteTracksFragment : Fragment() {
 
     private fun startAudioPlayer(track: Track) {
 
+        val bundle = Bundle()
+        bundle.putParcelable(TRACK, track)
+        findNavController().navigate(
+            R.id.action_mediatekaFragment_to_audioPlayerFragment,
+            bundle
+        )
         //Интент для перехода на экран аудиоплеера
-        val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
-
-        //Данные о треке
-        audioPlayerIntent.putExtra(TRACK, track)
-
-        // Добавление флага FLAG_ACTIVITY_SINGLE_TOP
-        audioPlayerIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        startActivity(audioPlayerIntent)
+        //val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
+        //
+        ////Данные о треке
+        //audioPlayerIntent.putExtra(TRACK, track)
+        //
+        //// Добавление флага FLAG_ACTIVITY_SINGLE_TOP
+        //audioPlayerIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        //startActivity(audioPlayerIntent)
     }
 
     // Освобождение ресурсов при уничтожении фрагмента

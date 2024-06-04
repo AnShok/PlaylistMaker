@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' } //Для добавления RxPermissions к проекту
     }
 }
 rootProject.name = "Playlist Maker"

@@ -1,45 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/FragmentStyleColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/playListsFragment">
 
-    <Button
-        android:id="@+id/refresh_button"
-        style="@style/RefreshOrClearButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/indent_24"
-        android:text="@string/new_playlist" />
-
-    <!-- Плейлистов нет -->
-    <LinearLayout
-        android:id="@+id/playlist_empty"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        tools:visibility="visible">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/nothing_found"
+        <Button
+            android:id="@+id/new_playlist_btn"
+            style="@style/RefreshOrClearButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="12dp"
+            android:text="@string/new_playlist_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/no_playlist_image"
             android:src="@drawable/ic_nothing_found"
-            android:layout_marginTop="@dimen/indent_46"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="46dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_playlist_btn"
+            tools:visibility="gone" />
 
         <TextView
-            android:id="@+id/playlist_empty_text"
+            android:id="@+id/no_playlist_txt"
             style="@style/TextStyleMedium"
             android:textSize="@dimen/string_text_size_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
             android:gravity="center"
-            android:layout_marginTop="@dimen/indent_16"
-            android:text="@string/playlist_empty_text" />
+            android:text="@string/no_playlists"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/no_playlist_image"
+            tools:visibility="gone" />
 
-    </LinearLayout>
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/playlists_recycle_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_playlist_btn"
+            tools:listitem="@layout/view_playlist"
+            tools:visibility="gone" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/playlists_progress_bar"
+            android:layout_width="@dimen/indent_44"
+            android:layout_height="@dimen/indent_44"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/indent_140"
+            android:indeterminate="true"
+            android:visibility="visible"
+            app:indicatorColor="@color/YP_Blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_playlist_btn"
+            tools:progress="75" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

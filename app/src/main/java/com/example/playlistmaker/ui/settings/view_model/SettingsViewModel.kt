@@ -14,25 +14,24 @@ class SettingsViewModel(
     private val _isThemeSwitcherEnabled = MutableLiveData(false)
     val isThemeSwitcherEnabled: LiveData<Boolean> = _isThemeSwitcherEnabled
 
+    // Вспомогательная LiveData для обработки событий
+    private val _settingsIntentEvent = MutableLiveData<Event<Intent>>()
+    val settingsIntentEvent: LiveData<Event<Intent>> = _settingsIntentEvent
+
     init {
         val theme = getTheme()
     }
 
-    // Вспомогательная LiveData для обработки событий
-    private val _settingsIntentEvent = MutableLiveData<Intent>()
-    val settingsIntentEvent: LiveData<Intent> = _settingsIntentEvent
-
-
     fun onShareClick() {
-        _settingsIntentEvent.value = sharingInteractor.shareApp()
+        _settingsIntentEvent.value = Event(sharingInteractor.shareApp())
     }
 
     fun onSupportClick() {
-        _settingsIntentEvent.value = sharingInteractor.openSupport()
+        _settingsIntentEvent.value = Event(sharingInteractor.openSupport())
     }
 
     fun onTermsClick() {
-        _settingsIntentEvent.value = sharingInteractor.openTerms()
+        _settingsIntentEvent.value = Event(sharingInteractor.openTerms())
     }
 
     fun setTheme(status: ThemeSettingsInteractor.ThemeMode) {
@@ -56,4 +55,19 @@ class SettingsViewModel(
             setTheme(ThemeSettingsInteractor.ThemeMode.Light)
         }
     }
+}
+
+class Event<out T>(private val content: T) {
+    private var hasBeenHandled = false
+
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
+        }
+    }
+
+    fun peekContent(): T = content
 }

@@ -1,7 +1,6 @@
 package com.example.playlistmaker.ui.search.activity
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,27 +11,26 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
-import com.example.playlistmaker.ui.player.activity.AudioPlayerActivity
 import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
 import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
 import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
-
     private val viewModel by viewModel<TrackSearchViewModel>()
 
     // Объявление адаптеров для результатов поиска и истории поиска
-    private val searchAdapter = SearchTracksAdapter() // Объявление адаптера для результатов поиска
-    private val historyAdapter = HistoryTracksAdapter()// Объявление адаптера для истории поиска
+    private val searchAdapter = SearchTracksAdapter()
+    private val historyAdapter = HistoryTracksAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,36 +49,45 @@ class SearchFragment : Fragment() {
         }
 
         setupAdapters()
-
         setupEditText()
-
         setupButtons()
 
         // Загрузка истории поиска при создании
         loadSearchHistory()
-
         setupListenersAdapters()
-
         restoreState(savedInstanceState)
     }
 
+    override fun onPause() {
+        super.onPause()
+        saveSearchState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        restoreSearchState()
+        if (viewModel.textSearch.isEmpty()) {
+            binding.searchRecyclerView.visibility = View.GONE
+            binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
+        } else {
+            binding.searchRecyclerView.visibility = View.VISIBLE
+            binding.searchHistoryLayout.visibility = View.GONE
+        }
+    }
+
     private fun setupAdapters() {
-        // Настройка адаптера для списка найденных треков
         binding.searchRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.searchRecyclerView.adapter = searchAdapter
 
-        // Настройка адаптера для списка истории поиска
         binding.historyRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.historyRecyclerView.adapter = historyAdapter
     }
 
     private fun setupEditText() {
-        // Обработка события нажатия на кнопку "Готово" на клавиатуре
         binding.inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                // Выполнение поискового запроса
                 viewModel.search()
                 true
             } else {
@@ -89,9 +96,7 @@ class SearchFragment : Fragment() {
         }
 
         binding.inputEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus && binding.inputEditText.text.isEmpty() && viewModel.loadSearchHistory()
-                    .isNotEmpty()
-            ) {
+            if (hasFocus && binding.inputEditText.text.isEmpty() && viewModel.loadSearchHistory().isNotEmpty()) {
                 binding.searchHistoryLayout.visibility = View.VISIBLE
                 viewModel.loadSearchHistory()
                 historyAdapter.notifyDataSetChanged()
@@ -102,23 +107,17 @@ class SearchFragment : Fragment() {
             }
         }
 
-        // Настройка слушателя изменения текста в поисковой строке
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // empty
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                //Когда тект поискового запроса меняется, он сохраняется в переменную textSearch
                 viewModel.textSearch = s.toString()
                 binding.clearIcon.isVisible = !s.isNullOrEmpty()
-                // Изменение видимости истории поиска при наличии фокуса и пустом тексте
                 binding.searchHistoryLayout.visibility =
-                    if (binding.inputEditText.hasFocus() && s?.isEmpty() == true && viewModel.loadSearchHistory()
-                            .isNotEmpty()
-                    ) View.VISIBLE
+                    if (binding.inputEditText.hasFocus() && s?.isEmpty() == true && viewModel.loadSearchHistory().isNotEmpty()) View.VISIBLE
                     else View.GONE
-                // Запуск отложенного поискового запроса только если текст не пустой
                 if (binding.inputEditText.text.toString().isEmpty()) {
                     hidePlaceholders()
                 } else {
@@ -126,7 +125,6 @@ class SearchFragment : Fragment() {
                     viewModel.search()
                     hidePlaceholders()
                 }
-
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -137,12 +135,10 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupButtons() {
-        // Обработка нажатия на кнопку очистки поисковой строки
         binding.clearIcon.setOnClickListener {
             clearSearch()
         }
 
-        // Обработка нажатия на кнопку очистки истории поиска
         binding.clearSearchHistoryButton.setOnClickListener {
             historyAdapter.historyTracks.clear()
             viewModel.clearSearchHistory()
@@ -150,9 +146,8 @@ class SearchFragment : Fragment() {
             binding.searchHistoryLayout.visibility = View.GONE
         }
 
-        // Обработка нажатия на кнопку обновления страницы
         binding.refreshButton.setOnClickListener {
-            if (viewModel.textSearch.isNotEmpty()) { //для кнопки обновить используемпоследний запрос
+            if (viewModel.textSearch.isNotEmpty()) {
                 binding.inputEditText.setText(viewModel.textSearch)
                 viewModel.search()
             }
@@ -160,14 +155,12 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupListenersAdapters() {
-        // Настройка слушателей нажатия для перехода на экран аудиоплеера
         searchAdapter.itemClickListener = object : SearchTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
                 startAudioPlayer(track)
             }
         }
 
-        // Переход на экран аудиоплеера
         historyAdapter.itemClickListener = object : HistoryTracksAdapter.OnItemClickListener {
             override fun onItemClick(track: Track) {
                 startAudioPlayer(track)
@@ -176,58 +169,23 @@ class SearchFragment : Fragment() {
     }
 
     private fun restoreState(savedInstanceState: Bundle?) {
-        // Восстановление состояния при повороте или восстановлении активити
         if (savedInstanceState != null) {
-            viewModel.textSearch = savedInstanceState.getString(
-                TEXT_SEARCH,
-                ""
-            ) ?: "" //Восстановление значения textSearch из сохраненного состояния
-            binding.inputEditText.setText(viewModel.textSearch) //Восстановление текст в EditText из сохраненного состояния
+            viewModel.textSearch = savedInstanceState.getString(TEXT_SEARCH, "") ?: ""
+            binding.inputEditText.setText(viewModel.textSearch)
             if (viewModel.textSearch.isNotEmpty()) {
                 viewModel.search()
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadSearchHistory()
-        historyAdapter.notifyDataSetChanged()
-
-    }
-
-    // Сохранение состояния при уничтожении активити
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        viewModel.textSearch =
-            binding.inputEditText.text.toString() // Сохранение значения текста поискового запроса в переменную
-        outState.putString(
-            TEXT_SEARCH,
-            viewModel.textSearch
-        ) //Сохранение значения textSearch в состояние активити
-    }
-
-    // Метод для перехода на экран аудиоплеера
     private fun startAudioPlayer(track: Track) {
         if (viewModel.clickDebounce()) {
-            //val bundle = Bundle()
-            //bundle.putParcelable(TRACK, track)
-            //findNavController().navigate(
-            //    R.id.action_searchFragment_to_audioPlayerActivity,
-            //    bundle
-            //)
-
-
-            //Интент для перехода на экран аудиоплеера
-            val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
-
-            //Данные о треке
-            audioPlayerIntent.putExtra(TRACK, track)
-
-            // Добавление флага FLAG_ACTIVITY_SINGLE_TOP
-            audioPlayerIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(audioPlayerIntent)
-
+            val bundle = Bundle()
+            bundle.putParcelable(TRACK, track)
+            findNavController().navigate(
+                R.id.action_searchFragment_to_audioPlayerFragment,
+                bundle
+            )
             viewModel.addToSearchHistory(track)
         }
     }
@@ -238,6 +196,7 @@ class SearchFragment : Fragment() {
         searchAdapter.searchTracks.clear()
         searchAdapter.notifyDataSetChanged()
         hidePlaceholders()
+        binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
     }
 
     private fun loadSearchHistory() {
@@ -245,9 +204,9 @@ class SearchFragment : Fragment() {
         historyAdapter.historyTracks.clear()
         historyAdapter.historyTracks.addAll(history)
         historyAdapter.notifyDataSetChanged()
+        binding.searchHistoryLayout.visibility = if (history.isEmpty()) View.GONE else View.VISIBLE
     }
 
-    //Функция скрытия клавиатуры после очистки
     private fun hideKeyboard() {
         val inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -284,29 +243,41 @@ class SearchFragment : Fragment() {
                 searchAdapter.searchTracks.addAll(foundTracks.tracks)
                 searchAdapter.notifyDataSetChanged()
             }
-
             SearchStatus.NOTHING_FOUND -> {
                 binding.progressBar.visibility = View.GONE
                 showNothingFoundPlaceholder()
             }
-
             SearchStatus.NETWORK_ERROR -> {
                 binding.progressBar.visibility = View.GONE
                 showErrorPlaceholder()
             }
-
             SearchStatus.DEFAULT -> {
                 binding.progressBar.visibility = View.GONE
             }
-
             SearchStatus.LOADING -> {
                 binding.progressBar.visibility = View.VISIBLE
             }
         }
     }
 
+    private fun saveSearchState() {
+        viewModel.textSearch = binding.inputEditText.text.toString()
+    }
+
+    private fun restoreSearchState() {
+        binding.inputEditText.setText(viewModel.textSearch)
+        if (viewModel.textSearch.isNotEmpty()) {
+            binding.searchHistoryLayout.visibility = View.GONE
+            binding.searchRecyclerView.visibility = View.VISIBLE
+        } else {
+            binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
+            binding.searchRecyclerView.visibility = View.GONE
+        }
+    }
+
     companion object {
-        private const val TEXT_SEARCH = "TEXT_SEARCH"
-        private const val TRACK = "track"
+        const val TEXT_SEARCH = "TEXT_SEARCH"
+        const val TRACK = "track"
     }
 }
+
