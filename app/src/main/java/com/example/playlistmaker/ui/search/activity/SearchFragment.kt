@@ -68,7 +68,7 @@ class SearchFragment : Fragment() {
         restoreSearchState()
         if (viewModel.textSearch.isEmpty()) {
             binding.searchRecyclerView.visibility = View.GONE
-            binding.searchHistoryLayout.visibility = View.VISIBLE
+            binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
         } else {
             binding.searchRecyclerView.visibility = View.VISIBLE
             binding.searchHistoryLayout.visibility = View.GONE
@@ -196,7 +196,7 @@ class SearchFragment : Fragment() {
         searchAdapter.searchTracks.clear()
         searchAdapter.notifyDataSetChanged()
         hidePlaceholders()
-        binding.searchHistoryLayout.visibility = View.VISIBLE
+        binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
     }
 
     private fun loadSearchHistory() {
@@ -204,6 +204,7 @@ class SearchFragment : Fragment() {
         historyAdapter.historyTracks.clear()
         historyAdapter.historyTracks.addAll(history)
         historyAdapter.notifyDataSetChanged()
+        binding.searchHistoryLayout.visibility = if (history.isEmpty()) View.GONE else View.VISIBLE
     }
 
     private fun hideKeyboard() {
@@ -269,7 +270,7 @@ class SearchFragment : Fragment() {
             binding.searchHistoryLayout.visibility = View.GONE
             binding.searchRecyclerView.visibility = View.VISIBLE
         } else {
-            binding.searchHistoryLayout.visibility = View.VISIBLE
+            binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
             binding.searchRecyclerView.visibility = View.GONE
         }
     }
