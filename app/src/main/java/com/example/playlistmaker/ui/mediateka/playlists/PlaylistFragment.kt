@@ -13,15 +13,16 @@ import com.example.playlistmaker.databinding.FragmentPlaylistBinding
 import com.example.playlistmaker.domain.search.model.Playlist
 import com.example.playlistmaker.domain.search.model.PlaylistState
 import com.example.playlistmaker.ui.main.MainActivity
+import com.example.playlistmaker.ui.mediateka.playlists.CurrentPlaylistFragment.Companion.CURRENT_PLAYLIST
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PlaylistFragment : Fragment() {
+class PlayListFragment : Fragment(), PlaylistsViewHolder.ClickListener {
 
     private var _binding: FragmentPlaylistBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: PlaylistsAdapter
 
-    private val viewModel by viewModel<PlaylistViewModel>()
+    private val viewModel by viewModel<PlayListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -99,13 +100,20 @@ class PlaylistFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = PlaylistFragment().apply {
+        fun newInstance() = PlayListFragment().apply {
             arguments = Bundle().apply {
 
             }
         }
     }
 
-    //override fun onClick(playlist: Playlist) {
-    //}
+    override fun onClick(playlist: Playlist) {
+        val bundle = Bundle().apply {
+            putParcelable(CURRENT_PLAYLIST, playlist)
+        }
+        findNavController().navigate(
+            R.id.action_mediatekaFragment_to_currentPlaylistFragment,
+            bundle
+        )
+    }
 }

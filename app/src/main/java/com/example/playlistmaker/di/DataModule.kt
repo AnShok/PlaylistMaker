@@ -6,7 +6,6 @@ import androidx.room.Room
 import com.example.playlistmaker.app.App
 import com.example.playlistmaker.data.NetworkClient
 import com.example.playlistmaker.data.db.AppDatabase
-import com.example.playlistmaker.data.db.AppDatabasePlaylists
 import com.example.playlistmaker.data.search.network.ItunesApi
 import com.example.playlistmaker.data.search.network.RetrofitNetworkClient
 import com.google.gson.Gson
@@ -55,13 +54,6 @@ val dataModule = module {
             .fallbackToDestructiveMigration()
             .build()
     }
-
-    single {
-        Room.databaseBuilder(androidContext(), AppDatabasePlaylists::class.java, PLALISTS_DATABASE)
-            .fallbackToDestructiveMigration()
-            .build()
-    }
-
 }
 
 // URL для доступа к iTunes API
@@ -79,4 +71,4 @@ private const val CONTEXT = "context"
 // Константа, содержащая имя базы данных, используемой для сохранения информации об избранных треках в приложении.
 private const val FAVORITE_DATABASE = "database.db"
 
-private const val PLALISTS_DATABASE = "playlistsDatabase.db"
+//private const val PLALISTS_DATABASE = "playlistsDatabase.db"

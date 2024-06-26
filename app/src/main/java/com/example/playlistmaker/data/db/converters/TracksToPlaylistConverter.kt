@@ -16,7 +16,8 @@ class TracksToPlaylistConverter {
             track.primaryGenreName,
             track.country,
             track.previewUrl,
-            isFavorite = false
+            isFavorite = false,
+            addTime
         )
     }
 
@@ -32,7 +33,8 @@ class TracksToPlaylistConverter {
             track.primaryGenreName,
             track.country,
             track.previewUrl,
-            isFavorite = false
+            isFavorite = false,
+            addTime
         )
     }
 }

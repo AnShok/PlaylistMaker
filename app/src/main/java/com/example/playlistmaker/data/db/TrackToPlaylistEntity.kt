@@ -16,7 +16,8 @@ data class TrackToPlaylistEntity(
     val primaryGenreName: String?,
     val country: String?,
     val previewUrl: String?,
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+    var insertTime: Long?
 )
 
 const val TRACKS_IN_PLAYLIST = "tracks_in_playlist"

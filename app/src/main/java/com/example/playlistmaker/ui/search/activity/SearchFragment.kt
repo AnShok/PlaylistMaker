@@ -18,8 +18,7 @@ import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.domain.search.model.SearchStatus
 import com.example.playlistmaker.domain.search.model.Track
 import com.example.playlistmaker.domain.search.model.TrackSearchResult
-import com.example.playlistmaker.ui.search.adapters.HistoryTracksAdapter
-import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
+import com.example.playlistmaker.ui.search.adapters.TrackAdapter
 import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,8 +28,8 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModel<TrackSearchViewModel>()
 
     // Объявление адаптеров для результатов поиска и истории поиска
-    private val searchAdapter = SearchTracksAdapter()
-    private val historyAdapter = HistoryTracksAdapter()
+    private val searchAdapter = TrackAdapter()
+    private val historyAdapter = TrackAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +67,7 @@ class SearchFragment : Fragment() {
         restoreSearchState()
         if (viewModel.textSearch.isEmpty()) {
             binding.searchRecyclerView.visibility = View.GONE
-            binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
+            binding.searchHistoryLayout.visibility = if (historyAdapter.tracksList.isEmpty()) View.GONE else View.VISIBLE
         } else {
             binding.searchRecyclerView.visibility = View.VISIBLE
             binding.searchHistoryLayout.visibility = View.GONE
@@ -140,7 +139,7 @@ class SearchFragment : Fragment() {
         }
 
         binding.clearSearchHistoryButton.setOnClickListener {
-            historyAdapter.historyTracks.clear()
+            historyAdapter.tracksList.clear()
             viewModel.clearSearchHistory()
             historyAdapter.notifyDataSetChanged()
             binding.searchHistoryLayout.visibility = View.GONE
@@ -155,16 +154,12 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupListenersAdapters() {
-        searchAdapter.itemClickListener = object : SearchTracksAdapter.OnItemClickListener {
-            override fun onItemClick(track: Track) {
-                startAudioPlayer(track)
-            }
+        searchAdapter.itemClickListener = { track ->
+            startAudioPlayer(track)
         }
 
-        historyAdapter.itemClickListener = object : HistoryTracksAdapter.OnItemClickListener {
-            override fun onItemClick(track: Track) {
-                startAudioPlayer(track)
-            }
+        historyAdapter.itemClickListener = { track ->
+            startAudioPlayer(track)
         }
     }
 
@@ -193,16 +188,16 @@ class SearchFragment : Fragment() {
     private fun clearSearch() {
         binding.inputEditText.setText("")
         hideKeyboard()
-        searchAdapter.searchTracks.clear()
+        searchAdapter.tracksList.clear()
         searchAdapter.notifyDataSetChanged()
         hidePlaceholders()
-        binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
+        binding.searchHistoryLayout.visibility = if (historyAdapter.tracksList.isEmpty()) View.GONE else View.VISIBLE
     }
 
     private fun loadSearchHistory() {
         val history = viewModel.loadSearchHistory()
-        historyAdapter.historyTracks.clear()
-        historyAdapter.historyTracks.addAll(history)
+        historyAdapter.tracksList.clear()
+        historyAdapter.tracksList.addAll(history)
         historyAdapter.notifyDataSetChanged()
         binding.searchHistoryLayout.visibility = if (history.isEmpty()) View.GONE else View.VISIBLE
     }
@@ -232,7 +227,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun performSearching(foundTracks: TrackSearchResult) {
-        searchAdapter.searchTracks.clear()
+        searchAdapter.tracksList.clear()
         binding.searchHistoryLayout.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
 
@@ -240,7 +235,7 @@ class SearchFragment : Fragment() {
             SearchStatus.RESPONSE_RECEIVED -> {
                 binding.progressBar.visibility = View.GONE
                 binding.searchRecyclerView.visibility = View.VISIBLE
-                searchAdapter.searchTracks.addAll(foundTracks.tracks)
+                searchAdapter.tracksList.addAll(foundTracks.tracks)
                 searchAdapter.notifyDataSetChanged()
             }
             SearchStatus.NOTHING_FOUND -> {
@@ -270,7 +265,7 @@ class SearchFragment : Fragment() {
             binding.searchHistoryLayout.visibility = View.GONE
             binding.searchRecyclerView.visibility = View.VISIBLE
         } else {
-            binding.searchHistoryLayout.visibility = if (historyAdapter.historyTracks.isEmpty()) View.GONE else View.VISIBLE
+            binding.searchHistoryLayout.visibility = if (historyAdapter.tracksList.isEmpty()) View.GONE else View.VISIBLE
             binding.searchRecyclerView.visibility = View.GONE
         }
     }

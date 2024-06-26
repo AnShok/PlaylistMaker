@@ -20,9 +20,9 @@ import com.example.playlistmaker.ui.main.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class NewPlaylistFragment : Fragment() {
+open class NewPlaylistFragment : Fragment() {
     private var _binding: FragmentCreatePlaylistBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
     private var coverUriSelect: Uri? = null
     private var showedDialog: Boolean = false
     private val vm by viewModel<NewPlaylistViewModel>()
@@ -42,9 +42,9 @@ class NewPlaylistFragment : Fragment() {
 
         (activity as? MainActivity)?.hideNavBar()
 
-        vm.savedCoverUri.observe(viewLifecycleOwner, Observer { savedUri ->
+        vm.savedCoverUri.observe(viewLifecycleOwner) { savedUri ->
             coverUriSelect = savedUri
-        })
+        }
 
         val chooseCover =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { previewUri ->

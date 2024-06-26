@@ -11,14 +11,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentFavoriteTracksBinding
 import com.example.playlistmaker.domain.search.model.Track
-import com.example.playlistmaker.ui.search.adapters.SearchTracksAdapter
+import com.example.playlistmaker.ui.search.adapters.TrackAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteTracksFragment : Fragment() {
     // Привязка для доступа к элементам макета фрагмента
     private var _binding: FragmentFavoriteTracksBinding? = null
     private val binding get() = _binding!!
-    private var favoriteAdapter = SearchTracksAdapter()
+    private var favoriteAdapter = TrackAdapter()
 
     // ViewModel для управления данными фрагмента
     private val viewModel by viewModel<FavoriteTracksViewModel>()
@@ -38,10 +38,8 @@ class FavoriteTracksFragment : Fragment() {
         binding.favoriteListEmpty.visibility = View.GONE
         binding.favoriteRecyclerView.adapter = favoriteAdapter
 
-        favoriteAdapter.itemClickListener = object : SearchTracksAdapter.OnItemClickListener {
-            override fun onItemClick(track: Track) {
-                startAudioPlayer(track)
-            }
+        favoriteAdapter.itemClickListener = { track ->
+            startAudioPlayer(track)
         }
 
         viewModel.favoriteState.observe(viewLifecycleOwner) {
@@ -66,8 +64,8 @@ class FavoriteTracksFragment : Fragment() {
         // Сортируем треки
         val sortedTracks = tracks.sortedByDescending { it.trackId }
         with(favoriteAdapter) {
-            searchTracks.clear()
-            searchTracks.addAll(sortedTracks)
+            tracksList.clear()
+            tracksList.addAll(sortedTracks)
             notifyDataSetChanged()
         }
     }
@@ -92,15 +90,6 @@ class FavoriteTracksFragment : Fragment() {
             R.id.action_mediatekaFragment_to_audioPlayerFragment,
             bundle
         )
-        //Интент для перехода на экран аудиоплеера
-        //val audioPlayerIntent = Intent(requireContext(), AudioPlayerActivity::class.java)
-        //
-        ////Данные о треке
-        //audioPlayerIntent.putExtra(TRACK, track)
-        //
-        //// Добавление флага FLAG_ACTIVITY_SINGLE_TOP
-        //audioPlayerIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        //startActivity(audioPlayerIntent)
     }
 
     // Освобождение ресурсов при уничтожении фрагмента

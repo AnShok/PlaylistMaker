@@ -32,7 +32,17 @@
     <string name="dialog_negative_btn">Отмена</string>
     <string name="new_playlist_btn">Новый плейлист</string>
     <string name="no_playlists">Вы не создали\n ни одного плейлиста</string>
-
+    <string name="no_tracks_in_playlist">В плейлист еще не добавлен\n ни один трек</string>
+    <string name="menu_share">Поделиться</string>
+    <string name="menu_change">Изменить</string>
+    <string name="menu_delete">Удалить</string>
+    <string name="delete_playlist_dialog">Хотите удалить плейлист?</string>
+    <string name="answer_no">Нет</string>
+    <string name="answer_yes">Да</string>
+    <string name="on_tracks_to_share">В этом плейлисте нет списка треков, которым можно поделиться</string>
+    <string name="delete_track_dialog">Хотите удалить трек?</string>
+    <string name="edit_modify">Редактировать</string>
+    <string name="save_modify">Сохранить</string>
 
     <!-- Ссылки -->
     <string name="url_terms_of_use">https://yandex.ru/legal/practicum_offer</string>

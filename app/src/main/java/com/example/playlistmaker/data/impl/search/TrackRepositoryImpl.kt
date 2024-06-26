@@ -11,6 +11,7 @@ import com.example.playlistmaker.domain.search.model.Track
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import java.util.Date
 
 class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepository {
 
@@ -74,7 +75,8 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
             trackDto.primaryGenreName ?: "unknown",
             trackDto.country,
             trackDto.previewUrl,
-            trackDto.isFavorite
+            trackDto.isFavorite,
+            Date().time
         )
     }
 }

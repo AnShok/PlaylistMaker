@@ -9,7 +9,7 @@ import com.example.playlistmaker.domain.search.model.PlaylistState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor) : ViewModel() {
+class PlayListViewModel(private val playlistsInteractor: PlaylistsInteractor) : ViewModel() {
 
     private val _playlistsState = MutableLiveData<PlaylistState>(PlaylistState.Load)
     val playlistState: MutableLiveData<PlaylistState> = _playlistsState
@@ -26,7 +26,7 @@ class PlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor) : 
                     val playlistsWithParsedUri = playlists.map { playlist ->
                         playlist.copy(
                             imageUri = Uri.parse(playlist.imageUri).toString()
-                        ) // Парсинг Uri здесь
+                        )
                     }
                     if (playlistsWithParsedUri.isEmpty()) {
                         setState(PlaylistState.Empty)
