@@ -8,6 +8,19 @@
         <item name="android:statusBarColor">@color/YP_White</item>
         <item name="android:windowLightStatusBar">true</item> <!-- для отображения инфо на белом -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/YP_Blue</item>
+        <item name="colorPrimaryDark">@color/YP_Blue</item>
+        <item name="colorOnPrimary">@color/YP_White</item>
+        <item name="colorAccent">@color/YP_Light_gray</item>
+        <item name="background">@color/YP_Blue</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorOnSecondary">@color/YP_Black</item>
+        <item name="colorControlActivated">@color/YP_Blue</item>
+        <!--        Our app's background colour when light mode is on == white-->
+        <item name="android:textColorPrimary">@color/YP_Black</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <!--        Text color is black-->
     </style>
 
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />
