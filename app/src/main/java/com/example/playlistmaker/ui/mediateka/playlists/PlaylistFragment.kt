@@ -42,11 +42,12 @@ class PlayListFragment : Fragment(), PlaylistsViewHolder.ClickListener {
         viewModel.getPlaylists()
 
 
-        adapter = PlaylistsAdapter (object : PlaylistsViewHolder.ClickListener {
-            override fun onClick(playlist: Playlist) {
-                // Реализация обработки нажатия на плейлист
-            }
-        })
+        adapter = PlaylistsAdapter (this)
+        //object : PlaylistsViewHolder.ClickListener {
+        //    override fun onClick(playlist: Playlist) {
+        //        // Реализация обработки нажатия на плейлист
+        //    }
+        //}
         binding.playlistsRecycleView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.playlistsRecycleView.adapter = adapter
 
@@ -109,7 +110,7 @@ class PlayListFragment : Fragment(), PlaylistsViewHolder.ClickListener {
 
     override fun onClick(playlist: Playlist) {
         val bundle = Bundle().apply {
-            putParcelable(CURRENT_PLAYLIST, playlist)
+            putParcelable(CurrentPlaylistFragment.CURRENT_PLAYLIST, playlist)
         }
         findNavController().navigate(
             R.id.action_mediatekaFragment_to_currentPlaylistFragment,

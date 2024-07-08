@@ -41,6 +41,7 @@ open class NewPlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Установка windowSoftInputMode для текущего фрагмента
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
         (activity as? MainActivity)?.hideNavBar()
@@ -134,6 +135,7 @@ open class NewPlaylistFragment : Fragment() {
         if (::callback.isInitialized) {
             callback.remove()
         }
+        // Восстановление windowSoftInputMode для основного экрана
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
     }
 }

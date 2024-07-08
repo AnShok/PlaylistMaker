@@ -147,7 +147,7 @@ class CurrentPlaylistFragment : Fragment() {
             if (it != null) {
                 renderDuration(it)
             } else {
-                Log.d("no tracks to count", "there is no track time to count")
+                //Log.d("no tracks to count", "there is no track time to count")
             }
         }
 
