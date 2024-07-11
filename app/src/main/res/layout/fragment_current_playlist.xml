@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/indent_16"
-            android:layout_marginTop="@dimen/indent_16"
+            android:layout_marginTop="@dimen/indent_12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_current_playlist"
             tools:text="description" />
@@ -147,6 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/indent_16"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_track" />
 

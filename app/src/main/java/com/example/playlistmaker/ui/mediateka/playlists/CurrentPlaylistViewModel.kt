@@ -29,12 +29,9 @@ class CurrentPlaylistViewModel(private val playlistsInteractor: PlaylistsInterac
 
 
     fun playlistAllTime() {
-        if (_playlistTracks.value != null) {
-            var time: Long = 0
-            _playlistTracks.value?.forEach {
-                time += it.trackTimeMillis ?: 0
-            }
-            _playlistTime.postValue(time)
+        _playlistTracks.value?.let { tracks ->
+            val totalTime = tracks.sumOf { it.trackTimeMillis ?: 0 }
+            _playlistTime.postValue(totalTime)
         }
     }
 
@@ -46,39 +43,36 @@ class CurrentPlaylistViewModel(private val playlistsInteractor: PlaylistsInterac
 
     fun getAllTracks(playlistId: List<Long>) {
         viewModelScope.launch(Dispatchers.IO) {
-            tracks = playlistsInteractor.getAllTracks(playlistId)
+            val tracks = playlistsInteractor.getAllTracks(playlistId)
             _playlistTracks.postValue(tracks)
         }
     }
 
     fun deleteTrackFromPlaylist(playlist: Playlist, trackId: Long) {
-        val playlistId = _playlistId.value?.id
+        val playlistId = playlist.id
         viewModelScope.launch(Dispatchers.IO) {
-            playlist.tracksAmount = playlist.tracks.size - 1
-            if (playlistId != null) {
-                playlistsInteractor.deleteTrackFromPlaylist(playlistId, trackId)
-                trackCountDecrease(playlistId)
-                updatePlaylist(playlistId)
-            }
+            playlist.tracks.remove(trackId)
+            playlist.tracksAmount = playlist.tracks.size
+            playlistsInteractor.updatePlaylist(playlist)
+            playlistsInteractor.deleteTrackFromPlaylist(playlistId, trackId)
+            updatePlaylist(playlistId)
         }
     }
 
     fun deletePlaylist() {
-        val playlistId = _playlistId.value?.id
-        viewModelScope.launch(Dispatchers.IO) {
-            if (playlistId != null) {
-                playlistsInteractor.deletePlaylist(playlistId)
+        _playlistId.value?.let { playlist ->
+            viewModelScope.launch(Dispatchers.IO) {
+                playlistsInteractor.deletePlaylist(playlist.id)
             }
         }
     }
 
     private fun updatePlaylist(playlistId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val update = playlistsInteractor.getPlaylistById(playlistId)
-            _playlistId.postValue(update)
-            val updateTracks = playlistsInteractor.getAllTracks(update.tracks)
-            _playlistTracks.postValue(updateTracks)
-            _trackCount.postValue(updateTracks.size)
+            val updatedPlaylist = playlistsInteractor.getPlaylistById(playlistId)
+            _playlistId.postValue(updatedPlaylist)
+            _playlistTracks.postValue(playlistsInteractor.getAllTracks(updatedPlaylist.tracks))
+            _trackCount.postValue(updatedPlaylist.tracks.size)
         }
     }
 

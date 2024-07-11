@@ -144,23 +144,17 @@ class CurrentPlaylistFragment : Fragment() {
         }
 
         vm.observePlaylistAllTime().observe(viewLifecycleOwner) {
-            vm.playlistAllTime()
-            if (it != null) {
-                renderDuration(it)
-            } else {
-                //Log.d("no tracks to count", "there is no track time to count")
-            }
+            it?.let { renderDuration(it) }
         }
 
-        vm.observePlaylistId().observe(viewLifecycleOwner) {
-            playlist = it
-            vm.playlistAllTime()
+        vm.observePlaylistId().observe(viewLifecycleOwner) { updatedPlaylist ->
+            playlist = updatedPlaylist
             vm.getAllTracks(playlist.tracks)
         }
 
-        vm.observePlaylistTracks().observe(viewLifecycleOwner) {
-            if (it != null) {
-                showContent(it)
+        vm.observePlaylistTracks().observe(viewLifecycleOwner) { tracks ->
+            if (tracks != null) {
+                showContent(tracks)
                 vm.playlistAllTime()
             }
         }
@@ -248,7 +242,7 @@ class CurrentPlaylistFragment : Fragment() {
         binding.titleCurrentPlaylist.text = playlist.name
         binding.descriptionTextviewCurrentPlaylist.text = playlist.description
 
-        val imageUri = playlist.imageUri.let { Uri.parse(it) }
+        val imageUri = Uri.parse(playlist.imageUri)
         Glide.with(requireContext())
             .load(imageUri)
             .placeholder(R.drawable.placeholder)
@@ -269,7 +263,8 @@ class CurrentPlaylistFragment : Fragment() {
     }
 
     private fun showContent(tracks: List<Track>) {
-        binding.rvCurrentPlaylist.visibility = View.VISIBLE
+        binding.noTracksInPlaylist.visibility = if (tracks.isEmpty()) View.VISIBLE else View.GONE
+        binding.rvCurrentPlaylist.visibility = if (tracks.isNotEmpty()) View.VISIBLE else View.GONE
         adapter.setTracks(tracks)
     }
 
@@ -310,6 +305,5 @@ class CurrentPlaylistFragment : Fragment() {
     companion object {
         const val CURRENT_PLAYLIST = "current_playlist"
         const val MODIFY_PLAYLIST = "modify_playlist"
-        const val SEARCH_QUERY_HISTORY = "SEARCH_QUERY_HISTORY"
     }
 }

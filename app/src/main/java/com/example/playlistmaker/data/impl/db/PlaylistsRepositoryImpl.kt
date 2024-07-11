@@ -27,7 +27,7 @@ class PlaylistsRepositoryImpl(
 ) : PlaylistsRepository {
     override suspend fun getPlaylists(): Flow<List<Playlist>> = flow {
         val playlists = appDatabase.playlistsDao().getAllPlayLists()
-        emit(converterFromPlaylistEntity(playlists))
+        emit(playlists.map { playlistsDbConverter.map(it) })
     }
 
     override suspend fun addPlaylist(playlist: Playlist) {
@@ -46,10 +46,10 @@ class PlaylistsRepositoryImpl(
             throw IllegalArgumentException(NULL_ARGUMENT_TRACK_ID)
         }
         playList.tracks.add(trackId)
-        addPlaylist(playList)
+        playList.tracksAmount = playList.tracks.size
+        updatePlaylist(playList)
         val addTime = Date().time
-        appDatabase.playlistsDao()
-            .addTrackToPlaylist(tracksToPlaylistConverter.map(track, addTime))
+        appDatabase.playlistsDao().addTrackToPlaylist(tracksToPlaylistConverter.map(track, addTime))
     }
 
     override suspend fun saveCoverToPrivateStorage(previewUri: Uri, context: Context): Uri? {
