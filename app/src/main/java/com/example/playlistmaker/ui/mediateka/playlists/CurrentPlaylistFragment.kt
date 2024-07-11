@@ -4,6 +4,7 @@ import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore.Audio.AudioColumns.TRACK
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -274,7 +275,7 @@ class CurrentPlaylistFragment : Fragment() {
 
     private fun openAudioPlayer(track: Track) {
         val bundle = Bundle()
-        bundle.putParcelable(SEARCH_QUERY_HISTORY, track)
+        bundle.putParcelable(TRACK, track)
         findNavController().navigate(
             R.id.action_currentPlaylistFragment_to_audioPlayerFragment,
             bundle
