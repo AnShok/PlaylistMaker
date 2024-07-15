@@ -274,6 +274,11 @@
         <item name="android:textColor">@color/YP_White</item>
     </style>
 
+    <!-- Стиль для плейсхолдера в темной теме -->
+    <style name="PlaceholderImageStyle">
+        <item name="android:backgroundTint">@color/YP_Black</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
 
 </resources>
 

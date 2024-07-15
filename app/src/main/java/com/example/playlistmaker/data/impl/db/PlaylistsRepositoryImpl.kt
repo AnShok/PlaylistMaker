@@ -89,6 +89,7 @@ class PlaylistsRepositoryImpl(
     override suspend fun deleteTrackFromPlaylist(playlistId: Int, trackId: Long) {
         val playlist = getPlaylistById(playlistId)
         playlist.tracks.remove(trackId)
+        playlist.tracksAmount = playlist.tracks.size
         updatePlaylist(playlist)
         if (!checkTrackInAnyPLaylist(trackId)) {
             deleteTrackIfNoMatch(trackId)
@@ -98,6 +99,10 @@ class PlaylistsRepositoryImpl(
 
     override suspend fun deletePlaylist(playlistId: Int) {
         val playlist = getPlaylistById(playlistId)
+        val trackIds = playlist.tracks
+        trackIds.forEach { trackId ->
+            deleteTrackFromPlaylist(playlistId, trackId)
+        }
         appDatabase.playlistsDao().deletePlaylist(playlistsDbConverter.map(playlist))
     }
 

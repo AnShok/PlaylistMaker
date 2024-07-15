@@ -301,6 +301,16 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <!-- Стиль для закругленных углов ShapeableImageView -->
+    <style name="ShapeAppearanceOverlay.App.CornerSize8dp" parent="">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <!-- Стиль для плейсхолдера, который будет применяться в светлой и темной темах -->
+    <style name="PlaceholderImageStyle">
+        <item name="android:backgroundTint">@color/YP_Gray</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
 
 </resources>
 
