@@ -188,19 +188,16 @@
             android:layout_marginTop="@dimen/indent_12"
             android:visibility="visible">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/indent_0">
 
-                <ImageView
-                    android:id="@+id/cover_bottom_current_playlist"
-                    android:layout_width="@dimen/cover_image_width"
-                    android:layout_height="@dimen/cover_image_height"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/placeholder" />
-            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/cover_bottom_current_playlist"
+                android:layout_width="@dimen/cover_image_width"
+                android:layout_height="@dimen/cover_image_height"
+                android:scaleType="centerCrop"
+                app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize8dp"
+                style="@style/PlaceholderImageStyle"
+                tools:src="@drawable/placeholder" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
