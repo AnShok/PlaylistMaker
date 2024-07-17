@@ -2,6 +2,7 @@ package com.example.playlistmaker.ui.mediateka.playlists
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +14,17 @@ import com.example.playlistmaker.databinding.FragmentPlaylistBinding
 import com.example.playlistmaker.domain.search.model.Playlist
 import com.example.playlistmaker.domain.search.model.PlaylistState
 import com.example.playlistmaker.ui.main.MainActivity
+import com.example.playlistmaker.ui.mediateka.playlists.CurrentPlaylistFragment.Companion.CURRENT_PLAYLIST
+import com.example.playlistmaker.utils.GridSpacingItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PlaylistFragment : Fragment() {
+class PlayListFragment : Fragment(), PlaylistsViewHolder.ClickListener {
 
     private var _binding: FragmentPlaylistBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: PlaylistsAdapter
 
-    private val viewModel by viewModel<PlaylistViewModel>()
+    private val viewModel by viewModel<PlayListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,13 +44,10 @@ class PlaylistFragment : Fragment() {
         viewModel.getPlaylists()
 
 
-        adapter = PlaylistsAdapter (object : PlaylistsViewHolder.ClickListener {
-            override fun onClick(playlist: Playlist) {
-                // Реализация обработки нажатия на плейлист
-            }
-        })
+        adapter = PlaylistsAdapter (this)
         binding.playlistsRecycleView.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.playlistsRecycleView.adapter = adapter
+        binding.playlistsRecycleView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(8f), false))
 
         viewModel.playlistState.observe(viewLifecycleOwner) {
             execute(it)
@@ -99,13 +99,28 @@ class PlaylistFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = PlaylistFragment().apply {
+        fun newInstance() = PlayListFragment().apply {
             arguments = Bundle().apply {
 
             }
         }
     }
 
-    //override fun onClick(playlist: Playlist) {
-    //}
+    override fun onClick(playlist: Playlist) {
+        val bundle = Bundle().apply {
+            putParcelable(CurrentPlaylistFragment.CURRENT_PLAYLIST, playlist)
+        }
+        findNavController().navigate(
+            R.id.action_mediatekaFragment_to_currentPlaylistFragment,
+            bundle
+        )
+    }
+
+    private fun dpToPx(dp: Float): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            resources.displayMetrics
+        ).toInt()
+    }
 }

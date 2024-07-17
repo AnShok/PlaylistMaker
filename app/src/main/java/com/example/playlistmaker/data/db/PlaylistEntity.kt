@@ -10,7 +10,8 @@ data class PlaylistEntity(
     val name: String,
     val description: String,
     val coverPath: String,
-    val tracksIds: ArrayList<Long>,
+    val tracksIds: String,
+    val tracks: ArrayList<Long>,
     val tracksAmount: Int,
     val imageUri: String?
 )

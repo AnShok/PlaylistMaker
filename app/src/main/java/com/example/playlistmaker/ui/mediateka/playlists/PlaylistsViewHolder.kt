@@ -17,10 +17,19 @@ class PlaylistsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.descriptionPlaylist.text = setTracksAmount(itemView.context, model.tracksAmount)
         val previewUri = model.imageUri
 
-        Glide.with(itemView)
-            .load(previewUri)
-            .placeholder(R.drawable.placeholder)
-            .into(binding.coverPlaylist)
+        if (previewUri.isNullOrEmpty()) {
+            // Устанавливаем плейсхолдер
+            Glide.with(itemView)
+                .load(R.drawable.placeholderlarge)
+                .into(binding.coverPlaylist)
+        } else {
+            // Загружаем изображение обложки
+            Glide.with(itemView)
+                .load(previewUri)
+                .placeholder(R.drawable.placeholder)
+                .into(binding.coverPlaylist)
+        }
+
         itemView.setOnClickListener {
             clickListener.onClick(model)
         }

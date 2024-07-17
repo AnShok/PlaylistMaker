@@ -16,7 +16,8 @@ data class TrackEntity(
     val primaryGenreName: String?,
     val country: String?,
     val previewUrl: String?,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    var insertTime: Long?
 )
 
 const val FAVORITE_TRACKS_TABLET = "favorite_tracks_tablet"

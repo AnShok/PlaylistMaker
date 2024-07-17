@@ -3,6 +3,7 @@ package com.example.playlistmaker.ui.search.adapters
 import android.content.Context
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,10 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 // Внутренний класс ViewHolder, содержащий элементы интерфейса для каждого элемента списка
-class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-    LayoutInflater.from(parent.context)
-        .inflate(R.layout.item_track, parent, false)
-) {
+class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val trackNameTextView: TextView = itemView.findViewById(R.id.track_name_text_view)
     private val artistNameTextView: TextView = itemView.findViewById(R.id.artist_name_text_view)
@@ -53,5 +51,12 @@ class TrackViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
             .placeholder(R.drawable.placeholder)
             .transform(RoundedCorners(cornerRadiusPx))
             .into(artworkImageView)
+    }
+    companion object {
+        fun from(parent: ViewGroup): TrackViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val view = layoutInflater.inflate(R.layout.item_track, parent, false)
+            return TrackViewHolder(view)
+        }
     }
 }

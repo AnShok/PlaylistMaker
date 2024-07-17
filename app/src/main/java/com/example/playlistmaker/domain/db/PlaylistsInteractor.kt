@@ -12,13 +12,29 @@ interface PlaylistsInteractor {
 
     suspend fun addPlaylist(playlist: Playlist)
 
+    suspend fun updatePlaylist(playlist: Playlist)
+
     suspend fun addTrackToPlaylist(playList: Playlist, track: Track)
 
     suspend fun saveCoverToPrivateStorage(previewUri: Uri, context: Context): Uri?
 
     suspend fun getPlaylistById(playlistId: Int): Playlist
 
+    suspend fun getAllTracks(tracksIdsList: List<Long>): List<Track>
+
+    suspend fun deleteTrackFromPlaylist(playlistId: Int, trackId: Long)
+
     suspend fun deletePlaylist(playlistId: Int)
+
+    suspend fun trackCountDecrease(playlistId: Int)
+
+    suspend fun modifyData(
+        name: String,
+        description: String,
+        cover: String,
+        coverUri: Uri?,
+        originalPlayList: Playlist
+    )
 
     suspend fun newPlaylist(playlistName: String, playlistDescription: String, coverUri: Uri?)
 

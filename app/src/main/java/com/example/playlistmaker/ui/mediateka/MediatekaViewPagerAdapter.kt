@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.playlistmaker.ui.mediateka.favoriteTracks.FavoriteTracksFragment
-import com.example.playlistmaker.ui.mediateka.playlists.PlaylistFragment
+import com.example.playlistmaker.ui.mediateka.playlists.PlayListFragment
 
 class MediatekaViewPagerAdapter(
     fragmentManager: FragmentManager,
@@ -22,7 +22,7 @@ class MediatekaViewPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> FavoriteTracksFragment.newInstance()
-            else -> PlaylistFragment.newInstance()
+            else -> PlayListFragment.newInstance()
         }
     }
 

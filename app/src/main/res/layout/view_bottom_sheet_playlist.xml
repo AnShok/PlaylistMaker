@@ -8,19 +8,14 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="0dp">
-
-        <ImageView
-            android:id="@+id/bottom_sheet_cover_playlist"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/placeholder" />
-    </androidx.cardview.widget.CardView>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/bottom_sheet_cover_playlist"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize8dp"
+        style="@style/PlaceholderImageStyle"
+        tools:src="@drawable/placeholder" />
 
     <LinearLayout
         android:layout_width="wrap_content"

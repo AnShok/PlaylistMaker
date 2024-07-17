@@ -12,10 +12,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class NewPlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor) : ViewModel() {
-
-    private val _playlistsState = MutableStateFlow<PlaylistState>(PlaylistState.Empty)
-    val playlistState: StateFlow<PlaylistState> = _playlistsState
+open class NewPlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor) :
+    ViewModel() {
 
     private val _savedCoverUri = MutableLiveData<Uri?>()
     val savedCoverUri: LiveData<Uri?> = _savedCoverUri

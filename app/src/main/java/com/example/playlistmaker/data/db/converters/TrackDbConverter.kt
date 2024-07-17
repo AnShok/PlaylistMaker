@@ -2,6 +2,7 @@ package com.example.playlistmaker.data.db.converters
 
 import com.example.playlistmaker.data.db.TrackEntity
 import com.example.playlistmaker.domain.search.model.Track
+import java.util.Date
 
 class TrackDbConverter {
     fun map(track: Track): TrackEntity {
@@ -17,7 +18,8 @@ class TrackDbConverter {
             track.primaryGenreName,
             track.country,
             track.previewUrl,
-            isFavorite = false
+            isFavorite = false,
+            Date().time
         )
     }
 
@@ -34,7 +36,8 @@ class TrackDbConverter {
             track.primaryGenreName,
             track.country,
             track.previewUrl,
-            isFavorite = false
+            isFavorite = false,
+            Date().time
         )
     }
 }

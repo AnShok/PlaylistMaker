@@ -73,7 +73,11 @@ class AudioPlayerViewModel(
     }
 
     fun inPlaylist(playlist: Playlist, trackId: Long): Boolean {
-        return playlist.tracksIds.contains(trackId)
+        var data = false
+        for (track in playlist.tracks) {
+            if (track == trackId) data = true
+        }
+        return data
     }
 
     fun clickOnAddtoPlaylist(playlist: Playlist, track: Track) {

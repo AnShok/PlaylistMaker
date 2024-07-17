@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
@@ -20,9 +21,9 @@ import com.example.playlistmaker.ui.main.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class NewPlaylistFragment : Fragment() {
+open class NewPlaylistFragment : Fragment() {
     private var _binding: FragmentCreatePlaylistBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
     private var coverUriSelect: Uri? = null
     private var showedDialog: Boolean = false
     private val vm by viewModel<NewPlaylistViewModel>()
@@ -40,11 +41,14 @@ class NewPlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Установка windowSoftInputMode для текущего фрагмента
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
         (activity as? MainActivity)?.hideNavBar()
 
-        vm.savedCoverUri.observe(viewLifecycleOwner, Observer { savedUri ->
+        vm.savedCoverUri.observe(viewLifecycleOwner) { savedUri ->
             coverUriSelect = savedUri
-        })
+        }
 
         val chooseCover =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { previewUri ->
@@ -131,5 +135,7 @@ class NewPlaylistFragment : Fragment() {
         if (::callback.isInitialized) {
             callback.remove()
         }
+        // Восстановление windowSoftInputMode для основного экрана
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
     }
 }

@@ -19,5 +19,11 @@ data class Track(
     val primaryGenreName: String?,
     val country: String?,
     val previewUrl: String?,
-    var isFavorite: Boolean = false
-) : Parcelable
+    var isFavorite: Boolean = false,
+    var insertTime: Long?
+
+) : Parcelable {
+    init {
+        insertTime = insertTime ?: Date().time
+    }
+}
