@@ -1,5 +1,6 @@
 package com.example.playlistmaker.ui.player.view_model
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,7 @@ import com.example.playlistmaker.domain.player.model.AudioPlayerStatus
 import com.example.playlistmaker.domain.search.model.Playlist
 import com.example.playlistmaker.domain.search.model.PlaylistState
 import com.example.playlistmaker.domain.search.model.Track
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -23,7 +25,8 @@ import kotlinx.coroutines.launch
 class AudioPlayerViewModel(
     private val audioPlayerInteractor: AudioPlayerInteractor,
     private val favoriteTracksInteractor: FavoriteTracksInteractor,
-    private val playlistsInteractor: PlaylistsInteractor
+    private val playlistsInteractor: PlaylistsInteractor,
+    private val firebaseAnalytics: FirebaseAnalytics
 ) : ViewModel() {
 
     private val _favoriteState = MutableLiveData<FavoriteTracksStatus>()
@@ -109,6 +112,12 @@ class AudioPlayerViewModel(
                 favoriteTracksInteractor.additionTrack(track)
                 _favoriteState.postValue(FavoriteTracksStatus(true))
                 isFavoriteTrack = true
+
+                val bundle = Bundle().apply {
+                    putString(FirebaseAnalytics.Param.ITEM_NAME, track.trackName)
+                    putString(FirebaseAnalytics.Param.ITEM_ID, track.trackId.toString())
+                }
+                firebaseAnalytics.logEvent("add_to_favorites", bundle)
             }
         }
     }
