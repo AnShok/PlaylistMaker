@@ -8,6 +8,8 @@ import com.example.playlistmaker.ui.mediateka.playlists.PlayListViewModel
 import com.example.playlistmaker.ui.player.view_model.AudioPlayerViewModel
 import com.example.playlistmaker.ui.search.view_model.TrackSearchViewModel
 import com.example.playlistmaker.ui.settings.view_model.SettingsViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -18,7 +20,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        AudioPlayerViewModel(get(), get(), get())
+        AudioPlayerViewModel(get(), get(), get(), get())
     }
 
     viewModel {
@@ -42,5 +44,8 @@ val viewModelModule = module {
     }
     viewModel {
         ModifyPlaylistViewModel(get())
+    }
+    single {
+        FirebaseAnalytics.getInstance(androidContext())
     }
 }

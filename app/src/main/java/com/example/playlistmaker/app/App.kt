@@ -6,6 +6,7 @@ import com.example.playlistmaker.di.interactorModule
 import com.example.playlistmaker.di.repositoryModule
 import com.example.playlistmaker.di.viewModelModule
 import com.example.playlistmaker.domain.settings.ThemeSettingsInteractor
+import com.google.firebase.FirebaseApp
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
@@ -27,5 +28,7 @@ class App : Application() {
         }
         themeSettingsInteractor = getKoin().get()
         themeSettingsInteractor.applyTheme() // Применение текущей темы
+
+        FirebaseApp.initializeApp(this)
     }
 }
