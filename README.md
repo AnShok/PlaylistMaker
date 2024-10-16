@@ -1,6 +1,6 @@
 # Playlist Maker 🎵
 
-![Kotlin](https://img.shields.io/badge/Kotlin-1.7.1-blue)
+![Kotlin](https://img.shields.io/badge/Kotlin-blue)
 ![MVVM](https://img.shields.io/badge/Architecture-MVVM-brightgreen)
 ![Min API Level](https://img.shields.io/badge/Min%20API-29-brightgreen)
 ![Target API Level](https://img.shields.io/badge/Target%20API-34-blue)
