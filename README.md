@@ -1,6 +1,15 @@
 # Playlist Maker 🎵
 
-![Kotlin](https://img.shields.io/badge/Kotlin-1.5.21-blue) ![MVVM](https://img.shields.io/badge/Architecture-MVVM-brightgreen) ![License](https://img.shields.io/badge/license-MIT-green)
+![Kotlin](https://img.shields.io/badge/Kotlin-1.7.1-blue)
+![MVVM](https://img.shields.io/badge/Architecture-MVVM-brightgreen)
+![Min API Level](https://img.shields.io/badge/Min%20API-29-brightgreen)
+![Target API Level](https://img.shields.io/badge/Target%20API-34-blue)
+![Firebase](https://img.shields.io/badge/Firebase-Analytics-orange)
+![Room](https://img.shields.io/badge/Room-2.6.1-yellow)
+![Glide](https://img.shields.io/badge/Glide-4.14.2-green)
+![RxJava](https://img.shields.io/badge/RxJava-2.2.21-purple)
+![Koin](https://img.shields.io/badge/Koin-3.3.0-red)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Описание
 
